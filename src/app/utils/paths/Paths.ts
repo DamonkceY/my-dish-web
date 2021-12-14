@@ -6,5 +6,6 @@ export const Paths = {
     index: '/auth',
     register: 'createAccount',
     passwordForgotten: 'forgotPassword'
-  }
+  },
+  redirect: '*'
 }

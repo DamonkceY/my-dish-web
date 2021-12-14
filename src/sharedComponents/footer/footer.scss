@@ -1,0 +1,124 @@
+
+.footerContainer {
+  width: 100%;
+  height: 630px;
+  margin-top: 90px;
+
+  .up {
+    height: 530px;
+    width: 100%;
+    background-color: #333a50;
+    padding: 90px 140px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    div {
+      height: fit-content;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .footerUpOne{
+      height: 100%;
+      font-size: 16px;
+      color: white;
+    }
+    .footerUpTwo{
+      font-size: 16px;
+      color: white;
+
+      span {
+        color: #b0b3bc;
+        margin-bottom: 30px;
+      }
+      .inputCont{
+        display: flex;
+        flex-direction: row;
+        height: 50px;
+        input {
+          color: white;
+          height: 100% !important;
+          padding: 12px 14px !important;
+          background-color: #626979 !important;
+          border-bottom-right-radius: unset !important;
+          border-top-right-radius: unset !important;
+        }
+        button {
+          font-size: 16px;
+          font-weight: bold;
+          width: 150px !important;
+          height: 100%;
+          background-color: #fff;
+          color: #333a50;
+          border-bottom-left-radius: unset !important;
+          border-top-left-radius: unset !important;
+        }
+      }
+    }
+    .footerUpThree{
+      font-size: 16px;
+      color: white;
+      span {
+        color: #b0b3bc;
+        margin-bottom: 30px;
+      }
+      .imagesCont {
+        height: 50px;
+        display: inline-block;
+        img {
+          margin-right: 26px;
+        }
+      }
+    }
+    .footerUpFour{
+      font-size: 16px;
+      color: white;
+      label {
+        color: #b0b3bc;
+        margin-bottom: 30px;
+      }
+      span {
+        height: 50px;
+      }
+      .apple {
+        padding-left: 25px;
+        background-image: url('../../assets/appleWhite.svg');
+        background-repeat: no-repeat;
+      }
+      .android {
+        position: absolute;
+        padding-left: 25px;
+        background-image: url('../../assets/androidWhite.svg');
+        background-repeat: no-repeat;
+      }
+    }
+
+  }
+
+  .down {
+    height: 100px;
+    width: 100%;
+    background-color: #2b3143;
+    padding: 0 140px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    .footerDownOne {
+      color: #b0b3bc;
+      font-size: 14px;
+    }
+
+    .footerDownTwo {
+      color: #b0b3bc;
+      span {
+        font-size: 14px;
+      }
+      width: 300px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+}

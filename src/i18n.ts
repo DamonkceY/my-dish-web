@@ -61,8 +61,36 @@ const resources = {
             STEP2: 'Commandez à l\'avance pour la livraison ou réservez une table.',
             STEP3: 'Gagnez du temps et profitez des offres à chaque commande.',
           }
-        }
+        },
+        SLIDES: {
+          BOOK_A_TABLE: 'Réservez une table',
+          DELIVERY: 'Livraison',
+          CHOOSE_YOUR_SPECIALITY: 'Choisissez votre spécialité',
+          NEW_ON_MY_DISH: 'Nouveau sur Mydish',
+        },
       },
+      FOOTER: {
+        ABOUT: 'à propos',
+        CONTACT: 'Contact',
+        ADD_RESTAURANT: 'Ajoutez votre restaurant',
+        HELP: 'Obtenir de l\'aide',
+        FAQ: 'FAQ',
+        SUBSCRIBE_TO_NEWSLETTER: 'Inscrivez-vous à notre newsletter',
+        SUBSCRIBE: 'S\'inscrire',
+        CONTACT_US_AT: 'Rejoignez-nous sur',
+        DOWNLOAD_APP: 'Téléchargez mydish',
+        LANGUAGE: {
+          FR: 'Français',
+          EN: 'English'
+        },
+        ALL_RIGHTS_RESERVED: '© 2020  Mydish  Tous droits réservés',
+        CONFIDENTIALITY: 'Politique de confidentialité',
+        CONDITIONS: 'Conditions'
+      },
+      NAVBAR: {
+        GET_CONNECTED: 'Se connecter',
+      },
+      SEE_MORE: 'Voir plus',
       NEXT: 'Suivant',
       VERIFY: 'Vérifier',
       RETURN_HOME: 'Retour à l\'accueil',

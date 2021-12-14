@@ -10,7 +10,7 @@ export interface NavbarConfigInterface {
 const NavBar: React.FC<{config?: NavbarConfigInterface}> = ({ config }) => {
   return (
     <div className='navBarContainer'>
-        <img src={LOGO} alt='' />
+        <img height='50px' draggable={false} src={LOGO} alt='' />
         {
           config?.middleComponent && config.middleComponent
         }

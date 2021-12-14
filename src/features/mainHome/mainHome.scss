@@ -4,3 +4,28 @@
   opacity: 0.15;
   margin: 90px 140px;
 }
+
+.rightCompCont {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  span {
+    padding-right: 30px;
+    color: #fb5557;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  button {
+    font-size: 20px;
+    font-weight: bold;
+    width: 155px !important;
+    height: 55px !important;
+    border: solid 1px #999da8  !important;
+    background-color: #fff !important;
+    color: #000 !important;
+
+  }
+}

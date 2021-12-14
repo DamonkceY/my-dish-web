@@ -31,7 +31,7 @@ const PasswordForgotten: React.FC<{}> = () => {
       setStepIndex(stepIndex + 1)
       stepIndex + 1 === passwordSteps.length - 1 && setButtonText('RETURN_HOME')
     } else {
-      console.log('finish !')
+      navigate(Paths.home)
     }
   }
 

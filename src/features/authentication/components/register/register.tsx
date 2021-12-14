@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import './firstStepRegister.scss'
+import './register.scss'
 import PhoneNumberInput from '../../../../sharedComponents/phoneNumberInput/phoneNumberInput'
 import Button from '../../../../sharedComponents/button/button'
 import { useNavigate } from 'react-router-dom'
 import { Paths } from '../../../../app/utils/paths/Paths'
 import InputField from '../../../../sharedComponents/inputField/inputField'
+import * as Path from 'path'
 
-const FirstStepRegister: React.FC<{}> = () => {
+const Register: React.FC<{}> = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const [stepIndex, setStepIndex] = useState(0)
@@ -41,7 +42,7 @@ const FirstStepRegister: React.FC<{}> = () => {
       setStepIndex(stepIndex + 1)
       stepIndex+1 === registerSteps.length - 1 && setButtonText('REGISTER.BEGIN_MYDISH_EXPERIENCE')
     }else {
-      console.log('finish !')
+      navigate(Paths.home)
     }
   }
   return (
@@ -84,4 +85,4 @@ const Congrats: React.FC<{ name: string }> = ({ name }) => {
   )
 }
 
-export default FirstStepRegister
+export default Register

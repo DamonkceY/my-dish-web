@@ -9,7 +9,7 @@ import facebook from '../../../../assets/facebookIcon.svg'
 import next from '../../../../assets/suivant.svg'
 import './login.scss'
 
-const FirstStepLogin = () => {
+const Login = () => {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const [stepIndex, setStepIndex] = useState(0)
@@ -29,7 +29,7 @@ const FirstStepLogin = () => {
     if (stepIndex < loginSteps.length - 1) {
       setStepIndex(stepIndex + 1)
     } else {
-      console.log('finish !')
+      navigate(Paths.home)
     }
   }
 
@@ -90,11 +90,11 @@ const ConnectWithGoogleOrFacebook = () => {
             <div className='socialMedia'>
               <div className='iconTextCont'>
                 <div style={{ width: '21px' }}>
-                  <img src={item.icon} alt='' />
+                  <img draggable={false} src={item.icon} alt='' />
                 </div>
                 <span style={{ marginLeft: '19px' }}>{t(item.text)}</span>
               </div>
-              <img className='arrow' src={next} alt='' />
+              <img draggable={false} className='arrow' src={next} alt='' />
             </div>
           ))
         }
@@ -102,4 +102,4 @@ const ConnectWithGoogleOrFacebook = () => {
     </div>
   )
 }
-export default FirstStepLogin
+export default Login

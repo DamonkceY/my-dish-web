@@ -13,15 +13,15 @@ const HowTo = () => {
       <div className='stepsContainer'>
         <label className='howToLabel'>{t('HOME.HOW_TO.LABEL')}</label>
         <div className='stepHowTo'>
-          <img width='40px' height='40px' src={howToStep1} alt='' />
+          <img draggable={false} width='40px' height='40px' src={howToStep1} alt='' />
           <span>{t('HOME.HOW_TO.STEPS.STEP1')}</span>
         </div>
         <div className='stepHowTo'>
-          <img width='40px' height='40px' src={howToStep2} alt='' />
+          <img draggable={false} width='40px' height='40px' src={howToStep2} alt='' />
           <span>{t('HOME.HOW_TO.STEPS.STEP2')}</span>
         </div>
         <div className='stepHowTo'>
-          <img width='40px' height='40px' src={howToStep3} alt='' />
+          <img draggable={false} width='40px' height='40px' src={howToStep3} alt='' />
           <span>{t('HOME.HOW_TO.STEPS.STEP3')}</span>
         </div>
         <div className='storeContainer'>
@@ -33,7 +33,7 @@ const HowTo = () => {
           </button>
         </div>
       </div>
-      <img src={mobileApp} alt='' className='mobileAppContainer' />
+      <img draggable={false} src={mobileApp} alt='' className='mobileAppContainer' />
     </div>
   )
 }

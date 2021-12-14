@@ -12,11 +12,31 @@
   justify-content: center;
 
   .searchLabel {
-    font-size: 2.5vw;
+    font-size: calc(20px + 1.5vw);
     font-weight: bold;
   }
 
   .searchInput {
-    width: 50%;
+    margin-top: 30px;
+    width: 55%;
+    position: relative;
+
+    input {
+      padding: 15px 70px !important;
+      height: 65px !important;
+    }
+
+    .searchGlass {
+      position: absolute;
+      top: 17px;
+      left: 20px;
+    }
+
+    .searchArrow {
+      position: absolute;
+      top: 22px;
+      right: 20px;
+
+    }
   }
 }
