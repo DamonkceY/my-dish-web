@@ -1,0 +1,22 @@
+
+.bannerContainer {
+  width: 100%;
+  height: calc(0.390625 * 100vw);
+  background-image: url('../../../../assets/banner.svg');
+  background-repeat: no-repeat;
+  background-size: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .searchLabel {
+    font-size: 2.5vw;
+    font-weight: bold;
+  }
+
+  .searchInput {
+    width: 50%;
+  }
+}

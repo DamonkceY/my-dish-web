@@ -1,56 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import './App.scss';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Authentication from './features/authentication/authentication';
+import { Paths } from './app/utils/paths/Paths'
+import FirstStepLogin from './features/authentication/components/login/firstStepLogin'
+import FirstStepRegister from './features/authentication/components/register/firstStepRegister'
+import PasswordForgotten from './features/authentication/components/passwordForgotten/passwordForgotten'
+import MainHome from './features/mainHome/mainHome'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path={Paths.home} element={<MainHome/>}/>
+          <Route path={Paths.auth.index} element={<Authentication/>}>
+            <Route index element={<FirstStepLogin/>}/>
+            <Route path={Paths.auth.register} element={<FirstStepRegister/>}/>
+            <Route path={Paths.auth.passwordForgotten} element={<PasswordForgotten/>}/>
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

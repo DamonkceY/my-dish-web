@@ -1,0 +1,56 @@
+.howToContainer {
+  width: 100%;
+  padding: 117px 140px 0 140px;
+  display: flex;
+  justify-content: space-between;
+
+  .mobileAppContainer{
+    object-fit: contain;
+    width: 479px;
+    height: 548px;
+  }
+
+  .stepsContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .howToLabel {
+      font-weight: bold;
+      font-size: 30px;
+    }
+
+    .stepHowTo {
+      display: flex;
+      flex-direction: column;
+      span {
+        padding-top: 8px;
+        font-size: 18px;
+      }
+    }
+
+    .storeContainer{
+      button {
+        padding-left: 30px;
+        width: 120px;
+        height: 50px;
+        background-color: #e1e2e5;
+        color: black;
+        background-repeat: no-repeat;
+        background-position-x: 13%;
+        background-position-y: 45%;
+        margin-right: 20px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+      }
+
+      .iphone {
+        background-image: url("../../../../assets/apple.svg");
+      }
+
+      .android {
+        background-image: url("../../../../assets/android.svg");
+      }
+    }
+  }
+}
