@@ -7,7 +7,7 @@ export const SLIDES = [
     name: 'Joayo Haussmann',
     price: 25,
     speciality: 'Italien',
-    rate: 9.5
+    rate: 1
   },
   {
     image: pizzaImage,
@@ -15,7 +15,7 @@ export const SLIDES = [
     name: 'Joayo Haussmann',
     price: 25,
     speciality: 'Italien',
-    rate: 9.5
+    rate: 2
   },
   {
     image: pizzaImage,
@@ -23,7 +23,7 @@ export const SLIDES = [
     name: 'Joayo Haussmann',
     price: 25,
     speciality: 'Italien',
-    rate: 9.5
+    rate: 3
   },
   {
     image: pizzaImage,
@@ -31,14 +31,14 @@ export const SLIDES = [
     name: 'Joayo Haussmann',
     price: 25,
     speciality: 'Italien',
-    rate: 9.5
+    rate: 4
   },{
     image: pizzaImage,
     isFavorite: false,
     name: 'Joayo Haussmann',
     price: 25,
     speciality: 'Italien',
-    rate: 9.5
+    rate: 5
   },
   {
     image: pizzaImage,
@@ -46,7 +46,7 @@ export const SLIDES = [
     name: 'Joayo Haussmann',
     price: 25,
     speciality: 'Italien',
-    rate: 9.5
+    rate: 6
   },
   {
     image: pizzaImage,
@@ -54,7 +54,7 @@ export const SLIDES = [
     name: 'Joayo Haussmann',
     price: 25,
     speciality: 'Italien',
-    rate: 9.5
+    rate: 7
   },
   {
     image: pizzaImage,
@@ -62,7 +62,7 @@ export const SLIDES = [
     name: 'Joayo Haussmann',
     price: 25,
     speciality: 'Italien',
-    rate: 9.5
+    rate: 8
   },
 
 ]

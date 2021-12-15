@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './slider.scss'
 
 import emptyHeart from '../../../../assets/emptyHeart.svg'
@@ -11,8 +11,10 @@ import rightArrowInactive from '../../../../assets/rightArrowInactive.svg'
 import { SliderConfigInterface } from '../../../../app/utils/interfaces/sliderConfigInterface'
 import { useTranslation } from 'react-i18next'
 import {
+  getDocumentWidth,
   getElementWidth, getGridConfig,
 } from '../../../../app/utils/func/commonFuncs'
+import Carousel from 'react-multi-carousel'
 
 const Slider: React.FC<{ config: SliderConfigInterface }> = ({ config }) => {
   const { t } = useTranslation()
@@ -20,12 +22,44 @@ const Slider: React.FC<{ config: SliderConfigInterface }> = ({ config }) => {
     left: leftArrowInactive,
     right: rightArrowActive,
   })
-  const [gridConfig, setGridConfig] = useState<{ gap: string, elWidth: string }>({ gap: '10px', elWidth: '200px' })
-  useEffect(() => {
-    getElementWidth('sliderContainer').then((res: number) => {
-      setGridConfig(getGridConfig(res))
-    })
-  }, [])
+  const carouselEl = useRef<Carousel | null>(null)
+
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 3000, min: 1380 },
+      items: config?.isSimple ? 7 : 4,
+      slidesToSlide: config?.isSimple ? 7 : 4,
+    },
+    smallerDesktop: {
+      breakpoint: { max: 1380, min: 920 },
+      items: config?.isSimple ? 5 : 4,
+      slidesToSlide: config?.isSimple ? 5 : 4,
+    },
+    tablet: {
+      breakpoint: { max: 920, min: 464 },
+      items: 3,
+      slidesToSlide: 3,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+      slidesToSlide: 1,
+    },
+  }
+
+  const moveSlides = (direction: number) => {
+    if (carouselEl.current && carouselEl.current?.state) {
+      carouselEl.current?.[direction > 0 ? 'next' : 'previous'](
+        carouselEl.current?.state.currentSlide + direction * carouselEl.current?.state.slidesToShow
+      )
+    }
+
+  }
+
+  const getSlidesNumber = () => {
+    if (carouselEl.current && carouselEl.current?.state) return carouselEl.current?.state?.slidesToShow
+    return 0
+  }
 
   return (
     <div className='sliderContainer'>
@@ -35,23 +69,27 @@ const Slider: React.FC<{ config: SliderConfigInterface }> = ({ config }) => {
           <span onClick={() => null} className='clickable'>{t('SEE_MORE')}</span>
           <span style={{ padding: '9px' }} />
           <div className='arrowsContainer'>
-            <img draggable={false} src={arrows.left} alt='' />
+            <img onClick={() => moveSlides(-1)} draggable={false} src={arrows.left} alt='' />
             <span style={{ padding: '3.5px' }} />
-            <img draggable={false} src={arrows.right} alt='' />
+            <img onClick={() => moveSlides(1)} draggable={false} src={arrows.right} alt='' />
           </div>
         </div>
       </div>
-      <div
-        id={'sliderContainer'}
-        className={`sliders`}
-        style={config?.isSimple ? { gridGap: gridConfig.gap, gridTemplateColumns: 'unset' } : {}}
+      <Carousel
+        swipeable={false}
+        draggable={false}
+        arrows={false}
+        responsive={responsive}
+        ref={carouselEl}
+        additionalTransfrom={-10 * getSlidesNumber()}
       >
         {
           config.slidesList.map((element: any) => (
-            config.isSimple ? <SimpleSliderElement element={element} width={gridConfig.elWidth} /> : <SliderElement element={element} />
+            config.isSimple ? <SimpleSliderElement element={element} /> :
+              <SliderElement element={element} />
           ))
         }
-      </div>
+      </Carousel>
     </div>
   )
 }
@@ -77,12 +115,15 @@ const SliderElement: React.FC<{ element: any }> = ({ element }) => {
     </div>
   )
 }
-const SimpleSliderElement: React.FC<{ element: any, width: string }> = ({ element, width }) => {
+const SimpleSliderElement: React.FC<{ element: any }> = ({ element }) => {
+  const getHeight = () => {
+    return '200px'
+  }
   return (
-    <div style={{width: width}} className='simpleSliderElement clickable'>
+    <div className='simpleSliderElement clickable'>
       <img
-        width={width}
-        height={width}
+        height={getHeight()}
+        id={`image_${element.rate}`}
         draggable={false}
         className='cardImage'
         src={element.image}

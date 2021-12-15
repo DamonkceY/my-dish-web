@@ -1,7 +1,7 @@
 
 .sliderContainer {
   width: 100%;
-  padding: 0 140px;
+  padding: 0 5vw;
 
   .sliderHeader {
     display: flex;
@@ -38,73 +38,80 @@
     grid-template-columns: 24.25% 24.25% 24.25% 24.25%;
     grid-gap: 1%;
 
-    .sliderElement {
-      //height: 300px;
-      .sliderImage {
-        position: relative;
 
-        .cardImage {
-          object-fit: cover;
-          width: 100%;
-          border-radius: 11px;
-        }
+  }
 
-        .heart {
-          position: absolute;
-          bottom: 10%;
-          right: 5%;
-        }
+  .sliderElement {
+    .sliderImage {
+      position: relative;
+
+      .cardImage {
+        object-fit: cover;
+        width: 100%;
+        border-radius: 11px;
       }
 
-      .sliderDetail {
-        margin-top: 16px;
-        display: flex;
-        justify-content: space-between;
-
-        .detail {
-          display: flex;
-          flex-direction: column;
-
-          .name {
-            font-weight: bold;
-            font-size: 18px;
-          }
-
-          .price {
-            font-size: 16px;
-          }
-
-          .speciality {
-            color: #858891;
-            font-size: 14px;
-          }
-        }
-
-        .rating {
-          font-weight: bold;
-          font-size: 16px;
-
-          .outOfTen {
-            font-size: 10px;
-            font-weight: normal;
-          }
-        }
+      .heart {
+        position: absolute;
+        bottom: 10%;
+        right: 5%;
       }
     }
 
-    .simpleSliderElement {
+    .sliderDetail {
+      margin-top: 16px;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      .cardImage {
-        object-fit: cover;
-        border-radius: 40px;
+      justify-content: space-between;
+
+      .detail {
+        display: flex;
+        flex-direction: column;
+
+        .name {
+          font-weight: bold;
+          font-size: 18px;
+        }
+
+        .price {
+          font-size: 16px;
+        }
+
+        .speciality {
+          color: #858891;
+          font-size: 14px;
+        }
       }
-      label {
-        padding-top: 12px;
-        font-size: 18px;
+
+      .rating {
         font-weight: bold;
+        font-size: 16px;
+
+        .outOfTen {
+          font-size: 10px;
+          font-weight: normal;
+        }
       }
     }
   }
+
+  .simpleSliderElement {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .cardImage {
+      width: 100%;
+      object-fit: cover;
+      border-radius: 40px;
+    }
+    label {
+      padding-top: 12px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+}
+
+.react-multi-carousel-item {
+  padding: 0 10px;
 }

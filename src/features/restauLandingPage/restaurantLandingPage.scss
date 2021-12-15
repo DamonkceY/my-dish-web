@@ -1,0 +1,221 @@
+.landingPage1 {
+  position: relative;
+  width: 100%;
+  height: calc(100vw * 0.6473354231974922);
+
+  background-image: url('../../assets/landingPage1.jpg');
+  background-color: rgba(51, 58, 80, 0.5);
+  background-blend-mode: darken;
+  background-repeat: no-repeat;
+  background-size: 100%;
+
+  .head {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 5vw;
+    padding-top: 41px;
+
+    img {
+      height: 50px;
+    }
+
+    .buttonsHead {
+      width: 320px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      span {
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 20px;
+        background-image: url("../../assets/seConnecter.svg");
+        background-repeat: no-repeat;
+        color: #fff;
+        padding-left: 28px;
+      }
+
+      button {
+        width: 145px;
+        height: 55px;
+        border: solid 1px #fff;
+        color: #fff;
+        background-color: transparent;
+        font-weight: bold;
+        font-size: 20px;
+      }
+    }
+  }
+
+  .middle {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 35%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+
+    span {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #fff;
+      text-align: center;
+    }
+
+    .orange {
+      color: #fb5557;
+    }
+
+    .earnClients {
+      font-weight: normal;
+      font-size: 1.2rem;
+      max-width: 586px;
+    }
+  }
+  .landingForm {
+    width: 70vw;
+    height: 600px;
+    //max-height: 600px;
+    background-color: #fff;
+    border-radius: 40px;
+    position: absolute;
+    margin: 0 auto;
+    top: 65%;
+    left: 0;
+    right: 0;
+  }
+
+}
+
+.profit {
+  padding-top: 300px;
+  background-color: #f4f4f4;
+
+  .profitItem {
+    width: 70vw;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 154px;
+
+    .textCont {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      span {
+        font-weight: bold;
+        font-size: 32px;
+      }
+      p {
+        font-size: 17px;
+        max-width: 420px;
+      }
+    }
+    .textCont:nth-child(even) {
+      margin-left: auto;
+      width: 40%;
+    }
+
+    img {
+      width: 50%;
+      height: auto;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+  }
+}
+
+.whyMyDish {
+  width: 100%;
+  background-color: #fff;
+  padding: 85px 15vw;
+
+  span {
+    font-weight: bold;
+    font-size: 32px;
+  }
+
+  .whyProfitsCont {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .whyProfit {
+      display: flex;
+      flex-direction: row;
+
+      img {
+        padding-right: 24px;
+      }
+
+      div {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        max-width: 314px;
+
+        span {
+          font-size: 24px;
+        }
+        span:nth-child(even) {
+          font-size: 17px;
+          font-weight: normal;
+        }
+      }
+    }
+  }
+
+}
+
+.partnersCont {
+  background-color: #f4f4f4;
+  width: 100%;
+  padding: 100px 15vw;
+
+  span {
+    font-size: 32px;
+    font-weight: bold;
+  }
+
+  .partners {
+    position: relative;
+    img {
+      width: 50%;
+      height: auto;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+    div {
+      display: flex;
+      flex-direction: column;
+      height: fit-content;
+      max-width: 50%;
+      background-color: #fff;
+      border-radius: 25px;
+      position: absolute;
+      padding: 20px 50px;
+      top: 0;
+      bottom: 0;
+      margin: auto 0;
+      right: 10%;
+
+      p {
+        font-weight: normal;
+        font-size: 17px;
+      }
+
+      span{
+        font-size: 17px;
+      }
+      span:nth-child(odd) {
+        font-weight: normal;
+      }
+    }
+  }
+
+}

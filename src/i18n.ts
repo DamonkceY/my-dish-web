@@ -90,6 +90,35 @@ const resources = {
       NAVBAR: {
         GET_CONNECTED: 'Se connecter',
       },
+      RESTAURANT_LANDING : {
+        DEVELOP: 'Développez votre restaurant',
+        WITH_MY_DISH: 'avec Mydish',
+        EARN_CLIENTS: 'Gagnez de nouveaux clients et augmentez votre chiffre d’affaires. Inscrivez-vous dès aujourd’hui .',
+        OPTIMIZE_ACTIVITY: 'Optimisez votre activité et renforcez la notoriété de votre marque.',
+        RECEIVE_COMMANDS: 'Recevez les commandes et et gérez-les facilement sur notre plateforme.',
+        PROFIT: {
+          TITLE1: 'Optimisez votre activité',
+          TITLE2: 'Enchantez vos clients',
+          TITLE3: 'Augmentez les ventes ',
+          TITLE4: 'Ce que nos partenaires disent de nous',
+          TEXT: 'Recevez les commandes et et gérez-les facilement sur notre plateforme. Avec mydish vos clients seront toujours satisfaits. Recevez les commandes et et gérez-les facilement sur notre plateforme. Avec mydish vos clients seront toujours satisfaits. ',
+        },
+        WHY_MY_DISH: {
+          WHY: 'Pourquoi choisir Mydish',
+          TITLE1: 'Économisez les ressources',
+          TITLE2: 'Optimisez le temps',
+          TITLE3: 'Fidéliser les clients',
+          TEXT1: 'Fini les blocs de commande, les serveurs à table pendant des minutes. Laissez le client envoyer la commande via Mydish. ',
+          TEXT2: 'Améliorez la qualité du service en consacrant toute votre attention aux détails. Mydish s’occupera du reste.',
+          TEXT3: 'Construisez une base de données de clients pour communiquer les nouvelles, les promotions ou les événements.',
+        },
+        PARTNERS: {
+          TITLE: 'Ce que nos partenaires disent de nous',
+          TEXT: '“Mydish” est la plateforme parfaite pour les dîners animés. Grâce à la réservation et à la précommande, notre restaurant est désormais en mesure de servir les clients même lorsqu’ils sont pressés”. Grâce à la réservation et à la précommande, notre restaurant est désormais en mesure de servir les clients même lorsqu’ils sont pressés”.',
+          AUTHOR: 'Marc Eberle',
+          ROLE: 'Directeur général chez Les Rupins'
+        }
+      },
       SEE_MORE: 'Voir plus',
       NEXT: 'Suivant',
       VERIFY: 'Vérifier',
