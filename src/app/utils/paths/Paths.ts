@@ -8,5 +8,8 @@ export const Paths = {
     register: 'createAccount',
     passwordForgotten: 'forgotPassword'
   },
+  market: {
+    index: '/market/:name',
+  },
   redirect: '*'
 }

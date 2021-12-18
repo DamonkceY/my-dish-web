@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SearchComp from './components/search/searchComp'
 import NavBar from '../../sharedComponents/navBar/navBar'
 import HowTo from './components/howTo/howTo'
@@ -18,29 +18,32 @@ const MainHome = () => {
     {
       name: 'HOME.SLIDES.BOOK_A_TABLE',
       paginationUrl: '',
-      moreDetailPath: '',
+      moreDetailPath: '/market/reserve',
       slidesList: SLIDES
     },
     {
       name: 'HOME.SLIDES.DELIVERY',
       paginationUrl: '',
-      moreDetailPath: '',
+      moreDetailPath: '/market/delivery',
       slidesList: SLIDES
     },
     {
       name: 'HOME.SLIDES.CHOOSE_YOUR_SPECIALITY',
       isSimple: true,
       paginationUrl: '',
-      moreDetailPath: '',
+      moreDetailPath: '/market/speciality',
       slidesList: SLIDES
     },
     {
       name: 'HOME.SLIDES.NEW_ON_MY_DISH',
       paginationUrl: '',
-      moreDetailPath: '',
+      moreDetailPath: '/market/newOnMyDish',
       slidesList: SLIDES
     },
   ])
+  useEffect(() => {
+    window.scroll(0, 0)
+  }, [])
   return (
     <div style={{position: 'relative'}}>
       <NavBar config={{

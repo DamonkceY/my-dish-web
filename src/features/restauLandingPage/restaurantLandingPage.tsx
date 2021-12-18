@@ -24,9 +24,13 @@ const RestaurantLandingPage = () => {
 
   const [isNavBar, setNavBar] = useState(false)
   useEffect(() => {
-    document.addEventListener('scroll', (e) => {
-      setNavBar(window.scrollY > 200)
+    window.scroll(0, 0)
+    document.addEventListener('scroll', () => {
+      setNavBar(window.scrollY > 300)
     })
+    return () => {
+      document.removeEventListener('scroll',() => null)
+    }
   }, [])
 
   const buttons = (
@@ -39,12 +43,12 @@ const RestaurantLandingPage = () => {
 
   return (
     <div style={{ position: 'relative' }}>
-      <div style={isNavBar ? {} : {display: 'none'}}>
-        <NavBar config={{rightComponent: buttons}}/>
+      <div style={isNavBar ? {} : { display: 'none' }}>
+        <NavBar config={{ rightComponent: buttons }} />
       </div>
       <div className='landingPage1'>
         <div className='head'>
-          <img draggable={false} src={allWhiteLogo} alt='' />
+          <img onClick={() => navigate(Paths.home)} className='clickable' draggable={false} src={allWhiteLogo} alt='' />
           {buttons}
         </div>
         <div className='middle'>

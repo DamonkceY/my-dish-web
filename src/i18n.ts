@@ -119,6 +119,16 @@ const resources = {
           ROLE: 'Directeur général chez Les Rupins'
         }
       },
+      MARKET: {
+        BANNER_TITLE: 'Réservez le meilleur restaurant et commandez à l\'avance.',
+        SORT_BY: 'Trier par',
+        PRICE: 'Prix',
+        DIETETIC: 'Diététique',
+        PAGINATION: {
+          SPECIAL_OFFER: 'Offres spéciales',
+        },
+      },
+      RESTAURANTS: 'restaurants',
       SEE_MORE: 'Voir plus',
       NEXT: 'Suivant',
       VERIFY: 'Vérifier',

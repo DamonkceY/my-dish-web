@@ -8,6 +8,7 @@ import Register from './features/authentication/components/register/register'
 import PasswordForgotten from './features/authentication/components/passwordForgotten/passwordForgotten'
 import MainHome from './features/mainHome/mainHome'
 import RestaurantLandingPage from './features/restauLandingPage/restaurantLandingPage'
+import Market from './features/market/market'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path={Paths.home} element={<MainHome/>}/>
           <Route path={Paths.restaurantHome} element={<RestaurantLandingPage/>}/>
+          <Route path={Paths.market.index} element={<Market/>}/>
           <Route path={Paths.auth.index} element={<Authentication/>}>
             <Route index element={<Login/>}/>
             <Route path={Paths.auth.register} element={<Register/>}/>

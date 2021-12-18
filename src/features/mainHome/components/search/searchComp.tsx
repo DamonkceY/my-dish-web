@@ -11,7 +11,7 @@ const SearchComp = () => {
       <div className='searchInput'>
         <img className='searchGlass' draggable={false} src={searchGlass} alt=''/>
         <input placeholder={t('HOME.SEARCH_PLACEHOLDER')} type='text' />
-        <img className='searchArrow' draggable={false} src={searchArrow} alt=''/>
+        <img className='searchArrow clickable' draggable={false} src={searchArrow} alt=''/>
       </div>
     </div>
   )

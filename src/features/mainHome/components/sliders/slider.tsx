@@ -12,12 +12,13 @@ import { SliderConfigInterface } from '../../../../app/utils/interfaces/sliderCo
 import { useTranslation } from 'react-i18next'
 import {
   getDocumentWidth,
-  getElementWidth, getGridConfig,
 } from '../../../../app/utils/func/commonFuncs'
 import Carousel from 'react-multi-carousel'
+import { useNavigate } from 'react-router-dom'
 
 const Slider: React.FC<{ config: SliderConfigInterface }> = ({ config }) => {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const [arrows, setArrows] = useState({
     left: leftArrowInactive,
     right: rightArrowActive,
@@ -50,7 +51,7 @@ const Slider: React.FC<{ config: SliderConfigInterface }> = ({ config }) => {
   const moveSlides = (direction: number) => {
     if (carouselEl.current && carouselEl.current?.state) {
       carouselEl.current?.[direction > 0 ? 'next' : 'previous'](
-        carouselEl.current?.state.currentSlide + direction * carouselEl.current?.state.slidesToShow
+        carouselEl.current?.state.currentSlide + direction * carouselEl.current?.state.slidesToShow,
       )
     }
 
@@ -66,7 +67,7 @@ const Slider: React.FC<{ config: SliderConfigInterface }> = ({ config }) => {
       <div className='sliderHeader'>
         <span className='sliderName'> {t(config.name)} </span>
         <div className='sliderActions'>
-          <span onClick={() => null} className='clickable'>{t('SEE_MORE')}</span>
+          <span onClick={() => navigate(config.moreDetailPath)} className='clickable'>{t('SEE_MORE')}</span>
           <span style={{ padding: '9px' }} />
           <div className='arrowsContainer'>
             <img onClick={() => moveSlides(-1)} draggable={false} src={arrows.left} alt='' />
