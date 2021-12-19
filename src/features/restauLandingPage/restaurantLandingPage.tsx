@@ -16,6 +16,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { Paths } from '../../app/utils/paths/Paths'
 import NavBar from '../../sharedComponents/navBar/navBar'
+import PhoneNumberInput from '../../sharedComponents/phoneNumberInput/phoneNumberInput'
 
 const RestaurantLandingPage = () => {
 
@@ -24,7 +25,7 @@ const RestaurantLandingPage = () => {
 
   const [isNavBar, setNavBar] = useState(false)
   useEffect(() => {
-    window.scroll(0, 0)
+    window.scroll({top: 0, behavior: 'smooth'})
     document.addEventListener('scroll', () => {
       setNavBar(window.scrollY > 300)
     })
@@ -56,7 +57,35 @@ const RestaurantLandingPage = () => {
           <span className='orange'>{t('RESTAURANT_LANDING.WITH_MY_DISH')}</span>
           <span className='earnClients'>{t('RESTAURANT_LANDING.EARN_CLIENTS')}</span>
         </div>
-        <div className='landingForm'></div>
+        <div className='landingForm'>
+          <div className='headerForm'>
+            <span className='title'>
+              Optimisez votre activité et renforcez la notoriété de votre marque.
+            </span>
+            <span className='miniTitle'>
+              Recevez les commandes et et gérez-les facilement sur notre plateforme.
+            </span>
+          </div>
+
+          <div className='formCont'>
+            <input placeholder='Non du restaurant' type='text'/>
+            <input placeholder='Adresse du restaurant' type='text'/>
+            <input placeholder='Nom' type='text'/>
+            <input placeholder='Prénom' type='text'/>
+            <PhoneNumberInput
+              config={{ label: '', placeholder: 'Numéro de téléphone portable' }} />
+            <input placeholder='Adresse e-mail' type='text'/>
+            <input placeholder='Nombre de restaurants' type='text'/>
+            <input placeholder='Cuisine' type='text'/>
+          </div>
+          <div className='footerCont'>
+            <span>
+              En cliquant sur Envoyer une demande, vous acceptez les <span className='qsd clickable'>Conditions</span> et la <span className='qsd clickable'>Politique de confidentialité</span> de mydish.
+            </span>
+            <button>Envoyer une demande</button>
+          </div>
+
+        </div>
       </div>
       <div className='profit'>
         <div className='profitItem'>

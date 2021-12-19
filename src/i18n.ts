@@ -126,7 +126,14 @@ const resources = {
         DIETETIC: 'Diététique',
         PAGINATION: {
           SPECIAL_OFFER: 'Offres spéciales',
+          POPULAR: 'Populaires à proximité',
         },
+      },
+      RESTAURANT: {
+        ENTRIES: 'Entrées',
+        DISHES: 'Plats',
+        DESSERTS: 'Desserts',
+        DRINKS: 'Boissons'
       },
       RESTAURANTS: 'restaurants',
       SEE_MORE: 'Voir plus',

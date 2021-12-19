@@ -56,6 +56,67 @@ input:focus, textarea:focus, select:focus {
   color: #b0b3bc;
 }
 
+// TODO qsdqsdqsd
+.radioEl {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  .flexRadio {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .radio {
+      cursor: pointer;
+      position: relative;
+      display: inline-block;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: solid 2px #858891;
+      margin-right: 10px;
+
+      .innerRadio{
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        display: inline-block;
+        border-radius: 50%;
+        &.isActive {
+          background-color: black;
+        }
+      }
+
+      &.isActive {
+        border: solid 2px #000;
+        padding: 4px;
+      }
+    }
+  }
+  .radioLabel{
+    font-size: 16px;
+    color: #000;
+    img {
+      margin-right: 10px;
+      width: 33px;
+      height: 21px;
+    }
+  }
+  .notif{
+    bottom: -20px;
+    left: 33px;
+    position: absolute;
+    font-size: 14px;
+    color: #858891;
+  }
+  .price{
+    color: #b0b3bc;
+    &.isActive {
+      color: #000;
+    }
+  }
+}
+
 .boldLabelTitle {
   font-size: 40px;
   font-weight: bold;
@@ -82,7 +143,13 @@ input:focus, textarea:focus, select:focus {
 .clickable {
   cursor: pointer;
 }
+.unClickable {
+  cursor: not-allowed;
+}
 
+:focus-visible {
+  outline: unset !important;
+}
 
 // phone library
 .react-tel-input .form-control {
@@ -138,4 +205,11 @@ input:focus, textarea:focus, select:focus {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+.css-187mznn-MuiSlider-root {
+  color: #fb5557 !important;
+}
+.css-eg0mwd-MuiSlider-thumb:hover, .css-eg0mwd-MuiSlider-thumb.Mui-focusVisible {
+  box-shadow: 0px 0px 0px 8px rgb(255 54 0 / 16%) !important;
 }

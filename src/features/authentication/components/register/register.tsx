@@ -35,7 +35,7 @@ const Register: React.FC<{}> = () => {
         config={{ label: 'PASSWORD.ENTER_THE_PASSWORD', placeholder: 'PASSWORD.PASSWORD', type: 'password' }} />,
       <InputField config={{ label: '', placeholder: 'PASSWORD.CONFIRM_PASSWORD', type: 'password' }} />,
     ],
-    [<Congrats name={'qsd'} />],
+    [<Congrats name={'Ahmed'} />],
   ]
   const toNextStep = () => {
     if (stepIndex < registerSteps.length - 1){
@@ -54,7 +54,7 @@ const Register: React.FC<{}> = () => {
             registerSteps[stepIndex].map((item: JSX.Element) => item)
           }
         </div>
-        <Button config={{ text: buttonText, isEnabled: true, onClick: toNextStep }} />
+        <button style={{width: '100%'}} onClick={toNextStep}>{t(buttonText)}</button>
         {
           stepIndex === 0 && (
             <span className='getConnected'>

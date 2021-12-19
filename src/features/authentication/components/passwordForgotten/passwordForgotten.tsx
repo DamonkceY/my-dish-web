@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import InputField from '../../../../sharedComponents/inputField/inputField'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import Button from '../../../../sharedComponents/button/button'
+import './passwordForgotten.scss'
 import { Paths } from '../../../../app/utils/paths/Paths'
 
 const PasswordForgotten: React.FC<{}> = () => {
@@ -43,7 +43,8 @@ const PasswordForgotten: React.FC<{}> = () => {
           passwordSteps[stepIndex].map((item: JSX.Element) => item)
         }
       </div>
-      <Button config={{ text: buttonText, isEnabled: true, onClick: toNextStep }} />
+      {/*<Button config={{ text: buttonText, isEnabled: true, onClick: toNextStep }} />*/}
+      <button style={{width: '100%'}} onClick={toNextStep}>{t(buttonText)}</button>
       {
         stepIndex === 0 && (
           <div>

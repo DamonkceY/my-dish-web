@@ -11,5 +11,16 @@ export const Paths = {
   market: {
     index: '/market/:name',
   },
+  searchResult: '/searchResult',
+  restaurant: '/restaurant/:id',
+  shop: '/shop',
+  cart: '/cart',
+  profile: {
+    index: '/profile',
+    myReservations: 'myReservations',
+    fidelity: 'loyaltySpace',
+    rates: 'rates',
+    favorites: 'favorites',
+  },
   redirect: '*'
 }

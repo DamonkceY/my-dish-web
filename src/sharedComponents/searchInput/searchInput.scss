@@ -1,0 +1,23 @@
+
+.searchInput {
+  position: relative;
+
+  input {
+    padding: 15px 70px !important;
+    height: 65px !important;
+  }
+
+  .searchGlass {
+    position: absolute;
+    top: 17px;
+    left: 20px;
+  }
+
+  .searchArrow {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 22.5px 20px 22.5px 0;
+  }
+
+}

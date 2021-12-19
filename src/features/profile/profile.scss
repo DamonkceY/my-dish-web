@@ -1,0 +1,55 @@
+
+.mainProfileContainer {
+  height: 100%;
+  padding: 70px 5vw 0 5vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .leftSide {
+    width: 345px;
+
+    .disconnect  {
+      cursor: pointer;
+      display: inline-block;
+      color: #45b995;
+      font-weight: bold;
+      font-size: 18px;
+      padding: 20px 30px;
+    }
+
+    .linkCont {
+      cursor: pointer;
+      padding: 20px 30px;
+      display: flex;
+      flex-direction: row;
+
+      img {
+        padding-right: 15px;
+      }
+
+      span {
+        font-weight: bold;
+        font-size: 18px;
+      }
+
+      &.active {
+        background-color: rgba(69, 185, 149, 0.15);
+        border-radius: 10px;
+      }
+    }
+
+  }
+
+  .verticalSeparator {
+    width: 2px;
+    height: 50vh;
+    background-color: #333a50;
+    opacity: 0.15;
+    margin: 0 40px 0 20px;
+  }
+
+  .rightSide {
+    width: 100%;
+  }
+}

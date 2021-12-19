@@ -1,0 +1,55 @@
+
+
+.favoritesCont {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 20px;
+
+  .sliderElement {
+    .sliderImage {
+      position: relative;
+
+      .cardImage {
+        object-fit: cover;
+        width: 100%;
+        border-radius: 11px;
+      }
+
+      .heart {
+        position: absolute;
+        bottom: 10%;
+        right: 5%;
+      }
+    }
+
+    .sliderDetail {
+      margin-top: 16px;
+      display: flex;
+      justify-content: space-between;
+
+      .detail {
+        display: flex;
+        flex-direction: column;
+
+        .name {
+          font-weight: bold;
+          font-size: 18px;
+        }
+
+        .price {
+          font-size: 16px;
+        }
+
+        .speciality {
+          color: #858891;
+          font-size: 14px;
+        }
+      }
+
+      .rating {
+        font-weight: bold;
+        font-size: 16px;
+      }
+    }
+  }
+}

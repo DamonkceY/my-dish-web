@@ -29,9 +29,13 @@ const NavBar: React.FC<{config?: NavbarConfigInterface}> = ({ config }) => {
         {
           config?.middleComponent && config.middleComponent
         }
-        {
-          config?.rightComponent && config.rightComponent
-        }
+        <div>
+          {/*onClick={() => navigate(Paths.profile.index)}*/}
+          {
+            config?.rightComponent && config.rightComponent
+          }
+        </div>
+
     </div>
   )
 }

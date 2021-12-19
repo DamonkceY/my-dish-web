@@ -41,7 +41,8 @@ const Login = () => {
           loginSteps[stepIndex].map((item: JSX.Element) => item)
         }
       </div>
-      <Button config={{ text: 'NEXT', isEnabled: true, onClick: toNextStep }} />
+      {/*<Button config={{ text: 'NEXT', isEnabled: true, onClick: toNextStep }} />*/}
+      <button style={{width: '100%'}} onClick={toNextStep}>{t('NEXT')}</button>
       {
         stepIndex === 0 ? (
           <div>

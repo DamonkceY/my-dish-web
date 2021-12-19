@@ -11,7 +11,7 @@ const PhoneNumberInput: React.FC<{config: {label: string, placeholder: string}}>
       <label>
         { t(config.label) }
       </label>
-      <PhoneInput />
+      <PhoneInput placeholder={t(config.placeholder)} />
     </div>
   )
 }

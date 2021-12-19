@@ -1,0 +1,108 @@
+.shopContainer {
+  padding: 0 5vw;
+  width: 100%;
+
+  .shopHeader {
+    margin: 46px 0;
+
+    span {
+      font-weight: bold;
+      font-size: 30px;
+    }
+  }
+
+  .optionsContainer {
+    width: 100%;
+
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 16px;
+    }
+  }
+
+  .shoppingCartContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .dishesContainer {
+      width: 59%;
+    }
+
+    .shoppingCart {
+      border-radius: 20px;
+      margin-top: 110px;
+      width: 39%;
+      height: fit-content;
+      padding: 38px 33.5px 30.8px 31px;
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.16);
+      background-color: #f1f5f8;
+
+      button {
+        font-weight: bold;
+        font-size: 22px;
+        background-color: #45b995;
+        width: 100%;
+      }
+
+      .horizontalSeparator {
+        margin: 20px 0;
+      }
+
+      span {
+        font-weight: normal;
+        font-size: 18px;
+      }
+
+      .shoppingListContainer {
+        .shoppingItem{
+          margin-top: 22px;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          .cont {
+            display: flex;
+            flex-direction: column;
+            span {
+              display: inline-block;
+              margin-bottom: 10px;
+            }
+            .title {
+              font-size: 18px;
+              font-weight: bold;
+            }
+            .desc {
+              font-size: 16px;
+              font-weight: normal;
+              color: #858891;
+            }
+            .delete {
+              cursor: pointer;
+              font-size: 16px;
+              font-weight: bold;
+              background-image: url("../../assets/closeBlack.svg");
+              background-repeat: no-repeat;
+              background-position-x: 0;
+              background-position-y: center;
+              padding-left: 17px;
+            }
+          }
+
+        }
+      }
+
+      .shoppingResult {
+        margin-top: 70px;
+        display: flex;
+        justify-content: space-between;
+
+        span {
+          font-weight: bold;
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}

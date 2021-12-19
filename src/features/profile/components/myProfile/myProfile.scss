@@ -1,0 +1,68 @@
+
+.horizontalSeparator {
+  margin: 40px 0;
+}
+.profileHeaderContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  span {
+    font-weight: bold;
+    font-size: 30px;
+  }
+  .update {
+    font-weight: normal;
+    font-size: 16px;
+    color: #45b995;
+    cursor: pointer;
+  }
+}
+
+.profileInputs{
+  .avatarWithName {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 55px;
+    img {
+      margin-right: 15px;
+    }
+    .desc {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .name {
+        font-weight: bold;
+        font-size: 24px;
+      }
+    }
+  }
+
+  .inputs{
+    max-width: 600px;
+    .inputCont {
+      margin-bottom: 15px;
+      span {
+        font-weight: bold;
+        font-size: 16px;
+      }
+      input {
+        height: 40px;
+      }
+
+      .address {
+        padding-left: 25px !important;
+        background-image: url("../../../../assets/blackMarker.svg");
+        background-repeat: no-repeat;
+        background-position-x: 5px;
+        background-position-y: center;
+      }
+      .bankAcc {
+        padding-left: 30px !important;
+        background-image: url("../../../../assets/credit-card.svg");
+        background-repeat: no-repeat;
+        background-position-x: 5px;
+        background-position-y: center;
+      }
+    }
+  }
+}

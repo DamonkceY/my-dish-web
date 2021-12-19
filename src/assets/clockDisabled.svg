@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="25.3" height="25.3" viewBox="0 0 25.3 25.3">
+    <defs>
+        <style>
+            .cls-2{fill:#fb5557;stroke:#fb5557;stroke-width:.3px}
+        </style>
+    </defs>
+    <g id="heure_2" opacity="0.3" transform="translate(.15 .15)">
+        <path id="Path_784" d="M1041.854 1731.072a12.5 12.5 0 1 0 12.5 12.5 12.515 12.515 0 0 0-12.5-12.5zm0 23.438a10.938 10.938 0 1 1 10.938-10.937 10.951 10.951 0 0 1-10.937 10.938z" class="cls-2" transform="translate(-1029.354 -1731.072)"/>
+        <path id="Path_785" d="M1146.362 1777.562a.782.782 0 0 0-.781.781v6.873a1.154 1.154 0 0 0 .342.823l4.022 4.023a.781.781 0 0 0 1.1 0 .779.779 0 0 0 0-1.1l-3.906-3.909v-6.707a.782.782 0 0 0-.777-.784z" class="cls-2" transform="translate(-1133.862 -1772.875)"/>
+    </g>
+</svg>

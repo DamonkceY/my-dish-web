@@ -1,0 +1,164 @@
+.headerRestaurant {
+  width: 100%;
+  height: 350px;
+  display: flex;
+
+  .detailContainer {
+    width: 70%;
+    height: 100%;
+    background-size: cover;
+    background-image: url("../../assets/pizzaNoBorder.png");
+    background-color: rgba(51, 58, 80, 0.4);
+    background-blend-mode: darken;
+    background-repeat: no-repeat;
+    background-position: 0%;
+    padding: 40px 0 0 5vw;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    .title {
+      font-weight: bold;
+      font-size: 40px;
+    }
+
+    .details {
+      display: flex;
+      flex-direction: column;
+
+      .rateComments {
+        display: flex;
+        flex-direction: row;
+        width: 100px;
+        justify-content: space-between;
+
+        .comments {
+          background-image: url("../../assets/chatWhite.svg");
+          background-repeat: no-repeat;
+          background-position-y: 20%;
+          padding-left: 20px;
+        }
+      }
+    }
+  }
+
+  .mapContainer {
+    width: 30%;
+    height: 100%;
+  }
+}
+
+.tabsContainer {
+  position: relative;
+
+  .tabs {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 60px;
+
+    button {
+      width: fit-content;
+      height: 45px;
+      background-color: #45b995;
+      padding: 0 25px;
+    }
+
+
+    .cont {
+      .tab {
+        cursor: pointer;
+        display: inline-block;
+        width: 150px;
+        font-size: 22px;
+        font-weight: normal;
+        transition: .5s ease-in-out;
+      }
+
+      .active {
+        font-size: 22px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .underline {
+    height: 2px;
+    width: 100px;
+    margin: 0;
+
+    background: #333a50;
+    border: none;
+    transition: .3s ease-in-out;
+  }
+
+  .horizontalSeparator {
+    margin: unset;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+  }
+}
+
+.optionsContainer {
+  margin-top: 30px;
+
+  span {
+    font-weight: bold;
+    font-size: 26px;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 16px;
+
+    .cardContainer {
+      height: 200px;
+      display: flex;
+      flex-direction: row;
+      border-radius: 10px;
+      background-color: #f1f5f8;
+      justify-content: space-between;
+
+      .detailCardContainer {
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        span {
+          font-size: 16px;
+          font-weight: bold;
+        }
+
+        .headerCard {
+          height: 50%;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          span {
+            font-weight: bold;
+            font-size: 16px;
+          }
+
+          .desc {
+            color: #858891;
+            font-weight: normal;
+            font-size: 14px;
+          }
+        }
+      }
+
+      img {
+        border-radius: 0 10px 10px 0;
+        height: 200px;
+        width: 40%;
+        object-fit: cover;
+      }
+    }
+  }
+}

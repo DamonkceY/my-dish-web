@@ -1,0 +1,171 @@
+
+.shoppingCartContainer {
+  padding: 0 5vw;
+  width: 100%;
+
+  .title {
+    font-weight: bold;
+    font-size: 30px;
+  }
+
+  .horizontalSeparator {
+    margin: 45px 0;
+  }
+
+  .mainCont {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+
+    .shoppingContainer {
+      background-color: #f1f5f8;
+      width: 35%;
+      border-radius: 30px;
+      padding: 36px 30px;
+
+      .addArticles {
+        font-weight: bold;
+        font-size: 22px;
+        color: #fb5557;
+      }
+
+      span {
+
+      }
+
+      .horizontalSeparator {
+        margin: 25px 0;
+      }
+
+      // TODO qsdqsdqsd
+      .shoppingListContainer {
+        .shoppingItem {
+          margin-top: 22px;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+
+          .cont {
+            display: flex;
+            flex-direction: column;
+
+            span {
+              display: inline-block;
+              margin-bottom: 10px;
+            }
+
+            .title {
+              font-size: 18px;
+              font-weight: bold;
+            }
+
+            .desc {
+              font-size: 16px;
+              font-weight: normal;
+              color: #858891;
+            }
+
+            .delete {
+              cursor: pointer;
+              font-size: 16px;
+              font-weight: bold;
+              background-image: url("../../assets/closeBlack.svg");
+              background-repeat: no-repeat;
+              background-position-x: 0;
+              background-position-y: center;
+              padding-left: 17px;
+            }
+          }
+
+        }
+      }
+
+      .shoppingResult {
+        //margin-top: 70px;
+        display: flex;
+        justify-content: space-between;
+
+        span {
+          font-weight: bold;
+          font-size: 18px;
+        }
+      }
+    }
+
+    .paymentContainer {
+      background-color: #f1f5f8;
+      width: 55%;
+      border-radius: 30px;
+      padding: 36px 30px;
+
+      .titleRestau {
+        display: inline-block;
+        margin-bottom: 20px;
+      }
+
+      .paymentMeth {
+        display: inline-block;
+        font-weight: bold;
+        font-size: 22px;
+        margin-bottom: 28px;
+      }
+
+      .horizontalSeparator {
+        margin: 20px 0;
+      }
+
+      button {
+        margin-top: 100px;
+        width: 100%;
+        background-color: #45b995;
+      }
+    }
+  }
+}
+
+.addBankAccount {
+  .cont {
+    padding: 28px 40px 0 40px;
+
+    .head {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      span {
+        font-weight: bold;
+        font-size: 26px;
+      }
+    }
+
+    .horizontalSeparator {
+      margin: 20px 0;
+    }
+    .inputs {
+      display: flex;
+      flex-direction: column;
+      .inputCont {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+        span {
+          font-weight: bold;
+          font-size: 16px;
+        }
+        input {
+          height: 40px;
+          border-radius: 5px !important;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+  button {
+    background-color: #333a50;
+    width: 100%;
+    border-radius: 0 0 40px 40px;
+    position: absolute;
+    bottom: 0;
+    height: 50px;
+  }
+}

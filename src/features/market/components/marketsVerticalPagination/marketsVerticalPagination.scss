@@ -1,14 +1,18 @@
 
 .marketsVerticalPaginationContainer {
   width: 48%;
+
   .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 24px;
+
     span {
       font-weight: bold;
       font-size: 26px;
     }
+
     .resultCount {
       color: #858891;
       font-size: 16px;
@@ -24,21 +28,25 @@
       width: 100%;
       display: flex;
       margin-bottom: 15px;
+
       .image {
         width: 50%;
         position: relative;
+
         .cardImage {
           object-fit: cover;
           width: 100%;
           height: 100%;
           border-radius: 11px;
         }
+
         .heart {
           position: absolute;
           bottom: 10%;
           right: 5%;
         }
       }
+
       .details {
         position: relative;
         width: 50%;
@@ -62,19 +70,60 @@
           opacity: 0.15;
           margin: 20px 0;
         }
+
+        .speciality {
+          color: #858891;
+          font-size: 14px;
+        }
+
         .topRight {
           position: absolute;
           top: 25px;
           right: 25px;
           display: flex;
           flex-direction: column;
+          text-align: right;
+
           .rate {
             font-weight: bold;
             font-size: 16px;
           }
+
           .comments {
-            font-weight: normal;
-            font-size: 13px;
+            font-weight: normal !important;
+            font-size: 13px !important;
+            background-image: url("../../../../assets/chat.svg");
+            background-repeat: no-repeat;
+            padding-left: 15px;
+            background-position-y: 30%;
+          }
+        }
+      }
+    }
+
+    .paginator {
+      margin: 40px 0;
+      display: flex;
+      justify-content: right;
+      align-items: center;
+
+      .pages {
+        display: flex;
+        .page {
+          color: #333a50;
+          border: solid 1px #333a50;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 12px;
+          font-weight: bold;
+          margin: 0 3.5px;
+
+          &.active {
+            background-color: #d6d8dc;
           }
         }
       }

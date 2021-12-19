@@ -1,0 +1,38 @@
+
+
+.cardLoyaltyContainer{
+  max-width: 536px;
+  height: 100%;
+
+  .loyalty {
+    background-color: #f1f5f8;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+
+    .qsd {
+      background-color: rgba(69, 185, 149, 0.15);
+      padding: 12px 30px;
+      color: #333a50;
+      border-radius: 10px;
+    }
+
+    .desc {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .title{
+        font-weight: bold;
+        font-size: 22px;
+        margin-bottom: 20px;
+      }
+      span {
+        font-size: 14px;
+      }
+    }
+  }
+}

@@ -77,23 +77,84 @@
       max-width: 586px;
     }
   }
+
   .landingForm {
-    width: 70vw;
-    height: 600px;
+    width: 80vw;
     //max-height: 600px;
     background-color: #fff;
     border-radius: 40px;
     position: absolute;
     margin: 0 auto;
-    top: 65%;
+    top: 70%;
     left: 0;
     right: 0;
+    padding: 60px;
+
+    .headerForm {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 50px;
+
+      .title {
+        max-width: 516px;
+        font-weight: bold;
+        font-size: 32px;
+      }
+
+      .miniTitle {
+        margin-top: 30px;
+        max-width: 516px;
+        font-size: 16px;
+      }
+    }
+
+    .formCont {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 50px;
+
+      input {
+        background-color: #fff !important;
+        border: solid 1px rgba(51, 58, 80, 0.17) !important;
+      }
+
+      .phoneNumberContainer {
+        label {
+          display: unset !important;
+        }
+      }
+    }
+
+    .footerCont {
+      margin-top: 51px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      span {
+        font-size: 16px;
+        color: #858891;
+      }
+      .qsd {
+        font-weight: bold;
+      }
+
+      button {
+        padding: 10px 30px;
+        width: 300px;
+        font-size: 20px;
+        line-height: 1;
+      }
+    }
   }
 
 }
 
+
 .profit {
-  padding-top: 300px;
+  padding-top: 700px;
   background-color: #f4f4f4;
 
   .profitItem {
@@ -108,15 +169,18 @@
       display: flex;
       flex-direction: column;
       justify-content: space-evenly;
+
       span {
         font-weight: bold;
         font-size: 32px;
       }
+
       p {
         font-size: 17px;
         max-width: 420px;
       }
     }
+
     .textCont:nth-child(even) {
       margin-left: auto;
       width: 40%;
@@ -145,6 +209,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+
     .whyProfit {
       display: flex;
       flex-direction: row;
@@ -162,6 +227,7 @@
         span {
           font-size: 24px;
         }
+
         span:nth-child(even) {
           font-size: 17px;
           font-weight: normal;
@@ -184,17 +250,19 @@
 
   .partners {
     position: relative;
+
     img {
       width: 50%;
       height: auto;
       object-fit: contain;
       border-radius: 10px;
     }
+
     div {
       display: flex;
       flex-direction: column;
       height: fit-content;
-      max-width: 50%;
+      max-width: 65%;
       background-color: #fff;
       border-radius: 25px;
       position: absolute;
@@ -202,16 +270,17 @@
       top: 0;
       bottom: 0;
       margin: auto 0;
-      right: 10%;
+      right: 0;
 
       p {
         font-weight: normal;
         font-size: 17px;
       }
 
-      span{
+      span {
         font-size: 17px;
       }
+
       span:nth-child(odd) {
         font-weight: normal;
       }

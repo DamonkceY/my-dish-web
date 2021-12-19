@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="calender_1" width="24.997" height="25" viewBox="0 0 24.997 25">
+    <defs>
+        <style>
+            .cls-1{fill:#fb5557}
+        </style>
+    </defs>
+    <path id="Path_783" d="M1476.417 1400.792v12.608a1.955 1.955 0 0 1-1.952 1.952h-11.816a25.685 25.685 0 0 1-2.115 1.956h13.93a3.907 3.907 0 0 0 3.9-3.906v-12.472a.977.977 0 0 0-1.949-.139z" class="cls-1" transform="translate(-1453.372 -1392.309)"/>
+    <circle id="Ellipse_51" cx=".977" cy=".977" r=".977" class="cls-1" transform="translate(17.863 8.026)"/>
+    <path id="Path_745" d="M1475.891 1395.776h-1.272v-.976a.976.976 0 1 0-1.951 0v.976h-4.44v-.976a.977.977 0 0 0-1.954 0v.976h-4.4v-.976a.976.976 0 1 0-1.951 0v.976h-1.217a3.909 3.909 0 0 0-3.906 3.907v15.232a3.907 3.907 0 0 0 3.9 3.906h7.469a.978.978 0 0 0 .139-1.951h-7.607a1.956 1.956 0 0 1-1.952-1.952v-15.233a1.953 1.953 0 0 1 1.952-1.952h1.221v.976a.976.976 0 1 0 1.952 0v-.969h4.407v.975a.977.977 0 0 0 1.952 0v-.975h4.441v.975a.976.976 0 1 0 1.952 0v-.975h1.266a1.952 1.952 0 0 1 1.951 1.951v5.568a.976.976 0 1 0 1.952 0v-5.568a3.909 3.909 0 0 0-3.91-3.91z" class="cls-1" transform="translate(-1454.801 -1393.824)"/>
+    <circle id="Ellipse_52" cx=".977" cy=".977" r=".977" class="cls-1" transform="translate(13.616 8.026)"/>
+    <circle id="Ellipse_54" cx=".977" cy=".977" r=".977" class="cls-1" transform="translate(5.123 8.026)"/>
+    <circle id="Ellipse_58" cx=".977" cy=".977" r=".977" class="cls-1" transform="translate(9.369 8.026)"/>
+    <circle id="Ellipse_51-2" cx=".977" cy=".977" r=".977" class="cls-1" transform="translate(17.863 13.026)"/>
+    <circle id="Ellipse_52-2" cx=".977" cy=".977" r=".977" class="cls-1" transform="translate(13.616 13.026)"/>
+    <circle id="Ellipse_54-2" cx=".977" cy=".977" r=".977" class="cls-1" transform="translate(5.123 13.026)"/>
+    <circle id="Ellipse_58-2" cx=".977" cy=".977" r=".977" class="cls-1" transform="translate(9.369 13.026)"/>
+    <circle id="Ellipse_51-3" cx=".977" cy=".977" r=".977" class="cls-1" transform="translate(17.863 18.025)"/>
+    <circle id="Ellipse_52-3" cx=".977" cy=".977" r=".977" class="cls-1" transform="translate(13.616 18.025)"/>
+    <circle id="Ellipse_54-3" cx=".977" cy=".977" r=".977" class="cls-1" transform="translate(5.123 18.025)"/>
+    <circle id="Ellipse_58-3" cx=".977" cy=".977" r=".977" class="cls-1" transform="translate(9.369 18.025)"/>
+</svg>

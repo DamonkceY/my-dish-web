@@ -10,11 +10,9 @@ import rightArrowInactive from '../../../../assets/rightArrowInactive.svg'
 
 import { SliderConfigInterface } from '../../../../app/utils/interfaces/sliderConfigInterface'
 import { useTranslation } from 'react-i18next'
-import {
-  getDocumentWidth,
-} from '../../../../app/utils/func/commonFuncs'
 import Carousel from 'react-multi-carousel'
 import { useNavigate } from 'react-router-dom'
+import { Paths } from '../../../../app/utils/paths/Paths'
 
 const Slider: React.FC<{ config: SliderConfigInterface }> = ({ config }) => {
   const { t } = useTranslation()
@@ -96,12 +94,13 @@ const Slider: React.FC<{ config: SliderConfigInterface }> = ({ config }) => {
 }
 
 // TODO slides element interface
-const SliderElement: React.FC<{ element: any }> = ({ element }) => {
+export const SliderElement: React.FC<{ element: any, isFavorite?: boolean }> = ({ element, isFavorite }) => {
+  const navigate = useNavigate()
   return (
-    <div className='sliderElement clickable'>
+    <div className='sliderElement clickable' onClick={() => navigate('/restaurant/ss')}>
       <div className='sliderImage'>
         <img draggable={false} className='cardImage' src={element.image} alt='' />
-        <img draggable={false} className='heart' src={emptyHeart} alt='' />
+        <img draggable={false} className='heart' src={isFavorite ? filledHeart : emptyHeart} alt='' />
       </div>
       <div className='sliderDetail'>
         <div className='detail'>
