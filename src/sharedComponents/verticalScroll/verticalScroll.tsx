@@ -3,7 +3,7 @@ import React from 'react'
 
 const VerticalScroll = () => {
   return (
-    <div>qsd</div>
+    <div></div>
   )
 }
 

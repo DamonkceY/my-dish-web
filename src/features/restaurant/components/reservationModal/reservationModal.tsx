@@ -56,6 +56,7 @@ const ModalReservation: React.FC<{closeEvent: Function}> = ({closeEvent}) => {
                 <div className='calendar'>
                   <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <CalendarPicker
+                      className="qsd"
                       date={date}
                       onChange={(newDate) => setDate(newDate)}
                     />

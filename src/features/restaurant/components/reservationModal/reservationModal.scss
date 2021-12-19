@@ -73,34 +73,35 @@
   }
 }
 
-.css-169iwlq-MuiCalendarPicker-root {
-  //margin: unset !important;
-  margin: 0 auto;
-  border: dashed 1px rgba(251, 85, 87, 0.3);
-  border-radius: 40px;
-}
 
-.css-dhopo2 {
-  min-height: 231px !important;
-}
 
-.css-l0iinn {
-  font-size: 18px !important;
-  font-weight: bold !important;
-}
+.qsd {
+    //margin: unset !important;
+    margin: 0 auto;
+    border: dashed 1px rgba(251, 85, 87, 0.3);
+    border-radius: 40px;
 
-.css-bkrceb-MuiButtonBase-root-MuiPickersDay-root.Mui-selected {
-  background-color: #fb5557 !important;
-}
-.css-195y93z-MuiButtonBase-root-MuiPickersDay-root.Mui-selected {
-  background-color: #fb5557 !important;
-}
-.css-bkrceb-MuiButtonBase-root-MuiPickersDay-root {
-  border-radius: 10px !important;
-  font-size: 14px !important;
-  font-weight: bold !important;
-}
+  .css-dhopo2 {
+    min-height: 231px !important;
+  }
 
-.css-6hxnd4 .PrivateTimePickerToolbar-penIconLandscape {
-  display: none !important;
+  .css-l0iinn {
+    font-size: 18px !important;
+    font-weight: bold !important;
+  }
+  .css-bkrceb-MuiButtonBase-root-MuiPickersDay-root.Mui-selected {
+    background-color: #fb5557 !important;
+  }
+  .css-195y93z-MuiButtonBase-root-MuiPickersDay-root.Mui-selected {
+    background-color: #fb5557 !important;
+  }
+  .css-bkrceb-MuiButtonBase-root-MuiPickersDay-root {
+    border-radius: 10px !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+  }
+
+  .css-6hxnd4 .PrivateTimePickerToolbar-penIconLandscape {
+    display: none !important;
+  }
 }
