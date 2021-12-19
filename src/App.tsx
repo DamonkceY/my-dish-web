@@ -19,6 +19,7 @@ import LoyaltySpace from './features/profile/components/loyaltySpace/loyaltySpac
 import MyRates from './features/profile/components/myRates/myRates'
 import MyFavorite from './features/profile/components/myFavorites/myFavorite'
 import SearchResult from './features/searchResult/searchResult'
+import Security from './features/profile/components/security/security'
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path={Paths.searchResult} element={<SearchResult/>}/>
           <Route path={Paths.profile.index} element={<Profile/>}>
             <Route index element={<MyProfile/>}/>
+            <Route path={Paths.profile.security} element={<Security/>}/>
             <Route path={Paths.profile.myReservations} element={<MyReservations/>}/>
             <Route path={Paths.profile.fidelity} element={<LoyaltySpace/>}/>
             <Route path={Paths.profile.rates} element={<MyRates/>}/>

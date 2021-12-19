@@ -27,11 +27,16 @@
       display: flex;
       flex-direction: column;
 
+      span {
+        margin-bottom: 10px;
+      }
+
       .rateComments {
         display: flex;
         flex-direction: row;
         width: 100px;
         justify-content: space-between;
+        margin-bottom: unset;
 
         .comments {
           background-image: url("../../assets/chatWhite.svg");

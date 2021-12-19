@@ -106,6 +106,12 @@
     }
   }
   .slider {
+    .css-187mznn-MuiSlider-root {
+      color: #fb5557 !important;
+    }
+    .css-eg0mwd-MuiSlider-thumb:hover, .css-eg0mwd-MuiSlider-thumb.Mui-focusVisible {
+      box-shadow: 0px 0px 0px 8px rgb(255 54 0 / 16%) !important;
+    }
     .note {
       font-weight: bold;
       font-size: 16px;

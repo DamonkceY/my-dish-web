@@ -16,6 +16,7 @@ import StaticTimePicker from '@mui/lab/StaticTimePicker';
 import TextField from '@mui/material/TextField';
 import { Paths } from '../../../../app/utils/paths/Paths'
 import { useNavigate } from 'react-router-dom'
+import VerticalScroll from '../../../../sharedComponents/verticalScroll/verticalScroll'
 
 
 const ModalReservation: React.FC<{closeEvent: Function}> = ({closeEvent}) => {
@@ -65,6 +66,7 @@ const ModalReservation: React.FC<{closeEvent: Function}> = ({closeEvent}) => {
             {
               step === 2 && (
               <div style={{height: '300px'}}>
+                <VerticalScroll/>
                 En cours
                 {/*<LocalizationProvider dateAdapter={AdapterDateFns}>*/}
                 {/*  <StaticTimePicker*/}

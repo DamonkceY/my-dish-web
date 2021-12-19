@@ -17,6 +17,7 @@ export const Paths = {
   cart: '/cart',
   profile: {
     index: '/profile',
+    security: 'security',
     myReservations: 'myReservations',
     fidelity: 'loyaltySpace',
     rates: 'rates',
