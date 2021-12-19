@@ -12,6 +12,11 @@ code {
   monospace;
 }
 
+@font-face {
+  font-family: 'Circe';
+  src: local('Circe'), url('./assets/fonts/circe-regular.ttf') format('truetype');
+}
+
 * {
   font-family: 'Circe', sans-serif;
   font-size: 16px;
