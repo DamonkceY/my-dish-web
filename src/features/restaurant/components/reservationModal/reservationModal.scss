@@ -24,25 +24,90 @@
       width: 100%;
 
       .step {
-
+        margin: 50px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         .calendar {
-          margin: 50px 0;
+
+        }
+        .scrollCont {
+          padding: 36px;
+          height: 300px;
+          width: 419px;
+          border: dashed 1px rgba(251, 85, 87, 0.3);
+          border-radius: 40px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: center;
+          &.noBorder {
+            border: unset;
+            padding: unset;
+          }
+          .selectCont {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            span {
+              font-weight: bold;
+              font-size: 18px;
+              padding-right: 10px;
+            }
+
+          }
+          .cont {
+            &.gray{
+              background-color: #f1f5f8;
+            }
+            cursor: pointer;
+            min-height: 120px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+            border: dashed 1px rgba(251, 85, 87, 0.3);
+            border-radius: 40px;
+            .title {
+              font-weight: bold;
+              font-size: 17px;
+              &.orange {
+                color: #fb5557;
+              }
+            }
+          }
         }
 
       }
 
       .headerSteps {
         position: relative;
-        .iconsContainer{
+
+        .iconsContainer {
           margin-bottom: 15px;
+          display: flex;
+
           img {
             padding: 0 65px;
             border-right: 1px solid rgba(251, 85, 87, 0.3);
           }
+
           img:last-child {
             border: unset;
           }
+
+          .valueSelectedTab{
+            font-weight: bold;
+            font-size: 16px;
+            text-align: center;
+            display: inline-block;
+            width: 156px;
+            color: #fb5557;
+            border-right: 1px solid rgba(251, 85, 87, 0.3);
+          }
         }
+
         .underline {
           width: 25%;
           height: 5px;
@@ -50,7 +115,8 @@
           border-radius: 10px;
           transition: .5s ease-in-out;
         }
-        .underlineStatic{
+
+        .underlineStatic {
           position: absolute;
           bottom: 0;
           width: 100%;
@@ -74,34 +140,28 @@
 }
 
 
+.calendarPicker {
+  max-height: 420px !important;
+  margin: 0 auto;
+  border: dashed 1px rgba(251, 85, 87, 0.3);
+  border-radius: 40px;
 
-.qsd {
-    //margin: unset !important;
-    margin: 0 auto;
-    border: dashed 1px rgba(251, 85, 87, 0.3);
-    border-radius: 40px;
-
-  .css-dhopo2 {
-    min-height: 231px !important;
-  }
-
-  .css-l0iinn {
+  div[role=presentation] {
     font-size: 18px !important;
     font-weight: bold !important;
   }
-  .css-bkrceb-MuiButtonBase-root-MuiPickersDay-root.Mui-selected {
-    background-color: #fb5557 !important;
-  }
-  .css-195y93z-MuiButtonBase-root-MuiPickersDay-root.Mui-selected {
-    background-color: #fb5557 !important;
-  }
-  .css-bkrceb-MuiButtonBase-root-MuiPickersDay-root {
-    border-radius: 10px !important;
-    font-size: 14px !important;
-    font-weight: bold !important;
-  }
 
-  .css-6hxnd4 .PrivateTimePickerToolbar-penIconLandscape {
-    display: none !important;
+  div[role=cell] {
+    .Mui-selected{
+      background-color: #fb5557 !important;
+    }
+    button {
+      border-radius: 10px !important;
+      font-size: 14px !important;
+      font-weight: bold !important;
+    }
+    span {
+      border-radius: 10px !important;
+    }
   }
 }

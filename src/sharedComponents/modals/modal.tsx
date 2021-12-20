@@ -50,61 +50,62 @@ const ShoppingModal = () => {
             <div className='shoppingModalHeader'>
               <img onClick={() => dispatch(setShoppingModal(false))} className='close clickable' src={close} alt='' />
             </div>
-            <div className='shoppingModalDescription'>
-              <span className='shoppingModalDescriptionTitle'>Soupe de nouilles au bœuf piquant</span>
-              <span>
+            <div className='cont'>
+              <div className='shoppingModalDescription'>
+                <span className='shoppingModalDescriptionTitle'>Soupe de nouilles au bœuf piquant</span>
+                <span>
                 Pâtes fraîches au choix. Sauce tomate, basilic, piment et parmesan.
               </span>
-            </div>
-            <div className='horizontalSeparator' />
-            <div className='shoppingModalChoices'>
-              <span className='title'>Pâtes au choix</span>
-              <span>Obligatoire</span>
-              <div className='radioElements'>
-                <div className='radioEl'>
-                  <div className='flexRadio'>
+              </div>
+              <div className='horizontalSeparator' />
+              <div className='shoppingModalChoices'>
+                <span className='title'>Pâtes au choix</span>
+                <span>Obligatoire</span>
+                <div className='radioElements'>
+                  <div className='radioEl'>
+                    <div className='flexRadio'>
                     <span className='radio isActive'>
                       <span className='innerRadio isActive'/>
                     </span>
-                    <span className='radioLabel'>Vermicelle du riz</span>
+                      <span className='radioLabel'>Vermicelle du riz</span>
+                    </div>
+                    <span className='price isActive'>+ 1,00 €</span>
                   </div>
-                  <span className='price isActive'>+ 1,00 €</span>
-                </div>
-                <div className='radioEl'>
-                  <div className='flexRadio'>
+                  <div className='radioEl'>
+                    <div className='flexRadio'>
                     <span className='radio'>
                       <span className='innerRadio'/>
                     </span>
-                    <span className='radioLabel'>Vermicelle du riz</span>
+                      <span className='radioLabel'>Vermicelle du riz</span>
+                    </div>
+                    <span className='price'>+ 1,00 €</span>
                   </div>
-                  <span className='price'>+ 1,00 €</span>
-                </div>
-                <div className='radioEl'>
-                  <div className='flexRadio'>
+                  <div className='radioEl'>
+                    <div className='flexRadio'>
                     <span className='radio'>
                       <span className='innerRadio'/>
                     </span>
-                    <span className='radioLabel'>Vermicelle du riz</span>
+                      <span className='radioLabel'>Vermicelle du riz</span>
+                    </div>
+                    <span className='price'>+ 1,00 €</span>
                   </div>
-                  <span className='price'>+ 1,00 €</span>
-                </div>
-                <div className='radioEl'>
-                  <div className='flexRadio'>
+                  <div className='radioEl'>
+                    <div className='flexRadio'>
                     <span className='radio'>
                       <span className='innerRadio'/>
                     </span>
-                    <span className='radioLabel'>Vermicelle du riz</span>
+                      <span className='radioLabel'>Vermicelle du riz</span>
+                    </div>
+                    <span className='price'>+ 1,00 €</span>
                   </div>
-                  <span className='price'>+ 1,00 €</span>
                 </div>
               </div>
+              <div className='horizontalSeparator' />
+              <div className='shoppingModalSpecialInstruction'>
+                <span>Instructions spéciales </span>
+                <textarea placeholder={'Ajouter une remarque ou une instruction spéciale'} rows={3}/>
+              </div>
             </div>
-            <div className='horizontalSeparator' />
-            <div className='shoppingModalSpecialInstruction'>
-              <span>Instructions spéciales </span>
-              <textarea placeholder={'Ajouter une remarque ou une instruction spéciale'} rows={3}/>
-            </div>
-            {/*<div style={{ height: '100px' }} />*/}
             <div className='shoppingModalFooter'>
               <div className='shoppingModalFooterSettings'>
                 <img onClick={() => increment(-1)} className={count === 1 ? 'unClickable' : 'clickable'} draggable={false} src={count === 1 ? moinInActive : moinActive} alt='' />

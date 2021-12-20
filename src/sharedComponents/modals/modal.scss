@@ -20,60 +20,65 @@
       right: 30px;
     }
   }
-  .shoppingModalDescription {
-    padding: 17px 40px ;
-    display: flex;
-    flex-direction: column;
-    .shoppingModalDescriptionTitle{
-      font-size: 22px;
-      font-weight: bold;
-      color: black;
+  .cont {
+    max-height: 60vh;
+    overflow-y: auto;
+    .shoppingModalDescription {
+      padding: 17px 40px ;
+      display: flex;
+      flex-direction: column;
+      .shoppingModalDescriptionTitle{
+        font-size: 22px;
+        font-weight: bold;
+        color: black;
+      }
+      span {
+        font-size: 16px;
+        color: #858891;
+      }
     }
-    span {
-      font-size: 16px;
-      color: #858891;
+
+    .shoppingModalSpecialInstruction{
+      padding: 17px 40px ;
+      display: flex;
+      flex-direction: column;
+
+      span {
+        font-weight: bold;
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+      textarea {
+        resize: none;
+        border: unset;
+        background-color: #f1f5f8;
+        padding: 10px;
+        border-radius: 10px;
+      }
+    }
+
+    .shoppingModalChoices {
+      padding: 17px 40px ;
+      display: flex;
+      flex-direction: column;
+      .title {
+        font-weight: bold;
+        font-size: 18px;
+        color: black;
+
+      }
+      span{
+        font-size: 16px;
+        color: #858891;
+        margin-bottom: 10px;
+      }
+
+      .radioElements {
+
+      }
     }
   }
 
-  .shoppingModalSpecialInstruction{
-    padding: 17px 40px ;
-    display: flex;
-    flex-direction: column;
-
-    span {
-      font-weight: bold;
-      font-size: 16px;
-      margin-bottom: 10px;
-    }
-    textarea {
-      resize: none;
-      border: unset;
-      background-color: #f1f5f8;
-      padding: 10px;
-      border-radius: 10px;
-    }
-  }
-
-  .shoppingModalChoices {
-    padding: 17px 40px ;
-    display: flex;
-    flex-direction: column;
-    .title {
-      font-weight: bold;
-      font-size: 18px;
-      color: black;
-
-    }
-    span{
-      font-size: 16px;
-      color: #858891;
-      margin-bottom: 10px;
-    }
-
-    .radioElements {
-
-    }
-  }
 
   .shoppingModalFooter {
     height: 100px;
