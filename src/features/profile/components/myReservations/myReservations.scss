@@ -1,0 +1,56 @@
+.cardContainer {
+  background-color: #f1f5f8;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 800px;
+  max-height: 265px;
+  display: flex;
+  flex-direction: row;
+  margin: 55px 0;
+  .cardImage{
+    width: 50%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .detailCardCont {
+    width: 100%;
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .head {
+      display: flex;
+      flex-direction: column;
+      .title {
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 8px;
+      }
+    }
+    .inlineDetails{
+      display: flex;
+      img{
+        width: 18px;
+        height: 18px;
+        margin-right: 5px;
+      }
+      span {
+        font-weight: bold;
+        font-size: 16px;
+        margin-right: 5px;
+      }
+    }
+  }
+}
+
+.horizontalSeparator {
+  margin: 20px 0;
+}
+
+.graySpan {
+  color: #858891;
+}
+
+.opacity {
+  opacity: 0.4;
+}

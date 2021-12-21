@@ -1,0 +1,36 @@
+
+
+.selectButtonCont {
+  background-color: #f1f5f8;
+  border-radius: 5px;
+  padding: 11px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  position: relative;
+  span {
+    font-size: 16px;
+    font-weight: bold;
+    padding-right: 10px;
+  }
+  img {
+    width: 8px;
+    height: 4px;
+  }
+
+  .selectButtonPopUp {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.17);
+    border-radius: 5px;
+    padding: 20px;
+    position: absolute;
+    z-index: 9999;
+    top: 50px;
+    right: 0;
+    background-color: #fff;
+    display: none;
+    min-width: 300px;
+    &.true {
+      display: unset;
+    }
+  }
+}

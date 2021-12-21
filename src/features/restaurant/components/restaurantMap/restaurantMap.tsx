@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 
-const RestaurantMap: React.FC = () => {
+const RestaurantMap: React.FC<{id: string}> = ({id}) => {
   const [mapObject, setMapObject] = useState<google.maps.Map | null>(null)
   useEffect(() => {
     const mapProp: google.maps.MapOptions = {
@@ -14,16 +14,19 @@ const RestaurantMap: React.FC = () => {
       clickableIcons: false,
       zoom: 18,
     }
-    const map = new google.maps.Map(document.getElementById('restaurantPosition') as HTMLElement, mapProp)
-    new google.maps.Marker({
-      map,
+    const map = new google.maps.Map(document.getElementById(id) as HTMLElement, mapProp)
+    const marker = new google.maps.Marker({
       position: new google.maps.LatLng(48.8566, 2.3522),
     })
+    marker.addListener('click', () => {
+      window.open(`https://www.google.com/maps/dir/?api=1&layer=traffic&destination=${48.8566},${2.3522}`);
+    })
+    marker.setMap(map)
     setMapObject(map)
   }, [])
 
   return (
-    <div id='restaurantPosition' className='mapContainer' />
+    <div id={id} className='mapContainer' />
   )
 }
 

@@ -15,6 +15,7 @@ import RestaurantMap from './components/restaurantMap/restaurantMap'
 import ShoppingModal from '../../sharedComponents/modals/modal'
 import { useNavigate } from 'react-router-dom'
 import { Paths } from '../../app/utils/paths/Paths'
+import MoreDetailModal from './components/moreDetailModal/moreDetailModal'
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -32,6 +33,7 @@ const Restaurant = () => {
   const [tabSelected, setTabSelected] = useState('ENTRIES')
   const isMounted = useRef(false)
   const [shoppingModal, setShoppingModal] = useState(false)
+  const [moreDetail, setMoreDetail] = useState(false)
 
   useEffect(() => {
     window.scroll({ top: 0, behavior: 'smooth' })
@@ -46,6 +48,7 @@ const Restaurant = () => {
   useEffect(() => {
     isMounted.current ? document.getElementById(tabSelected)?.scrollIntoView({ behavior: 'smooth' }) : (isMounted.current = true)
   }, [tabSelected])
+
   const array = ['ENTRIES', 'DISHES', 'DESSERTS', 'DRINKS']
 
   const navigate = useNavigate()
@@ -67,13 +70,13 @@ const Restaurant = () => {
             </span>
             <span>Italien • Pizza</span>
             <span>Prix moyen  175 €</span>
-            <span>10 rue Gustave Flaubert, 75017 Paris</span>
+            <span>10 rue Gustave Flaubert, 75017 Paris • <span className='clickable moreInfo' onClick={() => setMoreDetail(true)}>Plus d'informations</span></span>
           </div>
           <div>
             <img draggable={false} src={emptyHeart} alt='' />
           </div>
         </div>
-        <RestaurantMap />
+        <RestaurantMap id={'restaurantPosition'} />
       </div>
       <div style={{ padding: '18px 5vw' }}>
         <div className='tabsContainer'>
@@ -131,6 +134,14 @@ const Restaurant = () => {
       >
         <Box sx={style}>
           <ModalReservation closeEvent={() => setShoppingModal(false)} />
+        </Box>
+      </Modal>
+      <Modal
+        open={moreDetail}
+        onClose={() => setMoreDetail(false)}
+      >
+        <Box sx={style}>
+          <MoreDetailModal closeEvent={() => setMoreDetail(false)}/>
         </Box>
       </Modal>
       <ShoppingModal/>

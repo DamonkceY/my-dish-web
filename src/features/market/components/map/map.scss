@@ -1,0 +1,61 @@
+.sliderElement {
+  .sliderImage {
+    .cardImage {
+      max-width: 400px;
+      object-fit: cover;
+      width: 100%;
+      border-radius: 11px;
+    }
+  }
+
+  .sliderDetail {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+
+    .detail {
+      display: flex;
+      flex-direction: column;
+
+      .name {
+        font-weight: bold;
+        font-size: 18px;
+      }
+
+      .price {
+        font-size: 16px;
+      }
+
+      .speciality {
+        color: #858891;
+        font-size: 14px;
+      }
+
+      .reduction {
+        color: #fb5557;
+        font-size: 14px;
+        font-weight: bold;
+        padding-top: 10px;
+      }
+    }
+
+    .rating {
+      font-weight: bold;
+      font-size: 16px;
+    }
+  }
+}
+
+.gm-style .gm-style-iw-c {
+ border-radius: 15px !important;
+  padding: unset !important;
+
+  .gm-ui-hover-effect {
+    display: none !important;
+  }
+
+}
+
+.gm-style .gm-style-iw-d {
+  overflow: unset !important;
+}
