@@ -16,26 +16,30 @@ const Register: React.FC<{}> = () => {
   const registerSteps: Array<Array<JSX.Element>> = [
     [
       <PhoneNumberInput
+        key={1}
         config={{ label: 'REGISTER.ENTER_THE_PHONE_NUMBER', placeholder: 'REGISTER.PHONE_NUMBER' }} />,
     ],
     [
       <InputField
+        key={2}
         config={{ label: 'SMS_VERIFICATION.ENTER_CODE', placeholder: 'SMS_VERIFICATION.FOUR_DIGITS_CODE', type: 'text' }} />,
     ],
     [
-      <InputField config={{ label: 'REGISTER.ENTER_THE_EMAIL', placeholder: 'REGISTER.EMAIL', type: 'text' }} />,
+      <InputField key={3} config={{ label: 'REGISTER.ENTER_THE_EMAIL', placeholder: 'REGISTER.EMAIL', type: 'text' }} />,
     ],
     [
       <InputField
+        key={4}
         config={{ label: 'REGISTER.ENTER_YOUR_FULL_NAME', placeholder: 'REGISTER.FAMILY_NAME', type: 'text' }} />,
-      <InputField config={{ label: '', placeholder: 'REGISTER.NAME', type: 'text' }} />,
+      <InputField key={5} config={{ label: '', placeholder: 'REGISTER.NAME', type: 'text' }} />,
     ],
     [
       <InputField
+        key={6}
         config={{ label: 'PASSWORD.ENTER_THE_PASSWORD', placeholder: 'PASSWORD.PASSWORD', type: 'password' }} />,
-      <InputField config={{ label: '', placeholder: 'PASSWORD.CONFIRM_PASSWORD', type: 'password' }} />,
+      <InputField key={7} config={{ label: '', placeholder: 'PASSWORD.CONFIRM_PASSWORD', type: 'password' }} />,
     ],
-    [<Congrats name={'Ahmed'} />],
+    [<Congrats key={8} name={'Ahmed'} />],
   ]
   const toNextStep = () => {
     if (stepIndex < registerSteps.length - 1){

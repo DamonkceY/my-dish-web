@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import InputField from '../../../../sharedComponents/inputField/inputField'
-import Button from '../../../../sharedComponents/button/button'
 import { Paths } from '../../../../app/utils/paths/Paths'
 import google from '../../../../assets/googleIcon.svg'
 import facebook from '../../../../assets/facebookIcon.svg'
@@ -15,14 +14,17 @@ const Login = () => {
   const [stepIndex, setStepIndex] = useState(0)
   const loginSteps: Array<Array<JSX.Element>> = [
     [
-      <InputField config={{
-        label: 'LOGIN.ENTER_PHONE_NUMBER_OR_EMAIL',
-        placeholder: 'LOGIN.PHONE_NUMBER_OR_EMAIL',
-        type: 'text',
-      }} />,
+      <InputField
+        key={1}
+        config={{
+          label: 'LOGIN.ENTER_PHONE_NUMBER_OR_EMAIL',
+          placeholder: 'LOGIN.PHONE_NUMBER_OR_EMAIL',
+          type: 'text',
+        }}
+      />,
     ],
     [
-      <InputField config={{ label: 'PASSWORD.ENTER_THE_PASSWORD', placeholder: 'PASSWORD.PASSWORD', type: 'text' }} />,
+      <InputField key={2} config={{ label: 'PASSWORD.ENTER_THE_PASSWORD', placeholder: 'PASSWORD.PASSWORD', type: 'password' }} />,
     ],
   ]
   const toNextStep = () => {

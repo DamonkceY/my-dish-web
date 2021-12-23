@@ -1,7 +1,7 @@
-import React from 'react';
-import './App.scss';
-import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
-import Authentication from './features/authentication/authentication';
+import React from 'react'
+import './App.scss'
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
+import Authentication from './features/authentication/authentication'
 import { Paths } from './app/utils/paths/Paths'
 import Login from './features/authentication/components/login/login'
 import Register from './features/authentication/components/register/register'
@@ -20,37 +20,39 @@ import MyRates from './features/profile/components/myRates/myRates'
 import MyFavorite from './features/profile/components/myFavorites/myFavorite'
 import SearchResult from './features/searchResult/searchResult'
 import Security from './features/profile/components/security/security'
+import Test from './test'
 
 function App() {
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path={Paths.home} element={<MainHome/>}/>
-          <Route path={Paths.restaurantHome} element={<RestaurantLandingPage/>}/>
-          <Route path={Paths.market.index} element={<Market/>}/>
-          <Route path={Paths.restaurant} element={<Restaurant/>}/>
-          <Route path={Paths.shop} element={<Shop/>}/>
-          <Route path={Paths.cart} element={<ShoppingCart/>}/>
-          <Route path={Paths.searchResult} element={<SearchResult/>}/>
-          <Route path={Paths.profile.index} element={<Profile/>}>
-            <Route index element={<MyProfile/>}/>
-            <Route path={Paths.profile.security} element={<Security/>}/>
-            <Route path={Paths.profile.myReservations} element={<MyReservations/>}/>
-            <Route path={Paths.profile.fidelity} element={<LoyaltySpace/>}/>
-            <Route path={Paths.profile.rates} element={<MyRates/>}/>
-            <Route path={Paths.profile.favorites} element={<MyFavorite/>}/>
+          <Route path={Paths.home} element={<MainHome />} />
+          <Route path={Paths.restaurantHome} element={<RestaurantLandingPage />} />
+          <Route path={Paths.market.index} element={<Market />} />
+          <Route path={Paths.restaurant} element={<Restaurant />} />
+          <Route path={Paths.shop} element={<Shop />} />
+          <Route path={Paths.cart} element={<ShoppingCart />} />
+          <Route path={Paths.searchResult} element={<SearchResult />} />
+          <Route path={Paths.profile.index} element={<Profile />}>
+            <Route index element={<MyProfile />} />
+            <Route path={Paths.profile.security} element={<Security />} />
+            <Route path={Paths.profile.myReservations} element={<MyReservations />} />
+            <Route path={Paths.profile.fidelity} element={<LoyaltySpace />} />
+            <Route path={Paths.profile.rates} element={<MyRates />} />
+            <Route path={Paths.profile.favorites} element={<MyFavorite />} />
           </Route>
-          <Route path={Paths.auth.index} element={<Authentication/>}>
-            <Route index element={<Login/>}/>
-            <Route path={Paths.auth.register} element={<Register/>}/>
-            <Route path={Paths.auth.passwordForgotten} element={<PasswordForgotten/>}/>
+          <Route path={Paths.auth.index} element={<Authentication />}>
+            <Route index element={<Login />} />
+            <Route path={Paths.auth.register} element={<Register />} />
+            <Route path={Paths.auth.passwordForgotten} element={<PasswordForgotten />} />
           </Route>
-          <Route path={Paths.redirect} element={<Navigate to={Paths.home}/>}/>
+          <Route path={Paths.redirect} element={<Navigate to={Paths.home} />} />
+          <Route path={'/test'} element={<Test/>}/>
         </Routes>
       </BrowserRouter>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

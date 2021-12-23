@@ -26,8 +26,8 @@ const InputField: React.FC<{ config: InputFieldInterface }> = ({ config }) => {
   }
 
   const getType = () => {
-    if (config.type !== 'password') return config.type;
-    return showPassword ? 'text' : 'password';
+    if (config.type !== 'password') return config.type
+    return showPassword ? 'text' : 'password'
   }
 
   return (
@@ -38,7 +38,8 @@ const InputField: React.FC<{ config: InputFieldInterface }> = ({ config }) => {
       <div className='inputContainer'>
         <input
           onChange={onChange}
-          className={`inputValidatorState ${isValid ? 'success' : 'error'}`}
+          // ${isValid ? 'success' : 'error'}
+          className={`inputValidatorState `}
           type={getType()}
           placeholder={t(config?.placeholder)} />
         {config.type === 'password' && <img
