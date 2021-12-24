@@ -42,18 +42,19 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
 //.react-tel-input .form-control,
- input {
+input {
   -moz-box-sizing: border-box !important;
   -webkit-box-sizing: border-box !important;
   box-sizing: border-box !important;
-//  background-color: #f1f5f8 !important;
-//  max-height: 60px !important;
+  //  background-color: #f1f5f8 !important;
+  //  max-height: 60px !important;
   font-size: 16px !important;
   border-radius: 8px !important;
-//  padding: 19px 40px 19px 19px !important;
-//  width: 100% !important;
-  border: solid 1px transparent ;
+  //  padding: 19px 40px 19px 19px !important;
+  //  width: 100% !important;
+  border: solid 1px transparent;
 }
 
 input:focus, textarea:focus, select:focus {
@@ -83,11 +84,13 @@ input:focus, textarea:focus, select:focus {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
   .flexRadio {
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
+
     .radio {
       cursor: pointer;
       position: relative;
@@ -98,12 +101,13 @@ input:focus, textarea:focus, select:focus {
       border: solid 2px #858891;
       margin-right: 10px;
 
-      .innerRadio{
+      .innerRadio {
         position: absolute;
         width: 10px;
         height: 10px;
         display: inline-block;
         border-radius: 50%;
+
         &.isActive {
           background-color: black;
         }
@@ -115,24 +119,29 @@ input:focus, textarea:focus, select:focus {
       }
     }
   }
-  .radioLabel{
+
+  .radioLabel {
     font-size: 16px;
     color: #000;
+
     img {
       margin-right: 10px;
       width: 33px;
       height: 21px;
     }
   }
-  .notif{
+
+  .notif {
     bottom: -20px;
     left: 33px;
     position: absolute;
     font-size: 14px;
     color: #858891;
   }
-  .price{
+
+  .price {
     color: #b0b3bc;
+
     &.isActive {
       color: #000;
     }
@@ -165,6 +174,7 @@ input:focus, textarea:focus, select:focus {
 .clickable {
   cursor: pointer;
 }
+
 .unClickable {
   cursor: not-allowed;
 }
