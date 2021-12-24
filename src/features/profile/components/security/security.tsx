@@ -7,7 +7,7 @@ const Security = () => {
       <div className='profileHeaderContainer'>
         <span>Mot de passe et sécurité</span>
       </div>
-      <div className='horizontalSeparator' />
+      <div style={{margin: '20px 0'}} className='horizontalSeparator' />
 
       <div className='hintsCont'>
         <span className='title'>Mot de passe</span>

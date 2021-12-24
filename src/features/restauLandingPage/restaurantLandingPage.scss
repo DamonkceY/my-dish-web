@@ -115,15 +115,25 @@
       grid-template-columns: 1fr 1fr;
       grid-gap: 50px;
 
-      input {
-        background-color: #fff !important;
-        border: solid 1px rgba(51, 58, 80, 0.17) !important;
-      }
-
       .phoneNumberContainer {
+        .main {
+          .cont {
+            border: solid 1px rgba(51, 58, 80, 0.17);
+            background-color: unset;
+          }
+          input {
+            border: unset;
+            height: 58px;
+          }
+        }
         label {
           display: unset !important;
         }
+      }
+
+      input {
+        background-color: #fff !important;
+        border: solid 1px rgba(51, 58, 80, 0.17);
       }
     }
 

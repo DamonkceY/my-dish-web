@@ -8,7 +8,7 @@ const MyFavorite = () => {
       <div className='profileHeaderContainer'>
         <span>Mes favoris</span>
       </div>
-      <div className='horizontalSeparator'/>
+      <div style={{margin: '20px 0'}} className='horizontalSeparator'/>
       <div className='favoritesCont'>
         <SliderElement isFavorite={true} element={SLIDES[0]}/>
         <SliderElement isFavorite={true} element={SLIDES[0]}/>

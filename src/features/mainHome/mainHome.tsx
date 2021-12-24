@@ -55,7 +55,7 @@ const MainHome = () => {
       {
         slidersConfig.map((item) => (
           <div className='sidesPadding'>
-            <div className='horizontalSeparator'/>
+            <div style={{margin: '90px 5vw'}} className='horizontalSeparator'/>
             <Slider config={item}/>
           </div>
         ))

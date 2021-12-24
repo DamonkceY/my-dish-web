@@ -16,7 +16,7 @@ const MyReservations = () => {
       <div className='profileHeaderContainer'>
         <span>Mes réservations</span>
       </div>
-      <div className='horizontalSeparator' />
+      <div style={{margin: '20px 0'}} className='horizontalSeparator' />
       <div className='tabsContainer'>
         <div className='tabs'>
           <div className='cont'>

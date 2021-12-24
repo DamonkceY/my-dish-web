@@ -4,7 +4,6 @@ import updateSVG from '../../../../assets/modifier.svg'
 import deleteSVG from '../../../../assets/supprimer.svg'
 import Slider from '@mui/material/Slider'
 import './myRates.scss'
-import { setShoppingModal } from '../../../../app/store/storeModules/root/root'
 
 import Modal from '@mui/material/Modal'
 import Box from '@mui/material/Box'
@@ -29,7 +28,7 @@ const MyRates = () => {
       <div className='profileHeaderContainer'>
         <span>Mes avis</span>
       </div>
-      <div className='horizontalSeparator' />
+      <div style={{margin: '20px 0'}} className='horizontalSeparator' />
 
       <div className='ratesContainer'>
         <RateComp openModal={() => setModelData(true)} />
@@ -47,7 +46,7 @@ const MyRates = () => {
               <span>Modifier l'avis</span>
               <img onClick={() => setModelData(false)} className='close clickable' src={close} alt='' />
             </div>
-            <div className='horizontalSeparator' />
+            <div style={{margin: '20px 0'}} className='horizontalSeparator' />
             <div className='slider'>
               <span className='note'>Note</span>
               <Slider aria-label='Small' valueLabelDisplay='auto' defaultValue={9.5} step={0.5} min={1} max={10} />

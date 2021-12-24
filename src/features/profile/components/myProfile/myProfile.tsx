@@ -8,7 +8,7 @@ const MyProfile = () => {
         <span>Mon profil</span>
         <span className='update'>Modifier</span>
       </div>
-      <div className='horizontalSeparator'/>
+      <div style={{margin: '20px 0'}} className='horizontalSeparator'/>
       <div className='profileInputs'>
         <div className='avatarWithName'>
           <img draggable={false} src={avatar} alt=''/>

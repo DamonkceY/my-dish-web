@@ -7,7 +7,7 @@ const LoyaltySpace = () => {
       <div className='profileHeaderContainer'>
         <span>Mon espace fidélité</span>
       </div>
-      <div className='horizontalSeparator'/>
+      <div style={{margin: '20px 0'}} className='horizontalSeparator'/>
       <div className='cardLoyaltyContainer'>
 
         <div className='loyalty'>

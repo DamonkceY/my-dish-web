@@ -73,6 +73,11 @@ input:focus, textarea:focus, select:focus {
   color: #b0b3bc;
 }
 
+.horizontalSeparator {
+  border: solid 1px #333a50;
+  opacity: 0.15;
+}
+
 // TODO qsdqsdqsd
 .radioEl {
   display: flex;
