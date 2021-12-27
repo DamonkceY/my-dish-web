@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import LOGO from '../../assets/myDishLogo.svg'
 import './navBar.scss'
 import { useNavigate } from 'react-router-dom'
@@ -12,6 +12,7 @@ export interface NavbarConfigInterface {
 
 const NavBar: React.FC<{config?: NavbarConfigInterface}> = ({ config }) => {
   const [isShadow, setShadow] = useState(false);
+  const lastScrollY = useRef(0)
   const navigate = useNavigate();
   useEffect(() => {
     if (!config?.isStatic) {

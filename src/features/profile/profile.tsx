@@ -61,8 +61,6 @@ const Profile = () => {
           <Outlet />
         </div>
       </div>
-      <div style={{ height: '720px' }} />
-      <Footer />
     </div>
   )
 }

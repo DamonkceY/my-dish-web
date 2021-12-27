@@ -24,3 +24,12 @@
 
   }
 }
+
+@media screen and(max-width: 720px) {
+  .rightCompCont {
+    span {
+      font-size: calc(0.5vw + 14px);
+      padding: unset;
+    }
+  }
+}

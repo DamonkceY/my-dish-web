@@ -149,8 +149,7 @@ const RestaurantLandingPage = () => {
           </div>
         </div>
       </div>
-      <div style={{ height: '630px' }} />
-      <Footer />
+      {/*<Footer height='630px'/>*/}
     </div>
   )
 }

@@ -125,8 +125,6 @@ const Restaurant = () => {
           ))
         }
       </div>
-      <div style={{ height: '720px' }} />
-      <Footer />
 
       <Modal
         open={shoppingModal}
