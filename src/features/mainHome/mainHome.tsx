@@ -10,71 +10,74 @@ import Footer from '../../sharedComponents/footer/footer'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { Paths } from '../../app/utils/paths/Paths'
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
+import 'react-multi-carousel/lib/styles.css'
+import { getDocumentWidth } from '../../app/utils/func/commonFuncs'
+import { useAppSelector } from '../../app/store/hooks'
+import { selectDeviceWidth } from '../../app/store/storeModules/root/root'
+import MobileNavigation from '../../sharedComponents/mobileNavigation/mobileNavigation'
 
 const MainHome = () => {
+  const deviceWidth = useAppSelector(selectDeviceWidth)
   const [slidersConfig] = useState<Array<SliderConfigInterface>>([
     {
       name: 'HOME.SLIDES.BOOK_A_TABLE',
       paginationUrl: '',
       moreDetailPath: '/market/reserve',
-      slidesList: SLIDES
+      slidesList: SLIDES,
     },
     {
       name: 'HOME.SLIDES.DELIVERY',
       paginationUrl: '',
       moreDetailPath: '/market/delivery',
-      slidesList: SLIDES
+      slidesList: SLIDES,
     },
     {
       name: 'HOME.SLIDES.CHOOSE_YOUR_SPECIALITY',
       isSimple: true,
       paginationUrl: '',
       moreDetailPath: '/market/speciality',
-      slidesList: SLIDES
+      slidesList: SLIDES,
     },
     {
       name: 'HOME.SLIDES.NEW_ON_MY_DISH',
       paginationUrl: '',
       moreDetailPath: '/market/newOnMyDish',
-      slidesList: SLIDES
+      slidesList: SLIDES,
     },
   ])
   useEffect(() => {
-    window.scroll({top: 0, behavior: 'smooth'})
+    window.scroll({ top: 0, behavior: 'smooth' })
   }, [])
   return (
-    <div style={{position: 'relative'}}>
+    <div style={{ position: 'relative' }}>
       <NavBar config={{
-        rightComponent: <NavBarRightComp/>
-      }}/>
-      <div style={{height: '100px'}}/>
-      <SearchComp/>
-      <HowTo/>
+        rightComponent: <NavBarRightComp />,
+      }} />
+      <div style={{ height: deviceWidth > 720 ? '100px' : '70px' }} />
+      <SearchComp />
+      <HowTo />
       {
         slidersConfig.map((item) => (
           <div className='sidesPadding'>
-            <div style={{margin: '90px 5vw'}} className='horizontalSeparator'/>
-            <Slider config={item}/>
+            <div style={{ margin: `${deviceWidth > 720 ? '50px' : '30px'} 5vw` }} className='horizontalSeparator' />
+            <Slider config={item} />
           </div>
         ))
       }
-      <div style={{height: '720px'}}/>
-      <Footer/>
     </div>
   )
 }
 
 const NavBarRightComp = () => {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
+  const { t } = useTranslation()
+  const navigate = useNavigate()
+  const deviceWidth = useAppSelector(selectDeviceWidth)
   return (
     <div className='rightCompCont'>
-      <span onClick={() => navigate(Paths.restaurantHome)} className='clickable'>{ t('FOOTER.ADD_RESTAURANT') }</span>
-      <button onClick={() => navigate(Paths.auth.index)}>{t('NAVBAR.GET_CONNECTED')}</button>
+      <span onClick={() => navigate(Paths.restaurantHome)} className='clickable'>{t('FOOTER.ADD_RESTAURANT')}</span>
+      {deviceWidth > 720 && <button onClick={() => navigate(Paths.auth.index)}>{t('NAVBAR.GET_CONNECTED')}</button>}
     </div>
   )
 }
 
-export default MainHome;
+export default MainHome

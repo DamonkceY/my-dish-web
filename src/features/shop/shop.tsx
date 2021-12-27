@@ -122,8 +122,6 @@ const Shop = () => {
           </div>
         </div>
       </div>
-      <div style={{ height: '720px' }} />
-      <Footer />
       <ShoppingModal/>
     </div>
   )

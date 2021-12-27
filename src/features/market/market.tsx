@@ -34,8 +34,6 @@ const Market = () => {
           <MapCard/>
         </div>
       </div>
-      <div style={{height: '720px'}}/>
-      <Footer/>
     </div>
   )
 }

@@ -126,8 +126,6 @@ const ShoppingCart = () => {
           </div>
         </div>
       </div>
-      <div style={{ height: '720px' }} />
-      <Footer />
       <Modal
         open={modal}
         onClose={() => setModal(false)}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './App.scss'
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 import Authentication from './features/authentication/authentication'
@@ -21,10 +21,31 @@ import MyFavorite from './features/profile/components/myFavorites/myFavorite'
 import SearchResult from './features/searchResult/searchResult'
 import Security from './features/profile/components/security/security'
 import Test from './test'
+import spinner from './assets/spinner.svg'
+import { useAppSelector } from './app/store/hooks'
+import { selectDeviceWidth, selectRootLoading, setDeviceWidth } from './app/store/storeModules/root/root'
+import { useDispatch } from 'react-redux'
+import Footer from './sharedComponents/footer/footer'
+import MobileNavigation from './sharedComponents/mobileNavigation/mobileNavigation'
 
-function App() {
+const App = () => {
+  const isRootLoading = useAppSelector(selectRootLoading)
+  const deviceWidth = useAppSelector(selectDeviceWidth)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    window.addEventListener('resize', () => {
+      dispatch(setDeviceWidth(document.body.clientWidth))
+    })
+  }, [])
   return (
-    <div>
+    <div style={{position: 'relative'}}>
+      {
+        isRootLoading && (
+          <div className='loaderContainer'>
+            <img draggable={false} className='spinnerIcon' src={spinner} alt='' />
+          </div>
+        )
+      }
       <BrowserRouter>
         <Routes>
           <Route path={Paths.home} element={<MainHome />} />
@@ -48,9 +69,15 @@ function App() {
             <Route path={Paths.auth.passwordForgotten} element={<PasswordForgotten />} />
           </Route>
           <Route path={Paths.redirect} element={<Navigate to={Paths.home} />} />
-          <Route path={'/test'} element={<Test/>}/>
+          <Route path={'/test'} element={<Test />} />
         </Routes>
       </BrowserRouter>
+      {deviceWidth > 720 ? <Footer height='720px' /> : (
+        <div>
+          <div style={{ height: '12vh' }} />
+          <MobileNavigation />
+        </div>
+      )}
     </div>
   )
 }

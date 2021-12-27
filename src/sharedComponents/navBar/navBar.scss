@@ -40,3 +40,14 @@
     font-size: 20px;
   }
 }
+
+@media screen and(max-width: 720px) {
+  .navBarContainer {
+    padding: 0 2vw;
+    height: 70px;
+
+    img {
+      height: 40px;
+    }
+  }
+}

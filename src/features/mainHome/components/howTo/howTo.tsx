@@ -5,9 +5,13 @@ import mobileApp from '../../../../assets/mobileApp.png'
 import howToStep1 from '../../../../assets/howToStep1.svg'
 import howToStep2 from '../../../../assets/howToStep2.svg'
 import howToStep3 from '../../../../assets/howToStep3.svg'
+import { getDocumentWidth } from '../../../../app/utils/func/commonFuncs'
+import { useAppSelector } from '../../../../app/store/hooks'
+import { selectDeviceWidth } from '../../../../app/store/storeModules/root/root'
 
 const HowTo = () => {
   const { t } = useTranslation()
+  const deviceWidth = useAppSelector(selectDeviceWidth)
   return (
     <div className='howToContainer'>
       <div className='stepsContainer'>
@@ -33,7 +37,7 @@ const HowTo = () => {
           </button>
         </div>
       </div>
-      <img draggable={false} src={mobileApp} alt='' className='mobileAppContainer' />
+      {deviceWidth > 720 && <img draggable={false} src={mobileApp} alt='' className='mobileAppContainer' />}
     </div>
   )
 }

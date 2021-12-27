@@ -12,6 +12,7 @@
   justify-content: center;
 
   .searchLabel {
+    text-align: center;
     font-size: calc(20px + 1.5vw);
     font-weight: bold;
   }
@@ -20,6 +21,19 @@
     margin-top: 30px;
     width: 55%;
   }
+}
 
+@media screen and(max-width: 720px) {
+  .bannerContainer {
+    background-size: cover;
+    height: 300px;
 
+    .searchLabel {
+      font-size: calc(0.5vw + 20px);
+    }
+
+    .searchInputHome {
+      width: 80%;
+    }
+  }
 }

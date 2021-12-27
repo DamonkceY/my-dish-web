@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import './slider.scss'
 
 import emptyHeart from '../../../../assets/emptyHeart.svg'
@@ -10,54 +10,42 @@ import rightArrowInactive from '../../../../assets/rightArrowInactive.svg'
 
 import { SliderConfigInterface } from '../../../../app/utils/interfaces/sliderConfigInterface'
 import { useTranslation } from 'react-i18next'
-import Carousel from 'react-multi-carousel'
 import { useNavigate } from 'react-router-dom'
-import { Paths } from '../../../../app/utils/paths/Paths'
+
+import { Swiper as SwiperInterface } from 'swiper'
+import 'swiper/swiper-bundle.min.css'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { useAppSelector } from '../../../../app/store/hooks'
+import { selectDeviceWidth } from '../../../../app/store/storeModules/root/root'
 
 const Slider: React.FC<{ config: SliderConfigInterface }> = ({ config }) => {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const deviceWidth = useAppSelector(selectDeviceWidth)
+  const [SWIPER, setSwiper] = useState<SwiperInterface | undefined>(undefined)
   const [arrows, setArrows] = useState({
     left: leftArrowInactive,
     right: rightArrowActive,
   })
-  const carouselEl = useRef<Carousel | null>(null)
-
-  const responsive = {
-    desktop: {
-      breakpoint: { max: 3000, min: 1380 },
-      items: config?.isSimple ? 7 : 4,
-      slidesToSlide: config?.isSimple ? 7 : 4,
-    },
-    smallerDesktop: {
-      breakpoint: { max: 1380, min: 920 },
-      items: config?.isSimple ? 5 : 4,
-      slidesToSlide: config?.isSimple ? 5 : 4,
-    },
-    tablet: {
-      breakpoint: { max: 920, min: 464 },
-      items: 3,
-      slidesToSlide: 3,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-      slidesToSlide: 1,
-    },
-  }
 
   const moveSlides = (direction: number) => {
-    if (carouselEl.current && carouselEl.current?.state) {
-      carouselEl.current?.[direction > 0 ? 'next' : 'previous'](
-        carouselEl.current?.state.currentSlide + direction * carouselEl.current?.state.slidesToShow,
-      )
-    }
+    direction > 0 ? SWIPER?.slideNext() : SWIPER?.slidePrev()
+  }
 
+  const setArrowsEvent = () => {
+    setArrows({
+      left: SWIPER?.isBeginning ? leftArrowInactive : leftArrowActive,
+      right: SWIPER?.isEnd ? rightArrowInactive : rightArrowActive,
+    })
   }
 
   const getSlidesNumber = () => {
-    if (carouselEl.current && carouselEl.current?.state) return carouselEl.current?.state?.slidesToShow
-    return 0
+    if (deviceWidth >= 1600) return config.isSimple ? 7 : 4
+    if (deviceWidth >= 1380) return config.isSimple ? 5 : 4
+    if (deviceWidth >= 1024) return 4
+    if (deviceWidth >= 720) return 3
+    if (deviceWidth >= 480) return 2
+    return 1
   }
 
   return (
@@ -66,29 +54,33 @@ const Slider: React.FC<{ config: SliderConfigInterface }> = ({ config }) => {
         <span className='sliderName'> {t(config.name)} </span>
         <div className='sliderActions'>
           <span onClick={() => navigate(config.moreDetailPath)} className='clickable'>{t('SEE_MORE')}</span>
-          <span style={{ padding: '9px' }} />
-          <div className='arrowsContainer'>
-            <img onClick={() => moveSlides(-1)} draggable={false} src={arrows.left} alt='' />
-            <span style={{ padding: '3.5px' }} />
-            <img onClick={() => moveSlides(1)} draggable={false} src={arrows.right} alt='' />
-          </div>
+          {deviceWidth >= 480 && <span style={{ padding: '9px' }} />}
+          {
+            deviceWidth >= 480 && (
+              <div className='arrowsContainer'>
+                <img onClick={() => moveSlides(-1)} draggable={false} src={arrows.left} alt='' />
+                <span style={{ padding: '3.5px' }} />
+                <img onClick={() => moveSlides(1)} draggable={false} src={arrows.right} alt='' />
+              </div>
+            )
+          }
         </div>
       </div>
-      <Carousel
-        swipeable={false}
-        draggable={false}
-        arrows={false}
-        responsive={responsive}
-        ref={carouselEl}
-        additionalTransfrom={-10 * getSlidesNumber()}
+      <Swiper
+        onSwiper={(swiper) => setSwiper(swiper)}
+        onSlideChange={setArrowsEvent}
+        slidesPerView={getSlidesNumber()}
+        spaceBetween={30}
       >
         {
-          config.slidesList.map((element: any) => (
-            config.isSimple ? <SimpleSliderElement element={element} /> :
-              <SliderElement element={element} />
+          config.slidesList.map((item: any) => (
+            <SwiperSlide>
+              {config.isSimple ? <SimpleSliderElement element={item} /> :
+                <SliderElement element={item} />}
+            </SwiperSlide>
           ))
         }
-      </Carousel>
+      </Swiper>
     </div>
   )
 }
