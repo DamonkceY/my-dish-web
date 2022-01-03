@@ -1,4 +1,3 @@
-import Footer from '../../sharedComponents/footer/footer'
 import React, { useEffect, useState } from 'react'
 import './restaurantLandingPage.scss'
 import allWhiteLogo from '../../assets/logoBlanc.svg'
@@ -17,11 +16,14 @@ import { useNavigate } from 'react-router-dom'
 import { Paths } from '../../app/utils/paths/Paths'
 import NavBar from '../../sharedComponents/navBar/navBar'
 import PhoneNumberInput from '../../sharedComponents/phoneNumberInput/phoneNumberInput'
+import { useAppSelector } from '../../app/store/hooks'
+import { selectDeviceWidth } from '../../app/store/storeModules/root/root'
 
 const RestaurantLandingPage = () => {
-
+  const deviceWidth = useAppSelector(selectDeviceWidth);
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const [HEIGHT, setHeight] = useState('')
 
   const [isNavBar, setNavBar] = useState(false)
   useEffect(() => {
@@ -34,6 +36,12 @@ const RestaurantLandingPage = () => {
     }
   }, [])
 
+  useEffect(() => {
+    if (deviceWidth < 720) setHeight('988px')
+    else if (deviceWidth < 1024) setHeight('654px')
+    else setHeight('820px')
+  }, [deviceWidth])
+
   const buttons = (
     <div className='buttonsHead'>
       <span onClick={() => navigate(Paths.auth.index)}>{t('NAVBAR.GET_CONNECTED')}</span>
@@ -45,12 +53,12 @@ const RestaurantLandingPage = () => {
   return (
     <div style={{ position: 'relative' }}>
       <div style={isNavBar ? {} : { display: 'none' }}>
-        <NavBar config={{ rightComponent: buttons }} />
+        <NavBar config={{ rightComponent: deviceWidth > 720 ? buttons : undefined }} />
       </div>
       <div className='landingPage1'>
         <div className='head'>
           <img onClick={() => navigate(Paths.home)} className='clickable' draggable={false} src={allWhiteLogo} alt='' />
-          {buttons}
+          {deviceWidth > 720 && buttons}
         </div>
         <div className='middle'>
           <span>{t('RESTAURANT_LANDING.DEVELOP')}</span>
@@ -84,9 +92,9 @@ const RestaurantLandingPage = () => {
             </span>
             <button>Envoyer une demande</button>
           </div>
-
         </div>
       </div>
+      <div style={{backgroundColor: '#f4f4f4', height: HEIGHT}}/>
       <div className='profit'>
         <div className='profitItem'>
           <div className='textCont'>
@@ -112,7 +120,7 @@ const RestaurantLandingPage = () => {
       </div>
       <div className='whyMyDish'>
         <span>{t('RESTAURANT_LANDING.WHY_MY_DISH.WHY')}</span>
-        <div style={{ height: '90px' }} />
+        <div style={{ height: '45px' }} />
         <div className='whyProfitsCont'>
           <div className='whyProfit'>
             <img draggable={false} src={_ressources} alt='' />
@@ -149,7 +157,6 @@ const RestaurantLandingPage = () => {
           </div>
         </div>
       </div>
-      {/*<Footer height='630px'/>*/}
     </div>
   )
 }

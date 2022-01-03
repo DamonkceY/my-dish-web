@@ -1,14 +1,14 @@
 
-
-.shoppingModalContainer{
+.shoppingModalContainer {
   width: 100%;
   //overflow-y: auto;
-  .horizontalSeparator{
+  .horizontalSeparator {
     margin: 15px 40px;
   }
-  .shoppingModalHeader{
+
+  .shoppingModalHeader {
     position: relative;
-    height: 250px;
+    height: 29vh;
     width: 100%;
     background-image: url("../../assets/pizza.png");
     background-repeat: no-repeat;
@@ -20,26 +20,30 @@
       right: 30px;
     }
   }
+
   .cont {
     max-height: 60vh;
     overflow-y: auto;
+
     .shoppingModalDescription {
-      padding: 17px 40px ;
+      padding: 17px 40px;
       display: flex;
       flex-direction: column;
-      .shoppingModalDescriptionTitle{
+
+      .shoppingModalDescriptionTitle {
         font-size: 22px;
         font-weight: bold;
         color: black;
       }
+
       span {
         font-size: 16px;
         color: #858891;
       }
     }
 
-    .shoppingModalSpecialInstruction{
-      padding: 17px 40px ;
+    .shoppingModalSpecialInstruction {
+      padding: 17px 40px;
       display: flex;
       flex-direction: column;
 
@@ -48,6 +52,7 @@
         font-size: 16px;
         margin-bottom: 10px;
       }
+
       textarea {
         resize: none;
         border: unset;
@@ -58,16 +63,18 @@
     }
 
     .shoppingModalChoices {
-      padding: 17px 40px ;
+      padding: 17px 40px;
       display: flex;
       flex-direction: column;
+
       .title {
         font-weight: bold;
         font-size: 18px;
         color: black;
 
       }
-      span{
+
+      span {
         font-size: 16px;
         color: #858891;
         margin-bottom: 10px;
@@ -81,7 +88,7 @@
 
 
   .shoppingModalFooter {
-    height: 100px;
+    height: 9vh;
     background-color: #f1f5f8;
     padding: 23px 35px;
     border-radius: 0 0 40px 40px;
@@ -90,11 +97,12 @@
     justify-content: space-between;
     align-items: center;
 
-    .shoppingModalFooterSettings{
+    .shoppingModalFooterSettings {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
+
       span {
         padding: 0 10px;
         font-size: 24px;
@@ -110,6 +118,43 @@
       align-items: center;
       padding: 22px;
       background-color: #45b995;
+    }
+  }
+}
+
+
+@media screen and(max-width: 720px) {
+
+  .shoppingModalContainer {
+    .shoppingModalHeader {
+      height: 30vh;
+      img {
+        display: none;
+      }
+    }
+
+    .cont {
+      max-height: 58vh;
+      .horizontalSeparator {
+        margin: 15px;
+      }
+      .shoppingModalDescription {
+        padding: 15px 15px 0 15px;
+      }
+      .shoppingModalChoices {
+        padding: 0 15px 0 15px;
+      }
+      .shoppingModalSpecialInstruction {
+        padding: 0 15px 0 15px;
+      }
+    }
+
+    .shoppingModalFooter {
+      border-radius: unset;
+      padding: 23px 10px;
+      button {
+        width: 50%;
+      }
     }
   }
 }

@@ -2,11 +2,9 @@ import './restaurant.scss'
 import NavBar from '../../sharedComponents/navBar/navBar'
 import React, { useEffect, useRef, useState } from 'react'
 import { searchBar } from '../market/market'
-import Footer from '../../sharedComponents/footer/footer'
 import { useTranslation } from 'react-i18next'
 import { SLIDES } from '../mainHome/mockToBeDeleted'
 import emptyHeart from '../../assets/emptyHeart.svg'
-import close from '../../assets/close.svg'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
 import ModalReservation from './components/reservationModal/reservationModal'
@@ -16,33 +14,38 @@ import ShoppingModal from '../../sharedComponents/modals/modal'
 import { useNavigate } from 'react-router-dom'
 import { Paths } from '../../app/utils/paths/Paths'
 import MoreDetailModal from './components/moreDetailModal/moreDetailModal'
-
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 700,
-  bgcolor: 'background.paper',
-  borderRadius: '40px',
-  boxShadow: 24,
-}
+import { useAppSelector } from '../../app/store/hooks'
+import { selectDeviceWidth } from '../../app/store/storeModules/root/root'
+import { BottomSheet } from 'react-spring-bottom-sheet'
+import 'react-spring-bottom-sheet/dist/style.css'
 
 const Restaurant = () => {
   const { t } = useTranslation()
   const [tabSelected, setTabSelected] = useState('ENTRIES')
   const isMounted = useRef(false)
-  const [shoppingModal, setShoppingModal] = useState(false)
-  const [moreDetail, setMoreDetail] = useState(false)
+  const deviceWidth = useAppSelector(selectDeviceWidth)
+  const [shoppingModal, setShoppingModal] = useState({ mobile: deviceWidth <= 720, isOpen: false })
+  const [moreDetail, setMoreDetail] = useState({ mobile: deviceWidth <= 720, isOpen: false })
+
+  const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 700,
+    bgcolor: 'background.paper',
+    borderRadius: '40px',
+    boxShadow: 24,
+  }
 
   useEffect(() => {
     window.scroll({ top: 0, behavior: 'smooth' })
   }, [])
 
   const getMargin = () => {
-    if (tabSelected === 'DISHES') return { marginLeft: '150px' }
-    if (tabSelected === 'DESSERTS') return { marginLeft: '300px' }
-    if (tabSelected === 'DRINKS') return { marginLeft: '450px' }
+    if (tabSelected === 'DISHES') return { marginLeft: deviceWidth > 919 ? '150px' : '25%' }
+    if (tabSelected === 'DESSERTS') return { marginLeft: deviceWidth > 919 ? '300px' : '50%' }
+    if (tabSelected === 'DRINKS') return { marginLeft: deviceWidth > 919 ? '450px' : '75%' }
   }
 
   useEffect(() => {
@@ -59,7 +62,11 @@ const Restaurant = () => {
   )
   return (
     <div style={{ position: 'relative' }}>
-      <NavBar config={{ isStatic: true, rightComponent: profile, middleComponent: searchBar }} />
+      <NavBar config={{
+        isStatic: true,
+        rightComponent: deviceWidth > 720 ? profile : undefined,
+        middleComponent: deviceWidth > 720 ? searchBar : undefined,
+      }} />
       <div className='headerRestaurant'>
         <div className='detailContainer'>
           <span className='title'>Joayo Haussmann</span>
@@ -70,14 +77,31 @@ const Restaurant = () => {
             </span>
             <span>Italien • Pizza</span>
             <span>Prix moyen  175 €</span>
-            <span>10 rue Gustave Flaubert, 75017 Paris • <span className='clickable moreInfo' onClick={() => setMoreDetail(true)}>Plus d'informations</span></span>
+            <span>10 rue Gustave Flaubert, 75017 Paris • <span className='clickable moreInfo'
+                                                               onClick={() => setMoreDetail({
+                                                                 isOpen: true,
+                                                                 mobile: deviceWidth <= 720,
+                                                               })}>Plus d'informations</span></span>
           </div>
           <div>
             <img draggable={false} src={emptyHeart} alt='' />
           </div>
         </div>
-        <RestaurantMap id={'restaurantPosition'} />
+        {deviceWidth > 626 && <RestaurantMap id={'restaurantPosition'} />}
       </div>
+      {
+        deviceWidth < 920 && (
+          <div className='tabsContainer'>
+            <div style={{ padding: '0 5vw', display: 'flex', justifyContent: 'end' }} className='tabs'>
+              <button style={{ margin: '18px 0 0 0' }} onClick={() => setShoppingModal({
+                isOpen: true,
+                mobile: deviceWidth <= 720,
+              })}>Réservez une table
+              </button>
+            </div>
+          </div>
+        )
+      }
       <div style={{ padding: '18px 5vw' }}>
         <div className='tabsContainer'>
           <div className='tabs'>
@@ -103,7 +127,10 @@ const Restaurant = () => {
                 {t('RESTAURANT.DRINKS')}
               </span>
             </div>
-            <button onClick={() => setShoppingModal(true)}>Réservez une table</button>
+            {deviceWidth > 919 && <button onClick={() => setShoppingModal({
+              isOpen: true,
+              mobile: deviceWidth <= 720,
+            })}>Réservez une table</button>}
           </div>
           <div style={getMargin()} className='underline' />
           <div className='horizontalSeparator' />
@@ -126,23 +153,67 @@ const Restaurant = () => {
         }
       </div>
 
+      {/* Modals */}
+
       <Modal
-        open={shoppingModal}
-        onClose={() => setShoppingModal(false)}
+        open={shoppingModal.isOpen && !shoppingModal.mobile}
+        onClose={() => setShoppingModal({
+          isOpen: false,
+          mobile: deviceWidth <= 720,
+        })}
       >
         <Box sx={style}>
-          <ModalReservation closeEvent={() => setShoppingModal(false)} />
+          <ModalReservation closeEvent={() => setShoppingModal({
+            isOpen: false,
+            mobile: deviceWidth <= 720,
+          })} />
         </Box>
       </Modal>
       <Modal
-        open={moreDetail}
-        onClose={() => setMoreDetail(false)}
+        open={moreDetail.isOpen && !moreDetail.mobile}
+        onClose={() => setMoreDetail({
+          isOpen: false,
+          mobile: deviceWidth <= 720,
+        })}
       >
         <Box sx={style}>
-          <MoreDetailModal closeEvent={() => setMoreDetail(false)}/>
+          <MoreDetailModal closeEvent={() => setMoreDetail({
+            isOpen: false,
+            mobile: deviceWidth <= 720,
+          })} />
         </Box>
       </Modal>
-      <ShoppingModal/>
+      
+      <ShoppingModal />
+
+      {/* bottom sheet */}
+      <BottomSheet onDismiss={() => {
+        setMoreDetail({
+          isOpen: false,
+          mobile: deviceWidth <= 720,
+        })
+        setShoppingModal({
+          isOpen: false,
+          mobile: deviceWidth <= 720,
+        })
+      }} open={(moreDetail.isOpen && moreDetail.mobile) || (shoppingModal.isOpen && shoppingModal.mobile)}>
+        {
+          moreDetail.isOpen && (
+            <MoreDetailModal closeEvent={() => setMoreDetail({
+              isOpen: false,
+              mobile: deviceWidth <= 720,
+            })} />
+          )
+        }
+        {
+          shoppingModal.isOpen && (
+            <ModalReservation closeEvent={() => setShoppingModal({
+              isOpen: false,
+              mobile: deviceWidth <= 720,
+            })} />
+          )
+        }
+      </BottomSheet>
 
     </div>
   )

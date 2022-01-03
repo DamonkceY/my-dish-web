@@ -79,6 +79,19 @@ input:focus, textarea:focus, select:focus {
   opacity: 0.15;
 }
 
+[data-rsbs-overlay], [data-rsbs-backdrop], [data-rsbs-root]:after {
+  z-index: 1000 !important;
+}
+
+[data-rsbs-has-header='false'] [data-rsbs-header] {
+  padding-top: unset !important;
+}
+[data-rsbs-header] {
+  padding-top: unset !important;
+  padding-bottom: unset !important;
+  height: 1px !important;
+}
+
 .loaderContainer {
   display: flex;
   align-items: center;

@@ -7,9 +7,12 @@ import Footer from '../../sharedComponents/footer/footer'
 import './searchResult.scss'
 import { SLIDES } from '../mainHome/mockToBeDeleted'
 import { SliderElement } from '../mainHome/components/sliders/slider'
+import { useAppSelector } from '../../app/store/hooks'
+import { selectDeviceWidth } from '../../app/store/storeModules/root/root'
 
 const SearchResult = () => {
   const navigate = useNavigate()
+  const deviceWidth = useAppSelector(selectDeviceWidth)
   const profile = (
     <div onClick={() => navigate(Paths.profile.index)} className='profile clickable'>
       <span>Ahmed</span>
@@ -17,7 +20,7 @@ const SearchResult = () => {
   )
   return (
     <div style={{ position: 'relative' }}>
-      <NavBar config={{ isStatic: true, rightComponent: profile, middleComponent: searchBar }} />
+      <NavBar config={{ isStatic: true, rightComponent: deviceWidth > 720 ? profile : undefined, middleComponent: deviceWidth > 720 ? searchBar : undefined }} />
 
       <div className='searchContainer'>
         <div className='searchHeader'>

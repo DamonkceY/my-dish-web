@@ -99,32 +99,77 @@
       }
     }
 
-    .paginator {
-      margin: 40px 0;
+  }
+  .paginator {
+    margin: 40px 0;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+
+    .pages {
       display: flex;
-      justify-content: right;
-      align-items: center;
 
-      .pages {
+      .page {
+        color: #333a50;
+        border: solid 1px #333a50;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
         display: flex;
-        .page {
-          color: #333a50;
-          border: solid 1px #333a50;
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 12px;
-          font-weight: bold;
-          margin: 0 3.5px;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: bold;
+        margin: 0 3.5px;
 
-          &.active {
-            background-color: #d6d8dc;
-          }
+        &.active {
+          background-color: #d6d8dc;
         }
       }
+    }
+  }
+}
+
+
+@media screen and(max-width: 1023px) {
+  .marketsVerticalPaginationContainer {
+    width: 100%;
+
+    .horizontalSeparator {
+      //margin: 20px 0 !important;
+    }
+
+    .paginator {
+      margin: 0;
+    }
+
+    .header {
+      span {
+        font-size: calc(18px + 1vw);
+      }
+    }
+    .paginationContainer {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 20px;
+      .card {
+        flex-direction: column;
+        .image {
+          width: unset;
+        }
+        .details {
+          width: unset;
+          padding: 10px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and(max-width: 480px) {
+  .marketsVerticalPaginationContainer {
+    .paginationContainer {
+      grid-template-columns: 1fr;
     }
   }
 }

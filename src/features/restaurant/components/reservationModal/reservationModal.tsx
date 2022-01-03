@@ -39,38 +39,46 @@ const ModalReservation: React.FC<{ closeEvent: Function }> = ({ closeEvent }) =>
         <div className='stepsContainer'>
           <div className='headerSteps'>
             <div className='iconsContainer'>
-              {
-                step === 1 ? (
-                  <img onClick={() => setStep(1)} className='clickable' draggable={false}
-                       src={calendar} alt='' />
-                ) : (
-                  <span onClick={() => setStep(1)} className='valueSelectedTab clickable'>
+              <div className='iconCont'>
+                {
+                  step === 1 ? (
+                    <img onClick={() => setStep(1)} className='clickable' draggable={false}
+                         src={calendar} alt='' />
+                  ) : (
+                    <span onClick={() => setStep(1)} className='valueSelectedTab clickable'>
                     Sam. 08/08
                   </span>
-                )
-              }
-              {
-                step !== 2 && WIDTH > 50 ? (
-                  <span onClick={() => setStep(2)} className='valueSelectedTab clickable'>
+                  )
+                }
+              </div>
+              <div className='iconCont'>
+                {
+                  step !== 2 && WIDTH > 50 ? (
+                    <span onClick={() => setStep(2)} className='valueSelectedTab clickable'>
                     Dîner 20:00
                   </span>
-                ) : (
-                  <img onClick={() => setStep(2)} className='clickable' draggable={false}
-                       src={step === 2 ? clock : clockDisabled} alt='' />
-                )
-              }
-              {
-                step !== 3 && WIDTH > 75 ? (
-                  <span onClick={() => setStep(3)} className='valueSelectedTab clickable'>
+                  ) : (
+                    <img onClick={() => setStep(2)} className='clickable' draggable={false}
+                         src={step === 2 ? clock : clockDisabled} alt='' />
+                  )
+                }
+              </div>
+              <div className='iconCont'>
+                {
+                  step !== 3 && WIDTH > 75 ? (
+                    <span onClick={() => setStep(3)} className='valueSelectedTab clickable'>
                     2 pers.
                   </span>
-                ) : (
-                  <img onClick={() => setStep(3)} className='clickable' draggable={false}
-                       src={step === 3 ? body : bodyDisabled} alt='' />
-                )
-              }
-              <img onClick={() => setStep(4)} className='clickable' draggable={false}
-                   src={step === 4 ? ticket : ticketDisabled} alt='' />
+                  ) : (
+                    <img onClick={() => setStep(3)} className='clickable' draggable={false}
+                         src={step === 3 ? body : bodyDisabled} alt='' />
+                  )
+                }
+              </div>
+              <div className='iconCont'>
+                <img onClick={() => setStep(4)} className='clickable' draggable={false}
+                     src={step === 4 ? ticket : ticketDisabled} alt='' />
+              </div>
             </div>
             <div className='underline' style={{ width: WIDTH + '%' }} />
             <div className='underlineStatic' />

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 
-const RestaurantMap: React.FC<{id: string}> = ({id}) => {
+const RestaurantMap: React.FC<{ id: string }> = ({ id }) => {
   const [mapObject, setMapObject] = useState<google.maps.Map | null>(null)
   useEffect(() => {
     const mapProp: google.maps.MapOptions = {
@@ -19,7 +19,7 @@ const RestaurantMap: React.FC<{id: string}> = ({id}) => {
       position: new google.maps.LatLng(48.8566, 2.3522),
     })
     marker.addListener('click', () => {
-      window.open(`https://www.google.com/maps/dir/?api=1&layer=traffic&destination=${48.8566},${2.3522}`);
+      window.open(`https://www.google.com/maps/dir/?api=1&layer=traffic&destination=${48.8566},${2.3522}`)
     })
     marker.setMap(map)
     setMapObject(map)

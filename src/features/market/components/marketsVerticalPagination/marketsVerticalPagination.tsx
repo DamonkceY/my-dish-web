@@ -31,23 +31,23 @@ const MarketsVerticalPagination = () => {
         {paginatedList.map((item) => (
           <Card item={item} />
         ))}
-        <div className='paginator'>
-          <img onClick={() => paginate(currentPage === 1 ? 0 : -1)}
-               className={currentPage === 1 ? 'unClickable' : 'clickable'}
-               draggable={false} src={currentPage === 1 ? leftArrowInactive : leftArrowActive} alt='' />
-          <div className='pages'>
-            {
-              Array.from(Array(Math.ceil(SLIDES.length / 4))).map((item, index) => {
-                return (<div className={`page ${currentPage - 1 === index && 'active'}`}>{index}</div>)
-              })
-            }
-          </div>
-          <img onClick={() => paginate(Math.ceil(SLIDES.length / 4) === currentPage ? 0 : 1)}
-               className={Math.ceil(SLIDES.length / 4) === currentPage ? 'unClickable' : 'clickable'} draggable={false}
-               src={Math.ceil(SLIDES.length / 4) === currentPage ? rightArrowInactive : rightArrowActive} alt='' />
-        </div>
       </div>
-      <div className='horizontalSeparator' style={{margin: '55px 0'}}/>
+      <div className='paginator'>
+        <img onClick={() => paginate(currentPage === 1 ? 0 : -1)}
+             className={currentPage === 1 ? 'unClickable' : 'clickable'}
+             draggable={false} src={currentPage === 1 ? leftArrowInactive : leftArrowActive} alt='' />
+        <div className='pages'>
+          {
+            Array.from(Array(Math.ceil(SLIDES.length / 4))).map((item, index) => {
+              return (<div className={`page ${currentPage - 1 === index && 'active'}`}>{index}</div>)
+            })
+          }
+        </div>
+        <img onClick={() => paginate(Math.ceil(SLIDES.length / 4) === currentPage ? 0 : 1)}
+             className={Math.ceil(SLIDES.length / 4) === currentPage ? 'unClickable' : 'clickable'} draggable={false}
+             src={Math.ceil(SLIDES.length / 4) === currentPage ? rightArrowInactive : rightArrowActive} alt='' />
+      </div>
+      <div className='horizontalSeparator' style={{margin: '35px 0'}}/>
       <div className='header'>
         <span>{t('MARKET.PAGINATION.POPULAR')}</span>
         <span className='resultCount'>2681 {t('RESTAURANTS')}</span>
