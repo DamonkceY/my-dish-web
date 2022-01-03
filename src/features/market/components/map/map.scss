@@ -1,10 +1,12 @@
 .sliderElement {
   .sliderImage {
+    max-height: 200px;
     .cardImage {
-      max-width: 400px;
+      max-width: 300px;
       object-fit: cover;
       width: 100%;
       border-radius: 11px;
+      height: 100%;
     }
   }
 
@@ -58,4 +60,5 @@
 
 .gm-style .gm-style-iw-d {
   overflow: unset !important;
+  max-height: unset !important;
 }

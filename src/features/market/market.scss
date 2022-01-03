@@ -1,5 +1,6 @@
 
 .banner {
+  text-align: center;
   width: 100%;
   height: 250px;
   background-image: url("../../assets/banner.svg");
@@ -14,6 +15,22 @@
 }
 
 .markets {
+  .tabsContainer {
+    margin: 10px 5vw;
+
+    .tabs {
+      .cont {
+        .tab {
+          text-align: center;
+          width: 50%;
+        }
+      }
+    }
+    .underline {
+      width: 50%;
+    }
+  }
+
   .paginationAndMapContainer {
     padding: 0 0 0 5vw;
     width: 100%;
@@ -36,4 +53,34 @@
   padding-left: 25px;
   background-image: url("../../assets/seConnecterNoire.svg");
   background-repeat: no-repeat;
+}
+@media screen and(max-width: 1023px) {
+  .markets {
+    .paginationAndMapContainer {
+      padding: 0 5vw;
+    }
+    .paginationAndMapContainer {
+      .mapCard {
+        border-radius: 20px;
+        height: calc(70vw);
+      }
+    }
+  }
+}
+
+@media screen and(max-width: 720px) {
+  .markets {
+    .tabsContainer {
+      .tabs {
+        .cont {
+          .tab {
+            width: 50%;
+          }
+        }
+      }
+      .underline {
+        width: 50%;
+      }
+    }
+  }
 }

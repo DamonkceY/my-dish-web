@@ -5,11 +5,30 @@
   display: flex;
   justify-content: space-between;
   span {
-    font-size: 30px;
+    font-size: calc(20px + 1vw);
     font-weight: bold;
   }
   .searchSelectsContainer {
     display: flex;
     flex-direction: row;
+  }
+}
+
+@media screen and(max-width: 585px) {
+  .marketSearchBarContainer {
+    flex-direction: column;
+    height: unset;
+    margin-bottom: 15px;
+    .searchSelectsContainer {
+      margin-top: 20px;
+      align-self: end;
+    }
+  }
+}
+@media screen and(max-width: 480px) {
+  .marketSearchBarContainer {
+    .searchSelectsContainer {
+      align-self: start;
+    }
   }
 }

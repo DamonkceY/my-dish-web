@@ -2,9 +2,11 @@ import './map.scss'
 import React, { useEffect, useRef, useState } from 'react'
 import { SLIDES } from '../../../mainHome/mockToBeDeleted'
 import { Paths } from '../../../../app/utils/paths/Paths'
+import { useAppSelector } from '../../../../app/store/hooks'
+import { selectDeviceWidth } from '../../../../app/store/storeModules/root/root'
 
 const MapCard = () => {
-
+  const deviceWidth = useAppSelector(selectDeviceWidth)
   const [mapObject, setMapObject] = useState<google.maps.Map | null>(null)
   const allMarkers = useRef<Array<google.maps.Marker>>([])
   const allWindows = useRef<Array<google.maps.InfoWindow>>([])
@@ -91,7 +93,7 @@ const MapCard = () => {
   }, [])
 
   return (
-    <div style={{ width: '50%' }}>
+    <div style={{ width: deviceWidth > 1023 ? '50%' : '100%' }}>
       <div id='googleMap' className='mapCard' />
     </div>
   )

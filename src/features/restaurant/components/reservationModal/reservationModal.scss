@@ -9,6 +9,7 @@
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+      padding-top: 15px;
 
       span {
         font-weight: bold;
@@ -88,23 +89,27 @@
           margin-bottom: 15px;
           display: flex;
 
-          img {
-            padding: 0 65px;
-            border-right: 1px solid rgba(251, 85, 87, 0.3);
-          }
-
-          img:last-child {
+          .iconCont:last-child {
             border: unset;
           }
 
-          .valueSelectedTab{
-            font-weight: bold;
-            font-size: 16px;
-            text-align: center;
-            display: inline-block;
-            width: 156px;
-            color: #fb5557;
+          .iconCont {
+            width: 25%;
+            //text-align: center;
             border-right: 1px solid rgba(251, 85, 87, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .valueSelectedTab{
+              font-weight: bold;
+              font-size: 16px;
+              text-align: center;
+              display: inline-block;
+              //width: 156px;
+              color: #fb5557;
+              //border-right: 1px solid rgba(251, 85, 87, 0.3);
+            }
           }
         }
 
@@ -162,6 +167,26 @@
     }
     span {
       border-radius: 10px !important;
+    }
+  }
+}
+
+@media screen and(max-width: 720px) {
+  .modalReservationContainer {
+    .cont {
+      padding: 0 10px;
+      .modalHeader {
+        span {
+          font-size: 22px;
+        }
+        img {
+          display: none;
+        }
+      }
+    }
+
+    .ModalButton {
+      border-radius: unset;
     }
   }
 }

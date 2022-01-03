@@ -71,13 +71,12 @@ const App = () => {
           <Route path={Paths.redirect} element={<Navigate to={Paths.home} />} />
           <Route path={'/test'} element={<Test />} />
         </Routes>
+        {deviceWidth > 720 ? <Footer /> : (
+          <div>
+            <MobileNavigation />
+          </div>
+        )}
       </BrowserRouter>
-      {deviceWidth > 720 ? <Footer height='720px' /> : (
-        <div>
-          <div style={{ height: '12vh' }} />
-          <MobileNavigation />
-        </div>
-      )}
     </div>
   )
 }
