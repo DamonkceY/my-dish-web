@@ -53,3 +53,23 @@
     }
   }
 }
+
+
+@media screen and(max-width: 768px) {
+  .favoritesCont {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and(max-width: 480px) {
+  .favoritesCont {
+    grid-template-columns: 1fr;
+    .sliderElement {
+      .sliderImage {
+        .cardImage {
+          max-width: unset;
+        }
+      }
+    }
+  }
+}

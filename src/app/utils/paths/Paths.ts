@@ -15,6 +15,7 @@ export const Paths = {
   restaurant: '/restaurant/:id',
   shop: '/shop',
   cart: '/cart',
+  mobileProfile: '/monProfile',
   profile: {
     index: '/profile',
     security: 'security',

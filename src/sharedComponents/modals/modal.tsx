@@ -27,7 +27,7 @@ const ShoppingModal = () => {
 
   return (
     <div>
-      {deviceWidth <= 720 ? (
+      {deviceWidth <= 768 ? (
         <BottomSheet onDismiss={() => dispatch(setShoppingModal(false))} open={selector}>
           <Body />
         </BottomSheet>

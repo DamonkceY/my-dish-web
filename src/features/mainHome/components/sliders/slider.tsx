@@ -43,7 +43,7 @@ const Slider: React.FC<{ config: SliderConfigInterface }> = ({ config }) => {
     if (deviceWidth >= 1600) return config.isSimple ? 7 : 4
     if (deviceWidth >= 1380) return config.isSimple ? 5 : 4
     if (deviceWidth >= 1024) return 4
-    if (deviceWidth >= 720) return 3
+    if (deviceWidth >= 768) return 3
     if (deviceWidth >= 480) return 2
     return 1
   }

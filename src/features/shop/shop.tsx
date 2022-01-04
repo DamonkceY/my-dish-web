@@ -5,30 +5,44 @@ import { searchBar } from '../market/market'
 import { useTranslation } from 'react-i18next'
 import { SLIDES } from '../mainHome/mockToBeDeleted'
 import RestaurantCard from '../restaurant/components/restaurantCard/restaurantCard'
-import Footer from '../../sharedComponents/footer/footer'
 import { Paths } from '../../app/utils/paths/Paths'
 import { useNavigate } from 'react-router-dom'
 import ShoppingModal from '../../sharedComponents/modals/modal'
+import { useAppSelector } from '../../app/store/hooks'
+import { selectDeviceWidth } from '../../app/store/storeModules/root/root'
 
 const Shop = () => {
   const { t } = useTranslation()
   const [tabSelected, setTabSelected] = useState('ENTRIES')
+  const deviceWidth = useAppSelector(selectDeviceWidth)
   const isMounted = useRef(false)
+  const [scrollIndicator, setScrollDownIndicator] = useState(false)
   const getMargin = () => {
-    if (tabSelected === 'DISHES') return { marginLeft: '150px' }
-    if (tabSelected === 'DESSERTS') return { marginLeft: '300px' }
-    if (tabSelected === 'DRINKS') return { marginLeft: '450px' }
+    if (tabSelected === 'DISHES') return { marginLeft: deviceWidth > 919 ? '150px' : '25%' }
+    if (tabSelected === 'DESSERTS') return { marginLeft: deviceWidth > 919 ? '300px' : '50%' }
+    if (tabSelected === 'DRINKS') return { marginLeft: deviceWidth > 919 ? '450px' : '75%' }
   }
 
   useEffect(() => {
     window.scroll({
       top: 0,
-      behavior: 'smooth'
+      behavior: 'smooth',
     })
   }, [])
 
   useEffect(() => {
     isMounted.current ? document.getElementById(tabSelected)?.scrollIntoView({ behavior: 'smooth' }) : (isMounted.current = true)
+
+    let options = {
+      root: document.querySelector('#scrollArea'),
+      rootMargin: '0px',
+      threshold: 0
+    }
+
+    const observer = new IntersectionObserver((e) => {
+      setScrollDownIndicator(e[0].isIntersecting)
+    }, options);
+    observer.observe(document.getElementById('justAnId') as HTMLElement)
   }, [tabSelected])
   const array = ['ENTRIES', 'DISHES', 'DESSERTS', 'DRINKS']
 
@@ -39,9 +53,44 @@ const Shop = () => {
     </div>
   )
 
+  const shoppingCart = (
+    <div className='shoppingCart' id='justAnId'>
+      <button onClick={() => navigate(Paths.cart)}>Confirmer la réservation</button>
+      <div className='horizontalSeparator' />
+      {/*<span>Sélectionnez vos plats et ajoutez-les à votre réservation.</span>*/}
+      <div className='shoppingListContainer'>
+        <div className='shoppingItem'>
+          <div className='cont'>
+            <span className='title'>2 Soupe de nouilles au bœuf piquant</span>
+            <span className='desc'>Vermicelle du riz. sauce tomatePiquante, plus de sauce.</span>
+            <span className='delete'>Supprimer</span>
+          </div>
+          <span style={{ whiteSpace: 'nowrap' }}>24,00 €</span>
+        </div>
+        <div className='shoppingItem'>
+          <div className='cont'>
+            <span className='title'>2 Soupe de nouilles au bœuf piquant</span>
+            <span className='desc'>Vermicelle du riz. sauce tomatePiquante, plus de sauce.</span>
+            <span className='delete'>Supprimer</span>
+          </div>
+          <span style={{ whiteSpace: 'nowrap' }}>24,00 €</span>
+        </div>
+      </div>
+      <div className='horizontalSeparator' />
+      <div className='shoppingResult'>
+        <span>Sous-total</span>
+        <span>48,00 €</span>
+      </div>
+    </div>
+  )
+
   return (
-    <div style={{ position: 'relative' }}>
-      <NavBar config={{ isStatic: true, rightComponent: profile, middleComponent: searchBar }} />
+    <div id='rootEl' style={{ position: 'relative' }}>
+      <NavBar config={{
+        isStatic: true,
+        rightComponent: deviceWidth > 768 ? profile : undefined,
+        middleComponent: deviceWidth > 768 ? searchBar : undefined,
+      }} />
       <div className='shopContainer'>
         <div className='shopHeader'>
           <span>Réservation • Joayo Haussmann • 2 Pers. sam. 8 août • 20:00</span>
@@ -92,37 +141,22 @@ const Shop = () => {
               ))
             }
           </div>
-          <div className='shoppingCart'>
-            <button onClick={() => navigate(Paths.cart)}>Confirmer la réservation</button>
-            <div className='horizontalSeparator' />
-            {/*<span>Sélectionnez vos plats et ajoutez-les à votre réservation.</span>*/}
-            <div className='shoppingListContainer'>
-              <div className='shoppingItem'>
-                <div className='cont'>
-                  <span className='title'>2 Soupe de nouilles au bœuf piquant</span>
-                  <span className='desc'>Vermicelle du riz. sauce tomatePiquante, plus de sauce.</span>
-                  <span className='delete'>Supprimer</span>
-                </div>
-                <span>24,00 €</span>
-              </div>
-              <div className='shoppingItem'>
-                <div className='cont'>
-                  <span className='title'>2 Soupe de nouilles au bœuf piquant</span>
-                  <span className='desc'>Vermicelle du riz. sauce tomatePiquante, plus de sauce.</span>
-                  <span className='delete'>Supprimer</span>
-                </div>
-                <span>24,00 €</span>
-              </div>
-            </div>
-            <div className='horizontalSeparator' />
-            <div className='shoppingResult'>
-              <span>Sous-total</span>
-              <span>48,00 €</span>
-            </div>
-          </div>
+          { shoppingCart }
         </div>
       </div>
-      <ShoppingModal/>
+      <ShoppingModal />
+      {
+        (deviceWidth <= 919 && !scrollIndicator) && (
+          <div className="scrollDownBox" onClick={() => {
+            document.getElementById('justAnId')?.scrollIntoView({ behavior: "smooth" });
+
+          }}>
+            <span/>
+            <span/>
+            <span/>
+          </div>
+        )
+      }
     </div>
   )
 }

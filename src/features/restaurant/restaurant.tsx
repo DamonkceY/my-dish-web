@@ -24,8 +24,8 @@ const Restaurant = () => {
   const [tabSelected, setTabSelected] = useState('ENTRIES')
   const isMounted = useRef(false)
   const deviceWidth = useAppSelector(selectDeviceWidth)
-  const [shoppingModal, setShoppingModal] = useState({ mobile: deviceWidth <= 720, isOpen: false })
-  const [moreDetail, setMoreDetail] = useState({ mobile: deviceWidth <= 720, isOpen: false })
+  const [shoppingModal, setShoppingModal] = useState({ mobile: deviceWidth <= 768, isOpen: false })
+  const [moreDetail, setMoreDetail] = useState({ mobile: deviceWidth <= 768, isOpen: false })
 
   const style = {
     position: 'absolute' as 'absolute',
@@ -64,8 +64,8 @@ const Restaurant = () => {
     <div style={{ position: 'relative' }}>
       <NavBar config={{
         isStatic: true,
-        rightComponent: deviceWidth > 720 ? profile : undefined,
-        middleComponent: deviceWidth > 720 ? searchBar : undefined,
+        rightComponent: deviceWidth > 768 ? profile : undefined,
+        middleComponent: deviceWidth > 768 ? searchBar : undefined,
       }} />
       <div className='headerRestaurant'>
         <div className='detailContainer'>
@@ -80,7 +80,7 @@ const Restaurant = () => {
             <span>10 rue Gustave Flaubert, 75017 Paris • <span className='clickable moreInfo'
                                                                onClick={() => setMoreDetail({
                                                                  isOpen: true,
-                                                                 mobile: deviceWidth <= 720,
+                                                                 mobile: deviceWidth <= 768,
                                                                })}>Plus d'informations</span></span>
           </div>
           <div>
@@ -95,7 +95,7 @@ const Restaurant = () => {
             <div style={{ padding: '0 5vw', display: 'flex', justifyContent: 'end' }} className='tabs'>
               <button style={{ margin: '18px 0 0 0' }} onClick={() => setShoppingModal({
                 isOpen: true,
-                mobile: deviceWidth <= 720,
+                mobile: deviceWidth <= 768,
               })}>Réservez une table
               </button>
             </div>
@@ -129,7 +129,7 @@ const Restaurant = () => {
             </div>
             {deviceWidth > 919 && <button onClick={() => setShoppingModal({
               isOpen: true,
-              mobile: deviceWidth <= 720,
+              mobile: deviceWidth <= 768,
             })}>Réservez une table</button>}
           </div>
           <div style={getMargin()} className='underline' />
@@ -159,13 +159,13 @@ const Restaurant = () => {
         open={shoppingModal.isOpen && !shoppingModal.mobile}
         onClose={() => setShoppingModal({
           isOpen: false,
-          mobile: deviceWidth <= 720,
+          mobile: deviceWidth <= 768,
         })}
       >
         <Box sx={style}>
           <ModalReservation closeEvent={() => setShoppingModal({
             isOpen: false,
-            mobile: deviceWidth <= 720,
+            mobile: deviceWidth <= 768,
           })} />
         </Box>
       </Modal>
@@ -173,35 +173,35 @@ const Restaurant = () => {
         open={moreDetail.isOpen && !moreDetail.mobile}
         onClose={() => setMoreDetail({
           isOpen: false,
-          mobile: deviceWidth <= 720,
+          mobile: deviceWidth <= 768,
         })}
       >
         <Box sx={style}>
           <MoreDetailModal closeEvent={() => setMoreDetail({
             isOpen: false,
-            mobile: deviceWidth <= 720,
+            mobile: deviceWidth <= 768,
           })} />
         </Box>
       </Modal>
-      
+
       <ShoppingModal />
 
       {/* bottom sheet */}
       <BottomSheet onDismiss={() => {
         setMoreDetail({
           isOpen: false,
-          mobile: deviceWidth <= 720,
+          mobile: deviceWidth <= 768,
         })
         setShoppingModal({
           isOpen: false,
-          mobile: deviceWidth <= 720,
+          mobile: deviceWidth <= 768,
         })
       }} open={(moreDetail.isOpen && moreDetail.mobile) || (shoppingModal.isOpen && shoppingModal.mobile)}>
         {
           moreDetail.isOpen && (
             <MoreDetailModal closeEvent={() => setMoreDetail({
               isOpen: false,
-              mobile: deviceWidth <= 720,
+              mobile: deviceWidth <= 768,
             })} />
           )
         }
@@ -209,7 +209,7 @@ const Restaurant = () => {
           shoppingModal.isOpen && (
             <ModalReservation closeEvent={() => setShoppingModal({
               isOpen: false,
-              mobile: deviceWidth <= 720,
+              mobile: deviceWidth <= 768,
             })} />
           )
         }

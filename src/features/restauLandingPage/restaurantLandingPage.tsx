@@ -37,7 +37,7 @@ const RestaurantLandingPage = () => {
   }, [])
 
   useEffect(() => {
-    if (deviceWidth < 720) setHeight('988px')
+    if (deviceWidth < 768) setHeight('988px')
     else if (deviceWidth < 1024) setHeight('654px')
     else setHeight('820px')
   }, [deviceWidth])
@@ -53,12 +53,12 @@ const RestaurantLandingPage = () => {
   return (
     <div style={{ position: 'relative' }}>
       <div style={isNavBar ? {} : { display: 'none' }}>
-        <NavBar config={{ rightComponent: deviceWidth > 720 ? buttons : undefined }} />
+        <NavBar config={{ rightComponent: deviceWidth > 768 ? buttons : undefined }} />
       </div>
       <div className='landingPage1'>
         <div className='head'>
           <img onClick={() => navigate(Paths.home)} className='clickable' draggable={false} src={allWhiteLogo} alt='' />
-          {deviceWidth > 720 && buttons}
+          {deviceWidth > 768 && buttons}
         </div>
         <div className='middle'>
           <span>{t('RESTAURANT_LANDING.DEVELOP')}</span>

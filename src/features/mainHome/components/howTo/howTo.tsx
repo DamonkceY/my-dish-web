@@ -37,7 +37,7 @@ const HowTo = () => {
           </button>
         </div>
       </div>
-      {deviceWidth > 720 && <img draggable={false} src={mobileApp} alt='' className='mobileAppContainer' />}
+      {deviceWidth > 768 && <img draggable={false} src={mobileApp} alt='' className='mobileAppContainer' />}
     </div>
   )
 }

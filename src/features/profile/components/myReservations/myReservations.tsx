@@ -3,13 +3,16 @@ import pizza from '../../../../assets/pizza.png'
 import personne from '../../../../assets/seConnecterNoire.svg'
 import calendar from '../../../../assets/calendrier.svg'
 import './myReservations.scss'
+import { useAppSelector } from '../../../../app/store/hooks'
+import { selectDeviceWidth } from '../../../../app/store/storeModules/root/root'
 
 const MyReservations = () => {
   const [tabSelected, setTabSelected] = useState('1')
+  const deviceWidth = useAppSelector(selectDeviceWidth)
 
   const getMargin = () => {
     if (tabSelected === '1') return { marginLeft: '0px' }
-    if (tabSelected === '2') return { marginLeft: '150px' }
+    if (tabSelected === '2') return { marginLeft: deviceWidth > 768 ? '150px' : '50%' }
   }
   return (
     <div>
@@ -35,7 +38,7 @@ const MyReservations = () => {
         <div style={getMargin()} className='underline' />
         <div className='horizontalSeparator' />
       </div>
-      <div>
+      <div className='cardsContainer'>
         <div className='cardContainer'>
           <img className='cardImage' draggable={false} src={pizza} alt=''/>
           <div className={`detailCardCont ${tabSelected === '2' && 'opacity'}`}>

@@ -1,7 +1,10 @@
 import './security.scss'
 import React from 'react'
+import { useAppSelector } from '../../../../app/store/hooks'
+import { selectDeviceWidth } from '../../../../app/store/storeModules/root/root'
 
 const Security = () => {
+  const deviceWidth = useAppSelector(selectDeviceWidth)
   return (
     <div>
       <div className='profileHeaderContainer'>
@@ -19,7 +22,9 @@ const Security = () => {
         <span>
           <span>Mot de passe actuel</span>
           <span style={{padding: '0 20px'}}/>
-          <span>&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</span>
+          <span>{
+            deviceWidth < 432 ? '' : <span>&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</span>
+          }</span>
         </span>
         <button>Modifier</button>
       </div>
@@ -32,7 +37,7 @@ const Security = () => {
         <span>
           <span>Téléphone portable</span>
           <span style={{padding: '0 20px'}}/>
-          <span className='phone'>+33 01 40 79 92 79</span>
+          <span className='phone'>{deviceWidth < 432 ? '' : '+33 01 40 79 92 79'}</span>
         </span>
         <button>Modifier</button>
       </div>

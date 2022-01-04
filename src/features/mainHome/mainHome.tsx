@@ -53,13 +53,13 @@ const MainHome = () => {
       <NavBar config={{
         rightComponent: <NavBarRightComp />,
       }} />
-      <div style={{ height: deviceWidth > 720 ? '100px' : '70px' }} />
+      <div style={{ height: deviceWidth > 768 ? '100px' : '70px' }} />
       <SearchComp />
       <HowTo />
       {
         slidersConfig.map((item) => (
           <div className='sidesPadding'>
-            <div style={{ margin: `${deviceWidth > 720 ? '50px' : '30px'} 5vw` }} className='horizontalSeparator' />
+            <div style={{ margin: `${deviceWidth > 768 ? '50px' : '30px'} 5vw` }} className='horizontalSeparator' />
             <Slider config={item} />
           </div>
         ))
@@ -75,7 +75,7 @@ const NavBarRightComp = () => {
   return (
     <div className='rightCompCont'>
       <span onClick={() => navigate(Paths.restaurantHome)} className='clickable'>{t('FOOTER.ADD_RESTAURANT')}</span>
-      {deviceWidth > 720 && <button onClick={() => navigate(Paths.auth.index)}>{t('NAVBAR.GET_CONNECTED')}</button>}
+      {deviceWidth > 768 && <button onClick={() => navigate(Paths.auth.index)}>{t('NAVBAR.GET_CONNECTED')}</button>}
     </div>
   )
 }

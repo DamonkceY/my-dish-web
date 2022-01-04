@@ -12,7 +12,7 @@ import Market from './features/market/market'
 import Restaurant from './features/restaurant/restaurant'
 import Shop from './features/shop/shop'
 import ShoppingCart from './features/shoppingCart/shoppingCart'
-import Profile from './features/profile/profile'
+import Profile, { LeftSide } from './features/profile/profile'
 import MyProfile from './features/profile/components/myProfile/myProfile'
 import MyReservations from './features/profile/components/myReservations/myReservations'
 import LoyaltySpace from './features/profile/components/loyaltySpace/loyaltySpace'
@@ -55,6 +55,7 @@ const App = () => {
           <Route path={Paths.shop} element={<Shop />} />
           <Route path={Paths.cart} element={<ShoppingCart />} />
           <Route path={Paths.searchResult} element={<SearchResult />} />
+          <Route path={Paths.mobileProfile} element={<Profile/>}/>
           <Route path={Paths.profile.index} element={<Profile />}>
             <Route index element={<MyProfile />} />
             <Route path={Paths.profile.security} element={<Security />} />
@@ -69,9 +70,9 @@ const App = () => {
             <Route path={Paths.auth.passwordForgotten} element={<PasswordForgotten />} />
           </Route>
           <Route path={Paths.redirect} element={<Navigate to={Paths.home} />} />
-          <Route path={'/test'} element={<Test />} />
+          {/*<Route path={'/test'} element={<Test />} />*/}
         </Routes>
-        {deviceWidth > 720 ? <Footer /> : (
+        {deviceWidth > 768 ? <Footer /> : (
           <div>
             <MobileNavigation />
           </div>
