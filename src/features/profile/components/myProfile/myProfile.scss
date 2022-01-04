@@ -63,3 +63,16 @@
     }
   }
 }
+
+@media screen and(max-width: 768px) {
+  .profileInputs {
+    .inputs {
+      max-width: unset;
+    }
+  }
+  .profileHeaderContainer {
+    span {
+      font-size: 25px;
+    }
+  }
+}

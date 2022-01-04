@@ -97,7 +97,7 @@ const Body = () => {
             dispatch(setShoppingModal(false))
             navigate(Paths.shop)
           }}>
-            <span>Ajouter{deviceWidth > 720 && ` à la commande`}</span>
+            <span>Ajouter{deviceWidth > 768 && ` à la commande`}</span>
             <span>+ 12,00 € </span>
           </button>
         </div>

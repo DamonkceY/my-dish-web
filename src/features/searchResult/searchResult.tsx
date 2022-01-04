@@ -20,7 +20,7 @@ const SearchResult = () => {
   )
   return (
     <div style={{ position: 'relative' }}>
-      <NavBar config={{ isStatic: true, rightComponent: deviceWidth > 720 ? profile : undefined, middleComponent: deviceWidth > 720 ? searchBar : undefined }} />
+      <NavBar config={{ isStatic: true, rightComponent: deviceWidth > 768 ? profile : undefined, middleComponent: deviceWidth > 720 ? searchBar : undefined }} />
 
       <div className='searchContainer'>
         <div className='searchHeader'>

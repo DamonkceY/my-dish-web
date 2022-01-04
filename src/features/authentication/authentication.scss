@@ -30,3 +30,20 @@ input {
   width: 100%;
   padding: 20px;
 }
+
+@media screen and(max-width: 768px) {
+  .authContainer {
+    background-image: unset;
+    width: unset;
+    justify-content: unset;
+    .logo {
+      margin-top: 30px;
+    }
+    .boldLabelTitle {
+      font-size: 30px;
+    }
+    .steppersContainer {
+      width: 95vw;
+    }
+  }
+}

@@ -1,43 +1,47 @@
-.cardContainer {
-  background-color: #f1f5f8;
-  border-radius: 15px;
-  width: 100%;
-  max-width: 800px;
-  max-height: 265px;
-  display: flex;
-  flex-direction: row;
-  margin: 55px 0;
-  .cardImage{
-    width: 50%;
-    height: 100%;
-    object-fit: contain;
-  }
-  .detailCardCont {
+.cardsContainer {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: 1fr;
+  .cardContainer {
+    background-color: #f1f5f8;
+    border-radius: 15px;
     width: 100%;
-    padding: 26px;
+    max-width: 800px;
+    max-height: 265px;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    .head {
+    flex-direction: row;
+    .cardImage{
+      width: 50%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .detailCardCont {
+      width: 100%;
+      padding: 26px;
       display: flex;
       flex-direction: column;
-      .title {
-        font-weight: bold;
-        font-size: 18px;
-        margin-bottom: 8px;
+      justify-content: space-between;
+      .head {
+        display: flex;
+        flex-direction: column;
+        .title {
+          font-weight: bold;
+          font-size: 18px;
+          margin-bottom: 8px;
+        }
       }
-    }
-    .inlineDetails{
-      display: flex;
-      img{
-        width: 18px;
-        height: 18px;
-        margin-right: 5px;
-      }
-      span {
-        font-weight: bold;
-        font-size: 16px;
-        margin-right: 5px;
+      .inlineDetails{
+        display: flex;
+        img{
+          width: 18px;
+          height: 18px;
+          margin-right: 5px;
+        }
+        span {
+          font-weight: bold;
+          font-size: 16px;
+          margin-right: 5px;
+        }
       }
     }
   }
@@ -49,4 +53,36 @@
 
 .opacity {
   opacity: 0.4;
+}
+
+@media screen and(max-width: 768px) {
+  .cardsContainer {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+    .cardContainer {
+      flex-direction: column;
+      max-height: unset;
+      .cardImage {
+        width: 100%;
+      }
+    }
+  }
+  .tabsContainer {
+    .tabs {
+      .cont {
+        .tab {
+          width: 50%;
+        }
+      }
+    }
+    .underline {
+      width: 50%;
+    }
+  }
+}
+
+@media screen and(max-width: 480px) {
+  .cardsContainer {
+    grid-template-columns: 1fr;
+  }
 }

@@ -88,7 +88,7 @@
 
 
   .shoppingModalFooter {
-    height: 9vh;
+    height: 10vh;
     background-color: #f1f5f8;
     padding: 23px 35px;
     border-radius: 0 0 40px 40px;
@@ -123,18 +123,18 @@
 }
 
 
-@media screen and(max-width: 720px) {
+@media screen and(max-width: 768px) {
 
   .shoppingModalContainer {
     .shoppingModalHeader {
-      height: 30vh;
+      height: 27vh;
       img {
         display: none;
       }
     }
 
     .cont {
-      max-height: 58vh;
+      max-height: 50vh;
       .horizontalSeparator {
         margin: 15px;
       }

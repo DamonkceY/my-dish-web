@@ -35,8 +35,8 @@ const Market = () => {
     <div style={{ position: 'relative' }}>
       <NavBar config={{
         isStatic: true,
-        rightComponent: deviceWidth > 720 ? profile : undefined,
-        middleComponent: deviceWidth > 720 ? searchBar : undefined,
+        rightComponent: deviceWidth > 768 ? profile : undefined,
+        middleComponent: deviceWidth > 768 ? searchBar : undefined,
       }} />
       <div className='banner'>
         {t('MARKET.BANNER_TITLE')}

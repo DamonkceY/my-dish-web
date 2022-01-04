@@ -49,12 +49,12 @@ const InputField: React.FC<{ config: InputFieldInterface }> = ({ config }) => {
           src={showPassword ? see : seeDisabled}
           alt=''
         />}
-        {isValid && <img
-          draggable={false}
-          className='validatorSuccessIcon'
-          src={successValidator}
-          alt=''
-        />}
+        {/*{isValid && <img*/}
+        {/*  draggable={false}*/}
+        {/*  className='validatorSuccessIcon'*/}
+        {/*  src={successValidator}*/}
+        {/*  alt=''*/}
+        {/*/>}*/}
       </div>
     </div>
   )

@@ -43,3 +43,16 @@
     height: unset;
   }
 }
+
+
+@media screen and(max-width: 768px) {
+  .advancedInputCont {
+    padding: 10px 5px;
+    height: 55px;
+    button {
+      height: 40px;
+      display: flex;
+      align-items: center;
+    }
+  }
+}

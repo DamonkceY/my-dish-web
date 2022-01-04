@@ -53,3 +53,21 @@
     width: 70%;
   }
 }
+
+@media screen and(max-width: 768px) {
+  .mainProfileContainer {
+    padding: 30px 2vw 0 2vw;
+    .rightSide {
+      width: 100%;
+    }
+    .leftSide{
+      width: 100%;
+      .linkCont {
+        padding: 20px 10px;
+      }
+      .disconnect {
+        padding: 20px 10px;
+      }
+    }
+  }
+}

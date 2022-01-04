@@ -29,6 +29,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    padding: unset;
 
     .dishesContainer {
       width: 59%;
@@ -105,6 +106,69 @@
           font-weight: bold;
           font-size: 18px;
         }
+      }
+    }
+  }
+}
+
+@media screen and(max-width: 919px) {
+  .shopContainer {
+    .shoppingCartContainer {
+      flex-direction: column;
+      .dishesContainer {
+        width: 100%;
+      }
+      .shoppingCart {
+        margin-top: 50px;
+        align-self: center;
+        width: 70%;
+      }
+    }
+  }
+}
+
+@media screen and(max-width: 626px) {
+  .shopContainer {
+    .shoppingCartContainer {
+      .dishesContainer {
+        .optionsContainer {
+          .cards {
+            grid-template-columns: 1fr;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and(max-width: 768px) {
+  .shopContainer {
+    padding: 0 2vw;
+    .shopHeader {
+      margin: 20px 0;
+      span {
+        font-size: 24px;
+      }
+    }
+    .shoppingCartContainer {
+      .shoppingCart {
+        width: 100%;
+        padding: 20px 10px;
+
+        .shoppingResult {
+          margin-top: 30px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and(max-width: 919px) and(min-width: 769px) {
+  .shopContainer {
+    .shoppingCartContainer {
+      .shoppingCart {
+        align-self: center;
+        width: 70%;
       }
     }
   }

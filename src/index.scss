@@ -77,6 +77,7 @@ input:focus, textarea:focus, select:focus {
 .horizontalSeparator {
   border: solid 1px #333a50;
   opacity: 0.15;
+  background-color: #333a50;
 }
 
 [data-rsbs-overlay], [data-rsbs-backdrop], [data-rsbs-root]:after {
@@ -250,3 +251,52 @@ input:focus, textarea:focus, select:focus {
   background: #555;
 }
 
+
+@media screen and(max-width: 768px){
+  .scrollDownBox {
+    top: 83% !important;
+  }
+}
+
+.scrollDownBox{
+  position: fixed;
+  top: 93%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.scrollDownBox span{
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-bottom: 2px solid #fb5557;
+  border-right: 2px solid #fb5557;
+  transform: rotate(45deg);
+  margin: -10px;
+  animation: animate 2s infinite;
+}
+
+.scrollDownBox span:nth-child(2)
+{
+  animation-delay: -0.2s;
+}
+
+.scrollDownBox span:nth-child(3)
+{
+  animation-delay: -0.4s;
+}
+
+@keyframes animate{
+
+  0%{
+    opacity: 0;
+    transform: rotate(45deg) translate(-20px, -20px);
+  }
+  50%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+    transform: rotate(45deg) translate(20px, 20px);
+  }
+}
