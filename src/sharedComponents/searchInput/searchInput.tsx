@@ -12,7 +12,7 @@ const SearchInput = () => {
   return (
     <div className='searchInput'>
       <img className='searchGlass' draggable={false} src={searchGlass} alt=''/>
-      <input placeholder={t('HOME.SEARCH_PLACEHOLDER')} type='text' />
+      <input tabIndex={-1} placeholder={t('HOME.SEARCH_PLACEHOLDER')} type='text' />
       <img onClick={() => navigate(Paths.searchResult)} className='searchArrow clickable' draggable={false} src={searchArrow} alt=''/>
     </div>
   )

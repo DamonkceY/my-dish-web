@@ -62,14 +62,17 @@ const Restaurant = () => {
   )
   return (
     <div style={{ position: 'relative' }}>
-      <NavBar config={{
+      { deviceWidth > 768 && <NavBar config={{
         isStatic: true,
-        rightComponent: deviceWidth > 768 ? profile : undefined,
-        middleComponent: deviceWidth > 768 ? searchBar : undefined,
-      }} />
+        rightComponent: profile,
+        middleComponent: searchBar,
+      }} />}
       <div className='headerRestaurant'>
         <div className='detailContainer'>
-          <span className='title'>Joayo Haussmann</span>
+          <span onClick={() => deviceWidth <= 768 && navigate(-1)}>
+            {deviceWidth <= 768 && <span className='backArrowRestaurant' />}
+            <span className='title'>Joayo Haussmann</span>
+          </span>
           <div className='details'>
             <span className='rateComments'>
               <span className='rate'>9.2<span className='outOfTen'>/ 10</span></span>
@@ -91,7 +94,7 @@ const Restaurant = () => {
       </div>
       {
         deviceWidth < 920 && (
-          <div className='tabsContainer'>
+          <div className='restaurantTabsContainer'>
             <div style={{ padding: '0 5vw', display: 'flex', justifyContent: 'end' }} className='tabs'>
               <button style={{ margin: '18px 0 0 0' }} onClick={() => setShoppingModal({
                 isOpen: true,
@@ -103,7 +106,7 @@ const Restaurant = () => {
         )
       }
       <div style={{ padding: '18px 5vw' }}>
-        <div className='tabsContainer'>
+        <div className='restaurantTabsContainer'>
           <div className='tabs'>
             <div className='cont'>
               <span onClick={() => setTabSelected('ENTRIES')}

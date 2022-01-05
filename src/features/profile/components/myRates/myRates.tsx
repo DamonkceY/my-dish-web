@@ -8,6 +8,13 @@ import './myRates.scss'
 import Modal from '@mui/material/Modal'
 import Box from '@mui/material/Box'
 import close from '../../../../assets/close.svg'
+import backArrow from '../../../../assets/back.svg'
+import { useAppSelector } from '../../../../app/store/hooks'
+import { selectDeviceWidth } from '../../../../app/store/storeModules/root/root'
+import { useNavigate } from 'react-router-dom'
+import { BottomSheet } from 'react-spring-bottom-sheet'
+import 'react-spring-bottom-sheet/dist/style.css'
+import { AddBankAccount } from '../../../shoppingCart/shoppingCart'
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -22,13 +29,19 @@ const style = {
 
 const MyRates = () => {
   const [modelData, setModelData] = useState(false)
-
+  const deviceWidth = useAppSelector(selectDeviceWidth)
+  const navigate = useNavigate();
   return (
     <div>
       <div className='profileHeaderContainer'>
-        <span>Mes avis</span>
+        <span onClick={() => {
+          deviceWidth <= 768 && navigate(-1)
+        }}>
+          {deviceWidth <= 768 && <img style={{ margin: '0 10px 0 0' }} draggable={false} src={backArrow} alt='' />}
+          <span>Mes avis</span>
+        </span>
       </div>
-      <div style={{margin: '20px 0'}} className='horizontalSeparator' />
+      <div style={{ margin: '20px 0' }} className='horizontalSeparator' />
 
       <div className='ratesContainer'>
         <RateComp openModal={() => setModelData(true)} />
@@ -36,36 +49,22 @@ const MyRates = () => {
         <RateComp openModal={() => setModelData(true)} />
       </div>
 
-      <Modal
-        open={modelData}
-        onClose={() => setModelData(false)}
-      >
-        <Box sx={style}>
-          <div className='rateModal'>
-            <div className='modalHeader'>
-              <span>Modifier l'avis</span>
-              <img onClick={() => setModelData(false)} className='close clickable' src={close} alt='' />
-            </div>
-            <div style={{margin: '20px 0'}} className='horizontalSeparator' />
-            <div className='slider'>
-              <span className='note'>Note</span>
-              <Slider aria-label='Small' valueLabelDisplay='auto' defaultValue={9.5} step={0.5} min={1} max={10} />
-            </div>
-            <div className='title'>
-              <span>Titre de l'avis</span>
-              <input value='Succulent !!!' type='text' />
-            </div>
-            <div className='rate'>
-              <span>Avis</span>
-              <textarea
-                value='Un restaurant coréen à recommander. Le cadre est moderne et aéré. Mention spéciale pour les entrées: poulet grillé, galette de kimchi et les nouilles japchae.. Le service est aimable. Très bon rapport qualité-prix.Un restaurant coréen à recommander. Le cadre est moderne et aéré. Mention spéciale pour les entrées: poulet grillé, galette de kimchi et les nouilles japchae.. Le service est aimable. Très bon rapport qualité-prix.'
-                rows={7} />
-            </div>
-            <div style={{height: '50px'}}/>
-            <button onClick={() => setModelData(false)}>Valider</button>
-          </div>
-        </Box>
-      </Modal>
+      {
+        deviceWidth > 768 ? (
+          <Modal
+            open={modelData}
+            onClose={() => setModelData(false)}
+          >
+            <Box sx={style}>
+              <EditAddRateComp submitEvent={() => setModelData(false)}/>
+            </Box>
+          </Modal>
+        ) : (
+          <BottomSheet open={modelData} onDismiss={() => setModelData(false)}>
+            <EditAddRateComp submitEvent={() => setModelData(false)}/>
+          </BottomSheet>
+        )
+      }
     </div>
   )
 }
@@ -100,6 +99,35 @@ const RateComp: React.FC<{ openModal: Function }> = ({ openModal }) => {
           </div>
         </div>
       </div>
+    </div>
+  )
+}
+
+export const EditAddRateComp:React.FC<{submitEvent: Function}> = ({submitEvent}) => {
+  return (
+    <div className='rateModal'>
+      <div className='modalHeader'>
+        <span>Modifier l'avis</span>
+        <img onClick={() => submitEvent()} className='close clickable' src={close} alt='' />
+      </div>
+      <div style={{ margin: '20px 0' }} className='horizontalSeparator' />
+      <div className='slider'>
+        <span className='note'>Note</span>
+        <Slider aria-label='Small' valueLabelDisplay='auto' defaultValue={9.5} step={0.5} min={1} max={10} />
+      </div>
+      <div className='title'>
+        <span>Titre de l'avis</span>
+        <input tabIndex={-1} value='Succulent !!!' type='text' />
+      </div>
+      <div className='rate'>
+        <span>Avis</span>
+        <textarea
+          tabIndex={-1}
+          value='Un restaurant coréen à recommander. Le cadre est moderne et aéré. Mention spéciale pour les entrées: poulet grillé, galette de kimchi et les nouilles japchae.. Le service est aimable. Très bon rapport qualité-prix.Un restaurant coréen à recommander. Le cadre est moderne et aéré. Mention spéciale pour les entrées: poulet grillé, galette de kimchi et les nouilles japchae.. Le service est aimable. Très bon rapport qualité-prix.'
+          rows={7} />
+      </div>
+      <div style={{ height: '50px' }} />
+      <button onClick={() => submitEvent()}>Valider</button>
     </div>
   )
 }

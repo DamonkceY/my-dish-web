@@ -93,6 +93,10 @@ input:focus, textarea:focus, select:focus {
   height: 1px !important;
 }
 
+[data-rsbs-overlay], [data-rsbs-backdrop], [data-rsbs-root]:after {
+  touch-action: pan-down !important;
+}
+
 .loaderContainer {
   display: flex;
   align-items: center;
@@ -214,6 +218,7 @@ input:focus, textarea:focus, select:focus {
 
 .clickable {
   cursor: pointer;
+  touch-action: manipulation;
 }
 
 .unClickable {

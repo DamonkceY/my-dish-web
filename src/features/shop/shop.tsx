@@ -95,7 +95,7 @@ const Shop = () => {
         <div className='shopHeader'>
           <span>Réservation • Joayo Haussmann • 2 Pers. sam. 8 août • 20:00</span>
         </div>
-        <div className='tabsContainer'>
+        <div className='restaurantTabsContainer'>
           <div className='tabs'>
             <div className='cont'>
               <span onClick={() => setTabSelected('ENTRIES')}

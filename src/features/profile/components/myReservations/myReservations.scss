@@ -47,6 +47,60 @@
   }
 }
 
+.reservationTabsContainer {
+  position: relative;
+
+  .tabs {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+
+    button {
+      width: fit-content;
+      height: 45px;
+      background-color: #45b995;
+      padding: 0 25px;
+    }
+
+
+    .cont {
+      .tab {
+        cursor: pointer;
+        display: inline-block;
+        width: 150px;
+        font-size: 22px;
+        font-weight: normal;
+        transition: .5s ease-in-out;
+      }
+
+      .active {
+        font-size: 22px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .underline {
+    height: 2px;
+    width: 100px;
+    margin: 0;
+
+    background: #333a50;
+    border: none;
+    transition: .3s ease-in-out;
+  }
+
+  .horizontalSeparator {
+    margin: unset;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+  }
+}
+
 .graySpan {
   color: #858891;
 }
@@ -67,10 +121,12 @@
       }
     }
   }
-  .tabsContainer {
+  .reservationTabsContainer {
     .tabs {
       .cont {
+        width: 100%;
         .tab {
+          text-align: center;
           width: 50%;
         }
       }

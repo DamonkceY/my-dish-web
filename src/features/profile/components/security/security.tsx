@@ -2,15 +2,23 @@ import './security.scss'
 import React from 'react'
 import { useAppSelector } from '../../../../app/store/hooks'
 import { selectDeviceWidth } from '../../../../app/store/storeModules/root/root'
+import backArrow from '../../../../assets/back.svg'
+import { useNavigate } from 'react-router-dom'
 
 const Security = () => {
   const deviceWidth = useAppSelector(selectDeviceWidth)
+  const navigate = useNavigate()
   return (
     <div>
       <div className='profileHeaderContainer'>
-        <span>Mot de passe et sécurité</span>
+        <span onClick={() => {
+          deviceWidth <= 768 && navigate(-1)
+        }}>
+          {deviceWidth <= 768 && <img style={{ margin: '0 10px 0 0' }} draggable={false} src={backArrow} alt='' />}
+          <span>Mot de passe et sécurité</span>
+        </span>
       </div>
-      <div style={{margin: '20px 0'}} className='horizontalSeparator' />
+      <div style={{ margin: '20px 0' }} className='horizontalSeparator' />
 
       <div className='hintsCont'>
         <span className='title'>Mot de passe</span>
@@ -21,14 +29,14 @@ const Security = () => {
       <div className='advancedInputCont'>
         <span>
           <span>Mot de passe actuel</span>
-          <span style={{padding: '0 20px'}}/>
+          <span style={{ padding: '0 20px' }} />
           <span>{
             deviceWidth < 432 ? '' : <span>&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</span>
           }</span>
         </span>
         <button>Modifier</button>
       </div>
-      <div style={{height: '24px'}}/>
+      <div style={{ height: '24px' }} />
       <div className='hintsCont'>
         <span className='title'>Méthodes de validation</span>
         <span className='hint'>Pour modifier votre numéro de téléphone vous devez d'abord saisissez le code sms pour vérifier votre identité.</span>
@@ -36,7 +44,7 @@ const Security = () => {
       <div className='advancedInputCont'>
         <span>
           <span>Téléphone portable</span>
-          <span style={{padding: '0 20px'}}/>
+          <span style={{ padding: '0 20px' }} />
           <span className='phone'>{deviceWidth < 432 ? '' : '+33 01 40 79 92 79'}</span>
         </span>
         <button>Modifier</button>
