@@ -84,7 +84,7 @@ const Body = () => {
           <div className='horizontalSeparator' />
           <div className='shoppingModalSpecialInstruction'>
             <span>Instructions spéciales </span>
-            <textarea placeholder={'Ajouter une remarque ou une instruction spéciale'} rows={3}/>
+            <textarea tabIndex={-1} placeholder={'Ajouter une remarque ou une instruction spéciale'} rows={3}/>
           </div>
         </div>
         <div className='shoppingModalFooter'>

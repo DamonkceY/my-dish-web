@@ -37,6 +37,7 @@ const InputField: React.FC<{ config: InputFieldInterface }> = ({ config }) => {
       </label>
       <div className='inputContainer'>
         <input
+          tabIndex={-1}
           onChange={onChange}
           // ${isValid ? 'success' : 'error'}
           className={`inputValidatorState `}

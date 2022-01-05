@@ -1,11 +1,22 @@
 import './myProfile.scss'
 import React from 'react'
 import avatar from '../../../../assets/avatar2.svg'
+import backArrow from '../../../../assets/back.svg'
+import { useAppSelector } from '../../../../app/store/hooks'
+import { selectDeviceWidth } from '../../../../app/store/storeModules/root/root'
+import { useNavigate } from 'react-router-dom'
 const MyProfile = () => {
+  const deviceWidth = useAppSelector(selectDeviceWidth)
+  const navigate = useNavigate();
   return (
     <div>
       <div className='profileHeaderContainer'>
-        <span>Mon profil</span>
+        <span onClick={() => {
+          deviceWidth <= 768 && navigate(-1)
+        }}>
+          {deviceWidth <= 768 && <img style={{ margin: '0 10px 0 0' }} draggable={false} src={backArrow} alt='' />}
+          <span>Mon profil</span>
+        </span>
         <span className='update'>Modifier</span>
       </div>
       <div style={{margin: '20px 0'}} className='horizontalSeparator'/>
@@ -20,31 +31,31 @@ const MyProfile = () => {
         <div className='inputs'>
           <div className='inputCont'>
             <span>Nom</span>
-            <input value='saidi' type='text' name='' id=''/>
+            <input tabIndex={-1} value='saidi' type='text' name='' id=''/>
           </div>
           <div className='inputCont'>
             <span>Prénom</span>
-            <input value='Ahmed' type='text' name='' id=''/>
+            <input tabIndex={-1} value='Ahmed' type='text' name='' id=''/>
           </div>
           <div className='inputCont'>
             <span>Adresse</span>
-            <input className='address' value='10 rue Gustave Flaubert, 75017 Paris.' type='text' name='' id=''/>
+            <input tabIndex={-1} className='address' value='10 rue Gustave Flaubert, 75017 Paris.' type='text' name='' id=''/>
           </div>
           <div className='inputCont'>
             <span>Code postal</span>
-            <input value='75017' type='text' name='' id=''/>
+            <input tabIndex={-1} value='75017' type='text' name='' id=''/>
           </div>
           <div className='inputCont'>
             <span>Pays</span>
-            <input value='France' type='text' name='' id=''/>
+            <input tabIndex={-1} value='France' type='text' name='' id=''/>
           </div>
           <div className='inputCont'>
             <span>E-mail</span>
-            <input value='Ahmed@gmail.com' type='text' name='' id=''/>
+            <input tabIndex={-1} value='Ahmed@gmail.com' type='text' name='' id=''/>
           </div>
           <div className='inputCont'>
             <span>Carte bancaire</span>
-            <input value='visa 1411 ' className='bankAcc' type='text' name='' id=''/>
+            <input tabIndex={-1} value='visa 1411 ' className='bankAcc' type='text' name='' id=''/>
           </div>
         </div>
       </div>

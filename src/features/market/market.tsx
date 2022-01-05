@@ -46,18 +46,18 @@ const Market = () => {
         <div>
           {
             deviceWidth < 1024 && (
-              <div className='tabsContainer'>
+              <div className='marketTabsContainer'>
                 <div className='tabs'>
                   <div className='cont' style={{width: '100%'}}>
                     <span onClick={() => setTabSelected('1')}
                           className={tabSelected === '1' ? 'active tab' : 'tab'}
                     >
-                      À La Une
+                      Liste
                     </span>
                     <span onClick={() => setTabSelected('2')}
                           className={tabSelected === '2' ? 'active tab' : 'tab'}
                     >
-                      Aller à la carte
+                      Carte
                     </span>
                   </div>
                 </div>

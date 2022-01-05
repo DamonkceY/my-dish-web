@@ -165,7 +165,7 @@ export const AddBankAccount:React.FC<{closeEvent: Function}> = ({closeEvent}) =>
         <div className='inputs'>
           <div className='inputCont'>
             <span>Numéro de carte</span>
-            <input type='text' name='' id='' />
+            <input tabIndex={-1} type='text' name='' id='' />
           </div>
           <div className='inputCont'>
             <span>Date d’expiration</span>

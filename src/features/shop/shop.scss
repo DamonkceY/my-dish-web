@@ -153,7 +153,10 @@
     .shoppingCartContainer {
       .shoppingCart {
         width: 100%;
-        padding: 20px 10px;
+        padding: unset;
+        background-color: unset;
+        box-shadow: unset;
+        border-radius: unset;
 
         .shoppingResult {
           margin-top: 30px;

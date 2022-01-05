@@ -25,7 +25,7 @@ const Profile = () => {
   useEffect(() => {
     setIsMenuOnly(location.pathname === '/monProfile' && deviceWidth <= 768)
     setIsItemsOnly(location.pathname.includes('/profile') && deviceWidth <= 768)
-  }, [location.pathname])
+  }, [location.pathname, deviceWidth])
 
   const goTo = (ind: number, path: string) => {
     setSelectedTab(ind)
@@ -38,16 +38,16 @@ const Profile = () => {
   )
   return (
     <div style={{ position: 'relative' }}>
-      <NavBar config={{
+      {(!isMenuOnly && !isItemsOnly) && (<NavBar config={{
         isStatic: true,
         rightComponent: deviceWidth > 768 ? profile : undefined,
         middleComponent: deviceWidth > 768 ? searchBar : undefined,
-      }} />
+      }} />)}
       <div className='mainProfileContainer'>
         {
           !isItemsOnly && <LeftSide goTo={goTo} selectedTab={selectedTab} />
         }
-        { (!isMenuOnly && !isItemsOnly) && <div className='verticalSeparator' /> }
+        {(!isMenuOnly && !isItemsOnly) && <div className='verticalSeparator' />}
         {
           !isMenuOnly && (
             <div className='rightSide'>
@@ -92,7 +92,7 @@ export const LeftSide: React.FC<{ selectedTab?: number, goTo?: Function }> = ({ 
         <img draggable={false} src={heart} alt='' />
         <span>Mes Favoris</span>
       </div>
-      <span className='disconnect' onClick={() => navigate('/')}>Se déconnecter</span>
+      <span className='disconnect' onClick={() => navigate('/auth')}>Se déconnecter</span>
     </div>
   )
 }

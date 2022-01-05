@@ -7,18 +7,19 @@
     border-radius: 20px;
     width: 100%;
     height: 265px;
+    overflow-y: auto;
     display: flex;
     img {
       border-radius: 20px 0 0 20px;
       width: 45%;
-      height: 100%;
+      //height: 100%;
       object-fit: cover;
     }
 
     .mainCont {
       width: 55%;
       height: 100%;
-      padding: 25px;
+      padding: 15px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -75,6 +76,8 @@
         .cardDesc {
           font-size: 16px;
           //text-align: justify;
+          overflow-y: auto;
+          max-height: 120px;
         }
 
       }
@@ -144,5 +147,45 @@
     }
   }
 
+}
+
+@media screen and(max-width: 768px) and(min-width: 480px) {
+  .ratesContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+  }
+}
+
+@media screen and(max-width: 768px) {
+  .ratesContainer {
+    .rateCont {
+      flex-direction: column;
+      height: unset;
+      img {
+        width: unset;
+      }
+      .mainCont {
+        width: unset;
+        padding: 10px;
+      }
+    }
+  }
+
+  .rateModal {
+    padding: 10px;
+
+    .modalHeader {
+      img {
+        display: none;
+      }
+    }
+    .slider {
+      padding: 0 10px;
+    }
+    button {
+      border-radius: unset;
+    }
+  }
 }
 

@@ -7,7 +7,8 @@
   justify-content: space-between;
 
   .leftSide {
-    width: 345px;
+    width: 30%;
+    min-width: 284px;
 
     .disconnect  {
       cursor: pointer;
@@ -54,6 +55,14 @@
   }
 }
 
+@media screen and(max-width: 1024px) {
+  .mainProfileContainer {
+    .verticalSeparator {
+      margin: 0 20px;
+    }
+  }
+}
+
 @media screen and(max-width: 768px) {
   .mainProfileContainer {
     padding: 30px 2vw 0 2vw;
@@ -64,6 +73,10 @@
       width: 100%;
       .linkCont {
         padding: 20px 10px;
+        &.active {
+          background-color: unset;
+          border-radius: unset;
+        }
       }
       .disconnect {
         padding: 20px 10px;
