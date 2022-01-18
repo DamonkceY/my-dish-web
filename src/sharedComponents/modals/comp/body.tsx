@@ -4,7 +4,7 @@ import moinInActive from '../../../assets/moinInActive.svg'
 import moinActive from '../../../assets/moinActive.svg'
 import plusInActive from '../../../assets/plusInActive.svg'
 import plusActive from '../../../assets/plusActive.svg'
-import { Paths } from '../../../app/utils/paths/Paths'
+import { Paths } from '../../../app/utils/paths'
 import React, { useState } from 'react'
 import '../modal.scss'
 import { useDispatch } from 'react-redux'
@@ -93,7 +93,7 @@ const Body = () => {
             <span>{count}</span>
             <img onClick={() => increment(1)} className={count === 2 ? 'unClickable' : 'clickable'} draggable={false} src={count === 2 ? plusInActive : plusActive} alt='' />
           </div>
-          <button onClick={() => {
+          <button className={'btn success'} onClick={() => {
             dispatch(setShoppingModal(false))
             navigate(Paths.shop)
           }}>

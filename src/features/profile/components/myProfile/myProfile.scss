@@ -47,10 +47,10 @@
       }
 
       .address {
-        padding-left: 25px !important;
+        padding-left: 30px !important;
         background-image: url("../../../../assets/blackMarker.svg");
         background-repeat: no-repeat;
-        background-position-x: 5px;
+        background-position-x: 15px;
         background-position-y: center;
       }
       .bankAcc {
@@ -60,6 +60,26 @@
         background-position-x: 5px;
         background-position-y: center;
       }
+      .validationMessage {
+        font-size: 14px;
+        font-weight: normal;
+        color: #fb5557;
+      }
+    }
+  }
+
+  .updateButtons {
+    button {
+      height: 40px;
+      font-size: 16px;
+      padding: 0 24px;
+
+      &.cancel {
+        border: solid 2px #333a50;
+        background-color: #ffffff;
+        color: #333a50;
+        font-weight: bold;
+      }
     }
   }
 }
@@ -68,6 +88,14 @@
   .profileInputs {
     .inputs {
       max-width: unset;
+    }
+    .updateButtons {
+      display: flex;
+      justify-content: space-between;
+      button {
+        height: 55px;
+        width: 45%;
+      }
     }
   }
   .profileHeaderContainer {

@@ -6,15 +6,13 @@ import './mainHome.scss'
 import Slider from './components/sliders/slider'
 import { SliderConfigInterface } from '../../app/utils/interfaces/sliderConfigInterface'
 import { SLIDES } from './mockToBeDeleted'
-import Footer from '../../sharedComponents/footer/footer'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import { Paths } from '../../app/utils/paths/Paths'
+import { Paths } from '../../app/utils/paths'
 import 'react-multi-carousel/lib/styles.css'
-import { getDocumentWidth } from '../../app/utils/func/commonFuncs'
 import { useAppSelector } from '../../app/store/hooks'
 import { selectDeviceWidth } from '../../app/store/storeModules/root/root'
-import MobileNavigation from '../../sharedComponents/mobileNavigation/mobileNavigation'
+import { selectConnectedUser } from '../../app/store/storeModules/authentication/authenticationSlice'
 
 const MainHome = () => {
   const deviceWidth = useAppSelector(selectDeviceWidth)
@@ -72,10 +70,20 @@ const NavBarRightComp = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const deviceWidth = useAppSelector(selectDeviceWidth)
+  const connectedUser = useAppSelector(selectConnectedUser)
+
+  const profile = (
+    <div onClick={() => navigate(Paths.profile.index)} className='profile clickable'>
+      <span>Ahmed</span>
+    </div>
+  )
+
   return (
     <div className='rightCompCont'>
       <span onClick={() => navigate(Paths.restaurantHome)} className='clickable'>{t('FOOTER.ADD_RESTAURANT')}</span>
-      {deviceWidth > 768 && <button onClick={() => navigate(Paths.auth.index)}>{t('NAVBAR.GET_CONNECTED')}</button>}
+      {(deviceWidth > 768 && !connectedUser) ? <button className='btn success' onClick={() => navigate(Paths.auth.index)}>{t('NAVBAR.GET_CONNECTED')}</button> : (
+        (deviceWidth > 768 && !!connectedUser) && profile
+      )}
     </div>
   )
 }

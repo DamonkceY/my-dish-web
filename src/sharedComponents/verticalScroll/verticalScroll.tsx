@@ -22,7 +22,7 @@ const VerticalScroll = () => {
       <Swiper
         onClick={(swipe) => !isNaN(swipe.clickedIndex) ? SWIPER?.slideTo(swipe.clickedIndex) : null}
         onSwiper={(swiper) => setSwiper(swiper)}
-        onSlideChange={(event) => console.log(event)}
+        // onSlideChange={(event) => console.log(event)}
         centeredSlides={true}
         mousewheel={true}
         direction='vertical'

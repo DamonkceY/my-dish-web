@@ -5,7 +5,7 @@ import { searchBar } from '../market/market'
 import { useTranslation } from 'react-i18next'
 import { SLIDES } from '../mainHome/mockToBeDeleted'
 import RestaurantCard from '../restaurant/components/restaurantCard/restaurantCard'
-import { Paths } from '../../app/utils/paths/Paths'
+import { Paths } from '../../app/utils/paths'
 import { useNavigate } from 'react-router-dom'
 import ShoppingModal from '../../sharedComponents/modals/modal'
 import { useAppSelector } from '../../app/store/hooks'
@@ -55,7 +55,7 @@ const Shop = () => {
 
   const shoppingCart = (
     <div className='shoppingCart' id='justAnId'>
-      <button onClick={() => navigate(Paths.cart)}>Confirmer la réservation</button>
+      <button className={'btn success'} onClick={() => navigate(Paths.cart)}>Confirmer la réservation</button>
       <div className='horizontalSeparator' />
       {/*<span>Sélectionnez vos plats et ajoutez-les à votre réservation.</span>*/}
       <div className='shoppingListContainer'>

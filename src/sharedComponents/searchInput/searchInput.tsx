@@ -3,7 +3,7 @@ import searchGlass from '../../assets/searchGlass.svg'
 import searchArrow from '../../assets/searchArrow.svg'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Paths } from '../../app/utils/paths/Paths'
+import { Paths } from '../../app/utils/paths'
 import { useNavigate } from 'react-router-dom'
 
 const SearchInput = () => {

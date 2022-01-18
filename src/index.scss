@@ -87,6 +87,7 @@ input:focus, textarea:focus, select:focus {
 [data-rsbs-has-header='false'] [data-rsbs-header] {
   padding-top: unset !important;
 }
+
 [data-rsbs-header] {
   padding-top: unset !important;
   padding-bottom: unset !important;
@@ -95,6 +96,26 @@ input:focus, textarea:focus, select:focus {
 
 [data-rsbs-overlay], [data-rsbs-backdrop], [data-rsbs-root]:after {
   touch-action: pan-down !important;
+}
+
+.cursorEnabled {
+  cursor: pointer !important;
+}
+.btn {
+  height: 60px;
+  //width: 100%;
+  font-size: 22px;
+  text-align: center;
+  border: unset;
+  color: #fff;
+  background-color: #b0b3bc;
+  border-radius: 10px;
+  cursor: not-allowed;
+
+  &.success {
+    background-color: #333a50;
+    cursor: pointer;
+  }
 }
 
 .loaderContainer {
@@ -124,6 +145,7 @@ input:focus, textarea:focus, select:focus {
     }
   }
 }
+
 // TODO qsdqsdqsd
 .radioEl {
   display: flex;
@@ -257,20 +279,20 @@ input:focus, textarea:focus, select:focus {
 }
 
 
-@media screen and(max-width: 768px){
+@media screen and(max-width: 768px) {
   .scrollDownBox {
     top: 83% !important;
   }
 }
 
-.scrollDownBox{
+.scrollDownBox {
   position: fixed;
   top: 93%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-.scrollDownBox span{
+.scrollDownBox span {
   display: block;
   width: 20px;
   height: 20px;
@@ -281,26 +303,24 @@ input:focus, textarea:focus, select:focus {
   animation: animate 2s infinite;
 }
 
-.scrollDownBox span:nth-child(2)
-{
+.scrollDownBox span:nth-child(2) {
   animation-delay: -0.2s;
 }
 
-.scrollDownBox span:nth-child(3)
-{
+.scrollDownBox span:nth-child(3) {
   animation-delay: -0.4s;
 }
 
-@keyframes animate{
+@keyframes animate {
 
-  0%{
+  0% {
     opacity: 0;
     transform: rotate(45deg) translate(-20px, -20px);
   }
-  50%{
+  50% {
     opacity: 1;
   }
-  100%{
+  100% {
     opacity: 0;
     transform: rotate(45deg) translate(20px, 20px);
   }

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import LOGO from '../../assets/myDishLogo.svg'
 import './navBar.scss'
 import { useNavigate } from 'react-router-dom'
-import { Paths } from '../../app/utils/paths/Paths'
+import { Paths } from '../../app/utils/paths'
 
 export interface NavbarConfigInterface {
   middleComponent?: JSX.Element,
@@ -31,7 +31,6 @@ const NavBar: React.FC<{config?: NavbarConfigInterface}> = ({ config }) => {
           config?.middleComponent && config.middleComponent
         }
         <div>
-          {/*onClick={() => navigate(Paths.profile.index)}*/}
           {
             config?.rightComponent && config.rightComponent
           }

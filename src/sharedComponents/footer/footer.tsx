@@ -35,7 +35,7 @@ const Footer: React.FC<{}> = () => {
                 <span>{t('FOOTER.SUBSCRIBE_TO_NEWSLETTER')}</span>
                 <div className='inputCont'>
                   <input placeholder={t('REGISTER.ENTER_THE_EMAIL')} type='text' />
-                  <button disabled>{t('FOOTER.SUBSCRIBE')}</button>
+                  <button className={'btn'} disabled>{t('FOOTER.SUBSCRIBE')}</button>
                 </div>
               </div>
               <div className='footerUpThree'>

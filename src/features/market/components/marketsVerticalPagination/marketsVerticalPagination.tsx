@@ -9,7 +9,7 @@ import leftArrowInactive from '../../../../assets/leftArrowInactive.svg'
 import rightArrowActive from '../../../../assets/rightArrowActive.svg'
 import rightArrowInactive from '../../../../assets/rightArrowInactive.svg'
 import { useNavigate } from 'react-router-dom'
-import { Paths } from '../../../../app/utils/paths/Paths'
+import { Paths } from '../../../../app/utils/paths'
 
 const MarketsVerticalPagination = () => {
   const { t } = useTranslation()

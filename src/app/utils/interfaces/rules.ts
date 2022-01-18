@@ -4,5 +4,5 @@ export interface Rules {
   minLength?: number;
   maxLength?: number;
   pattern?: RegExp;
-  sameAs?: string;
+  sameAs?: string | number;
 }

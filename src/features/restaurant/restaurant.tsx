@@ -12,7 +12,7 @@ import RestaurantCard from './components/restaurantCard/restaurantCard'
 import RestaurantMap from './components/restaurantMap/restaurantMap'
 import ShoppingModal from '../../sharedComponents/modals/modal'
 import { useNavigate } from 'react-router-dom'
-import { Paths } from '../../app/utils/paths/Paths'
+import { Paths } from '../../app/utils/paths'
 import MoreDetailModal from './components/moreDetailModal/moreDetailModal'
 import { useAppSelector } from '../../app/store/hooks'
 import { selectDeviceWidth } from '../../app/store/storeModules/root/root'
@@ -96,7 +96,7 @@ const Restaurant = () => {
         deviceWidth < 920 && (
           <div className='restaurantTabsContainer'>
             <div style={{ padding: '0 5vw', display: 'flex', justifyContent: 'end' }} className='tabs'>
-              <button style={{ margin: '18px 0 0 0' }} onClick={() => setShoppingModal({
+              <button className={'btn success'} style={{ margin: '18px 0 0 0' }} onClick={() => setShoppingModal({
                 isOpen: true,
                 mobile: deviceWidth <= 768,
               })}>Réservez une table
@@ -130,7 +130,7 @@ const Restaurant = () => {
                 {t('RESTAURANT.DRINKS')}
               </span>
             </div>
-            {deviceWidth > 919 && <button onClick={() => setShoppingModal({
+            {deviceWidth > 919 && <button className='btn success' onClick={() => setShoppingModal({
               isOpen: true,
               mobile: deviceWidth <= 768,
             })}>Réservez une table</button>}

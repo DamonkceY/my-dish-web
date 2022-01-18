@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { Paths } from '../../app/utils/paths/Paths'
+import { Paths } from '../../app/utils/paths'
 import React from 'react'
 import { searchBar } from '../market/market'
 import NavBar from '../../sharedComponents/navBar/navBar'

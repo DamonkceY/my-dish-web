@@ -92,6 +92,9 @@
   padding-left: 25px;
   background-image: url("../../assets/seConnecterNoire.svg");
   background-repeat: no-repeat;
+  span {
+    color: #000;
+  }
 }
 @media screen and(max-width: 1023px) {
   .markets {

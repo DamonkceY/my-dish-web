@@ -10,9 +10,11 @@ import sale from '../../assets/sale.svg'
 import chat from '../../assets/mesAvisBlack.svg'
 import heart from '../../assets/blackHeart.svg'
 import shield from '../../assets/shield.svg'
-import { Paths } from '../../app/utils/paths/Paths'
+import { Paths } from '../../app/utils/paths'
 import { useAppSelector } from '../../app/store/hooks'
 import { selectDeviceWidth } from '../../app/store/storeModules/root/root'
+import { logout } from '../../app/store/storeModules/authentication/authenticationSlice'
+import { useDispatch } from 'react-redux'
 
 const Profile = () => {
   const location = useLocation()
@@ -61,7 +63,7 @@ const Profile = () => {
 }
 
 export const LeftSide: React.FC<{ selectedTab?: number, goTo?: Function }> = ({ selectedTab, goTo }) => {
-  const navigate = useNavigate()
+  const dispatch = useDispatch()
   return (
     <div className='leftSide'>
       <div className={`linkCont ${selectedTab === 1 && 'active'}`} onClick={() => goTo && goTo(1, Paths.profile.index)}>
@@ -92,7 +94,7 @@ export const LeftSide: React.FC<{ selectedTab?: number, goTo?: Function }> = ({ 
         <img draggable={false} src={heart} alt='' />
         <span>Mes Favoris</span>
       </div>
-      <span className='disconnect' onClick={() => navigate('/auth')}>Se déconnecter</span>
+      <span className='disconnect' onClick={() => dispatch(logout())}>Se déconnecter</span>
     </div>
   )
 }

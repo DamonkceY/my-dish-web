@@ -8,7 +8,7 @@ import Modal from '@mui/material/Modal'
 import Box from '@mui/material/Box'
 import close from '../../assets/close.svg'
 import { useNavigate } from 'react-router-dom'
-import { Paths } from '../../app/utils/paths/Paths'
+import { Paths } from '../../app/utils/paths'
 import { useAppSelector } from '../../app/store/hooks'
 import { selectDeviceWidth } from '../../app/store/storeModules/root/root'
 import { BottomSheet } from 'react-spring-bottom-sheet'
@@ -128,7 +128,7 @@ const ShoppingCart = () => {
                 </span>
               </div>
             </div>
-            <button onClick={() => setModal(true)}>Passer au paiement</button>
+            <button className={'btn success'} onClick={() => setModal(true)}>Passer au paiement</button>
           </div>
         </div>
       </div>
@@ -182,7 +182,7 @@ export const AddBankAccount:React.FC<{closeEvent: Function}> = ({closeEvent}) =>
         </div>
       </div>
       <div style={{ height: deviceWidth > 768 ? '150px' : '70px' }} />
-      <button onClick={() => closeEvent()}>Suivant</button>
+      <button className={'btn success'} onClick={() => closeEvent()}>Suivant</button>
     </div>
   )
 }

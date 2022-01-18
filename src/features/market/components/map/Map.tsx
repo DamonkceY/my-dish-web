@@ -1,7 +1,7 @@
 import './map.scss'
 import React, { useEffect, useRef, useState } from 'react'
 import { SLIDES } from '../../../mainHome/mockToBeDeleted'
-import { Paths } from '../../../../app/utils/paths/Paths'
+import { Paths } from '../../../../app/utils/paths'
 import { useAppSelector } from '../../../../app/store/hooks'
 import { selectDeviceWidth } from '../../../../app/store/storeModules/root/root'
 

@@ -13,7 +13,7 @@ import selectArrow from '../../../../assets/selectArrow.svg'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import CalendarPicker from '@mui/lab/CalendarPicker'
-import { Paths } from '../../../../app/utils/paths/Paths'
+import { Paths } from '../../../../app/utils/paths'
 import { useNavigate } from 'react-router-dom'
 import VerticalScroll from '../../../../sharedComponents/verticalScroll/verticalScroll'
 
@@ -147,7 +147,7 @@ const ModalReservation: React.FC<{ closeEvent: Function }> = ({ closeEvent }) =>
       </div>
       <div style={{ height: '50px' }} />
       <button
-        className='ModalButton'
+        className='btn success ModalButton'
         onClick={() => step < 4 ? setStep(step + 1) : navigate(Paths.shop)}
       >
         Suivant

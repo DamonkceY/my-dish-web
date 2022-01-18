@@ -127,7 +127,7 @@ export const EditAddRateComp:React.FC<{submitEvent: Function}> = ({submitEvent})
           rows={7} />
       </div>
       <div style={{ height: '50px' }} />
-      <button onClick={() => submitEvent()}>Valider</button>
+      <button className={'btn cursorEnabled'} onClick={() => submitEvent()}>Valider</button>
     </div>
   )
 }
