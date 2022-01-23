@@ -13,8 +13,9 @@ import shield from '../../assets/shield.svg'
 import { Paths } from '../../app/utils/paths'
 import { useAppSelector } from '../../app/store/hooks'
 import { selectDeviceWidth } from '../../app/store/storeModules/root/root'
-import { logout } from '../../app/store/storeModules/authentication/authenticationSlice'
+import { logout, selectConnectedUser } from '../../app/store/storeModules/authentication/authenticationSlice'
 import { useDispatch } from 'react-redux'
+import { capitalizeFirstLetter } from '../../app/utils/func/commonFuncs'
 
 const Profile = () => {
   const location = useLocation()
@@ -23,11 +24,38 @@ const Profile = () => {
   const [isItemsOnly, setIsItemsOnly] = useState(location.pathname.includes('/profile') && deviceWidth <= 768)
   const [selectedTab, setSelectedTab] = useState(isMenuOnly ? undefined : 1)
   const navigate = useNavigate()
+  const connectedUser = useAppSelector(selectConnectedUser)
 
   useEffect(() => {
     setIsMenuOnly(location.pathname === '/monProfile' && deviceWidth <= 768)
     setIsItemsOnly(location.pathname.includes('/profile') && deviceWidth <= 768)
   }, [location.pathname, deviceWidth])
+
+  useEffect(() => {
+    switch (location.pathname) {
+      case '/profile':
+        setSelectedTab(1)
+        break
+      case '/profile/security':
+        setSelectedTab(2)
+        break
+      case '/profile/myReservations':
+        setSelectedTab(3)
+        break
+      case '/profile/loyaltySpace':
+        setSelectedTab(4)
+        break
+      case '/profile/rates':
+        setSelectedTab(5)
+        break
+      case '/profile/favorites':
+        setSelectedTab(6)
+        break
+      default:
+        setSelectedTab(1)
+        break
+    }
+  }, [location])
 
   const goTo = (ind: number, path: string) => {
     setSelectedTab(ind)
@@ -35,7 +63,7 @@ const Profile = () => {
   }
   const profile = (
     <div onClick={() => navigate(Paths.profile.index)} className='profile clickable'>
-      <span>Ahmed</span>
+      <span>{capitalizeFirstLetter(connectedUser?.firstName as string)}</span>
     </div>
   )
   return (

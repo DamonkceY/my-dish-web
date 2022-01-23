@@ -19,7 +19,10 @@
   .avatarWithName {
     display: flex;
     flex-direction: row;
-    margin-bottom: 55px;
+
+    &.withMargin {
+      margin-bottom: 55px;
+    }
     img {
       margin-right: 15px;
     }

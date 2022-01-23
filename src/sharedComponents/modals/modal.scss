@@ -7,12 +7,13 @@
   }
 
   .shoppingModalHeader {
+    background-position-y: center;
     position: relative;
     height: 29vh;
     width: 100%;
-    background-image: url("../../assets/pizza.png");
     background-repeat: no-repeat;
     background-size: cover;
+    border-radius: 40px 40px 0 0;
 
     .close {
       position: absolute;
@@ -128,6 +129,7 @@
   .shoppingModalContainer {
     .shoppingModalHeader {
       height: 27vh;
+      border-radius: 15px 15px 0 0;
       img {
         display: none;
       }

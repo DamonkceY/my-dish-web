@@ -5,6 +5,7 @@ import { setRootLoading } from '../store/storeModules/root/root'
 import { baseUrl } from './endpoints'
 
 export interface ExecutorInterface {
+  isSilent?: boolean,
   method: 'get' | 'post' | 'put' | 'delete',
   endPoint: string,
   payloadData: any,
@@ -17,23 +18,24 @@ export interface ExecutorInterface {
 // )
 
 export const Executor = (config: ExecutorInterface) => {
-  store.dispatch(setRootLoading(true));
+  !config?.isSilent && store.dispatch(setRootLoading(true));
   return new Promise((resolve, reject) => {
     Interceptor({
       url: baseUrl + config.endPoint,
       method: config.method,
-      data: config.payloadData
+      data: config.method !== 'get' && config.payloadData,
+      params: config.method === 'get' && config.payloadData
     }).then((response: AxiosResponse<any>) => {
-      if(response.status === 200) {
+      if(response?.status === 200) {
         config.successFunc && config.successFunc(response.data.data)
-        store.dispatch(setRootLoading(false));
-        resolve(response.data)
+        !config?.isSilent && store.dispatch(setRootLoading(false));
+        resolve(response?.data)
       }else {
-        store.dispatch(setRootLoading(false));
-        reject(response.data)
+        !config?.isSilent && store.dispatch(setRootLoading(false));
+        reject(response?.data)
       }
     }).catch((error) => {
-      store.dispatch(setRootLoading(false));
+      !config?.isSilent && store.dispatch(setRootLoading(false));
       reject(error);
     })
   })

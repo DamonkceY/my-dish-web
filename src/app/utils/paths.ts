@@ -24,5 +24,10 @@ export const Paths = {
     rates: 'rates',
     favorites: 'favorites',
   },
+  security: {
+    index: '/security',
+    phone: 'phone',
+    password: 'password',
+  },
   redirect: '*'
 }

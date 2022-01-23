@@ -1,5 +1,5 @@
 import './myProfile.scss'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import avatar from '../../../../assets/avatar2.svg'
 import backArrow from '../../../../assets/back.svg'
 import { useAppSelector } from '../../../../app/store/hooks'
@@ -60,6 +60,9 @@ const MyProfile = () => {
     })
   }
 
+  useEffect(() => {
+    !isUpdate && setUpdateValidation(getValidation(connectedUser as UpdateProfileInterface))
+  }, [isUpdate])
   return (
     <div>
       <div className='profileHeaderContainer'>
@@ -73,14 +76,7 @@ const MyProfile = () => {
       </div>
       <div style={{ margin: '20px 0' }} className='horizontalSeparator' />
       <div className='profileInputs'>
-        <div className='avatarWithName'>
-          <img draggable={false} src={avatar} alt='' />
-          <div className='desc'>
-            <span
-              className='name'>{`${capitalizeFirstLetter(connectedUser?.firstName as string)} ${capitalizeFirstLetter(connectedUser?.lastName as string)}`}</span>
-            <span>{connectedUser?.telephone}</span>
-          </div>
-        </div>
+        <AvatarWithName withMargin={true}/>
         <div className='inputs'>
           <div className='inputCont'>
             <span>Nom</span>
@@ -212,6 +208,20 @@ const MyProfile = () => {
             </div>
           )
         }
+      </div>
+    </div>
+  )
+}
+
+export const AvatarWithName:React.FC<{withMargin?: boolean}> = ({ withMargin }) => {
+  const connectedUser = useAppSelector(selectConnectedUser)
+  return (
+    <div className={`avatarWithName ${withMargin ? 'withMargin' : ''}`}>
+      <img draggable={false} src={avatar} alt='' />
+      <div className='desc'>
+            <span
+              className='name'>{`${capitalizeFirstLetter(connectedUser?.firstName as string)} ${capitalizeFirstLetter(connectedUser?.lastName as string)}`}</span>
+        <span>{connectedUser?.telephone}</span>
       </div>
     </div>
   )

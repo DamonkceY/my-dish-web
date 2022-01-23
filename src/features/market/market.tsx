@@ -4,19 +4,21 @@ import './market.scss'
 import MarketSearchBar from './components/marketSearchBar/marketSearchBar'
 import MarketsVerticalPagination from './components/marketsVerticalPagination/marketsVerticalPagination'
 import MapCard from './components/map/Map'
-import Footer from '../../sharedComponents/footer/footer'
 import React, { useEffect, useState } from 'react'
 import SearchInput from '../../sharedComponents/searchInput/searchInput'
 import { Paths } from '../../app/utils/paths'
 import { useNavigate } from 'react-router-dom'
 import { useAppSelector } from '../../app/store/hooks'
 import { selectDeviceWidth } from '../../app/store/storeModules/root/root'
+import { NavBarRightComp } from '../mainHome/mainHome'
+import { getMainHomeList } from '../../app/store/storeModules/announces/announcesService'
+import { announcesEndpoints } from '../../app/utils/endpoints'
 
 const Market = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const deviceWidth = useAppSelector(selectDeviceWidth)
-
+  const [adsList, setAdsList] = useState([])
   const [tabSelected, setTabSelected] = useState('1')
   const getMargin = () => {
     if (tabSelected === '1') return { marginLeft: '0' }
@@ -24,18 +26,23 @@ const Market = () => {
   }
   useEffect(() => {
     window.scroll({ top: 0, behavior: 'smooth' })
+    Promise.all([
+      getMainHomeList({url: announcesEndpoints.newRestaurants}).then((res: any) => {
+        const factor = window.location.pathname.includes('/market/reserve') ? 'RESERVATION' : window.location.pathname.includes('/market/delivery') ? 'LIVRAISON' : null
+        setAdsList(factor ? res.data.filter((item: any) => item?.type === factor) : res.data)
+        console.log(factor ? res.data.filter((item: any) => item?.type === factor) : res.data)
+      }),
+      // getMainHomeList({url: announcesEndpoints.nearbyRestaurants}).then((res: any) => {
+      //   console.log(res)
+      // })
+    ])
   }, [])
 
-  const profile = (
-    <div onClick={() => navigate(Paths.profile.index)} className='profile clickable'>
-      <span>Ahmed</span>
-    </div>
-  )
   return (
     <div style={{ position: 'relative' }}>
       <NavBar config={{
         isStatic: true,
-        rightComponent: deviceWidth > 768 ? profile : undefined,
+        rightComponent: <NavBarRightComp disableRestaurantBtn={true} />,
         middleComponent: deviceWidth > 768 ? searchBar : undefined,
       }} />
       <div className='banner'>
@@ -67,9 +74,9 @@ const Market = () => {
             )
           }
           <div className='paginationAndMapContainer'>
-            {tabSelected === '1' && <MarketsVerticalPagination />}
+            {tabSelected === '1' && <MarketsVerticalPagination adsList={adsList} />}
             {
-              (deviceWidth > 1023 || tabSelected === '2') && <MapCard />
+              (deviceWidth > 1023 || tabSelected === '2') && <MapCard adsList={adsList} />
             }
           </div>
         </div>

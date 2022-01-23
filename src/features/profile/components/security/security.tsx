@@ -36,7 +36,7 @@ const Security = () => {
             deviceWidth < 432 ? '' : <span>&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;</span>
           }</span>
         </span>
-        <button className={'btn cursorEnabled'}>Modifier</button>
+        <button onClick={() => navigate('/security/password')} className={'btn cursorEnabled'}>Modifier</button>
       </div>
       <div style={{ height: '24px' }} />
       <div className='hintsCont'>
@@ -49,7 +49,7 @@ const Security = () => {
           <span style={{ padding: '0 20px' }} />
           <span className='phone'>{connectedUser?.telephone}</span>
         </span>
-        <button className={'btn cursorEnabled'}>Modifier</button>
+        <button onClick={() => navigate('/security/phone')} className={'btn cursorEnabled'}>Modifier</button>
       </div>
     </div>
   )

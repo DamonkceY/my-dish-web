@@ -18,6 +18,7 @@ import { pushToToastsArray } from '../../../../app/store/storeModules/root/root'
 import { generateUniqueId } from '../../../../app/utils/func/commonFuncs'
 import FacebookLogin, { ReactFacebookFailureResponse, ReactFacebookLoginInfo } from 'react-facebook-login'
 import { connectWithGoogle } from '../../../../app/utils/firebase'
+import { authEndpoints } from '../../../../app/utils/endpoints'
 // import GoogleLogin from 'react-google-login';
 
 
@@ -71,25 +72,29 @@ const Login = () => {
       setStepIndex(stepIndex + 1)
       setValidButton(false)
     } else {
-      loginRequest(loginForm.current).then((res) => {
-        navigate(Paths.home)
-      }).catch(err => {
-        if (err.code === 404) {
-          setStepIndex(0)
-          dispatch(pushToToastsArray({
-            uniqueId: generateUniqueId(),
-            message: 'Votre identifiant n\'est pas valide',
-            type: 'danger',
-          }))
-        } else {
-          dispatch(pushToToastsArray({
-            uniqueId: generateUniqueId(),
-            message: 'Votre mot de passe est incorrecte',
-            type: 'danger',
-          }))
-        }
-      })
+      attemptLogin(loginForm.current, authEndpoints.login)
     }
+  }
+
+  const attemptLogin = (data: any, url: string) => {
+    loginRequest(data, url).then((res) => {
+      navigate(Paths.home)
+    }).catch(err => {
+      if (err.code === 404) {
+        setStepIndex(0)
+        dispatch(pushToToastsArray({
+          uniqueId: generateUniqueId(),
+          message: 'Votre identifiant n\'est pas valide',
+          type: 'danger',
+        }))
+      } else {
+        dispatch(pushToToastsArray({
+          uniqueId: generateUniqueId(),
+          message: 'Votre mot de passe est incorrecte',
+          type: 'danger',
+        }))
+      }
+    })
   }
 
   return (
@@ -111,7 +116,7 @@ const Login = () => {
                 {t('LOGIN.CREATE_ACCOUNT')}
               </span>
             </span>
-            <ConnectWithGoogleOrFacebook />
+            <ConnectWithGoogleOrFacebook loginReq={attemptLogin} />
           </div>
         ) : (
           <span className='getConnected'>
@@ -125,7 +130,7 @@ const Login = () => {
   )
 }
 
-const ConnectWithGoogleOrFacebook = () => {
+const ConnectWithGoogleOrFacebook: React.FC<{ loginReq: Function }> = ({ loginReq }) => {
   const { t } = useTranslation()
   const facebookRef = useRef<HTMLDivElement | null>(null)
   const socialMedia = [
@@ -133,7 +138,11 @@ const ConnectWithGoogleOrFacebook = () => {
       icon: google,
       text: 'LOGIN.CONNECT_WITH_GOOGLE',
       onClick: () => {
-        connectWithGoogle().then((res) => {
+        connectWithGoogle().then((res: any) => {
+          loginReq({
+              idToken: res._tokenResponse.oauthIdToken,
+            },
+            authEndpoints.loginWithGoogle)
           console.log(res)
         }).catch((err) => {
           console.log(err)
@@ -154,10 +163,11 @@ const ConnectWithGoogleOrFacebook = () => {
 
   const responseFacebook = (response: ReactFacebookLoginInfo) => {
     console.log(response)
-    const fbLoginData:FacebookLoginDataInterface = {
+    const fbLoginData: FacebookLoginDataInterface = {
       accessToken: response.accessToken,
-      userId: response.userID
+      userID: response.userID,
     }
+    loginReq(fbLoginData, authEndpoints.loginWithFacebook)
   }
 
   return (
@@ -183,7 +193,7 @@ const ConnectWithGoogleOrFacebook = () => {
         }
         <div ref={facebookRef} style={{ display: 'none' }}>
           <FacebookLogin
-            appId='783146112554239'
+            appId='968484060691544'
             callback={responseFacebook}
           />
         </div>

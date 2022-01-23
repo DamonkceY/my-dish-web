@@ -1,5 +1,7 @@
 import axios from 'axios'
 import { AxiosResponse, AxiosError } from 'axios'
+import { store } from '../store/store'
+import { logout } from '../store/storeModules/authentication/authenticationSlice'
 
 const Interceptor = axios.create({
   timeout: 20000,
@@ -25,7 +27,8 @@ Interceptor.interceptors.response.use(
       case 403:
         return error.response
       default:
-        debugger;
+        // store.dispatch(logout())
+        console.log(error)
         break
 
     }

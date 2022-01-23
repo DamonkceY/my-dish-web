@@ -9,3 +9,19 @@ export const getMyReservationsList = () => {
     endPoint: commonEndpoints.myReservations,
   })
 }
+
+export const getMyPromoCodes = () => {
+  return Executor({
+    method: 'get',
+    payloadData: null,
+    endPoint: commonEndpoints.myPromoCodes,
+  })
+}
+
+export const getMyRates = () => {
+  return Executor({
+    method: 'get',
+    payloadData: null,
+    endPoint: commonEndpoints.myRates,
+  })
+}

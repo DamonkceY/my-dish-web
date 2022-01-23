@@ -35,6 +35,10 @@ import Toaster from './sharedComponents/toaster/toaster'
 import { getProfileByToken } from './app/store/storeModules/authentication/authenticationService'
 import PrivateComp from './sharedComponents/privateAndPublicComponent/privateComponent'
 import PublicComp from './sharedComponents/privateAndPublicComponent/publicComponents'
+import SecurityPagesContainer from './features/profile/components/security/securityPagesContainer'
+import ChangePhoneNumber from './features/profile/components/security/phone/changePhoneNumber'
+import ChangePassword from './features/profile/components/security/password/changePassword'
+import { setOrderConfirmationDetails, setOrderDetails } from './app/store/storeModules/cart/cartSlice'
 
 const App = () => {
   const isRootLoading = useAppSelector(selectRootLoading)
@@ -48,6 +52,9 @@ const App = () => {
     window.addEventListener('resize', () => {
       dispatch(setDeviceWidth(document.body.clientWidth))
     })
+
+    dispatch(setOrderDetails(JSON.parse(localStorage.getItem('ORDER_DETAILS') as string)))
+    dispatch(setOrderConfirmationDetails(JSON.parse(localStorage.getItem('ORDER_CONFIRMATION_DETAILS') as string)))
   }, [])
   return (
     <div style={{ position: 'relative' }}>
@@ -81,6 +88,11 @@ const App = () => {
             <Route path={Paths.profile.fidelity} element={<LoyaltySpace />} />
             <Route path={Paths.profile.rates} element={<MyRates />} />
             <Route path={Paths.profile.favorites} element={<MyFavorite />} />
+          </Route>
+          <Route path={Paths.security.index} element={<PrivateComp config={{ component: <SecurityPagesContainer /> }} />}>
+            <Route index element={<Navigate to={Paths.security.phone} />} />
+            <Route path={Paths.security.phone} element={<ChangePhoneNumber />} />
+            <Route path={Paths.security.password} element={<ChangePassword />} />
           </Route>
           <Route path={Paths.auth.index} element={<PublicComp config={{ component: <Authentication /> }} />}>
             <Route index element={<Login />} />

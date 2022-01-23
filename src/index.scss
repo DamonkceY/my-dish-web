@@ -118,6 +118,23 @@ input:focus, textarea:focus, select:focus {
   }
 }
 
+.checkoutForm {
+  //min-height: 300px;
+  form {
+    height: 100%;
+    padding: 30px;
+  }
+  button {
+    margin-top: 20px;
+    background-color: #fb5557;
+    border: unset;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+}
+
 .loaderContainer {
   display: flex;
   align-items: center;
@@ -143,6 +160,22 @@ input:focus, textarea:focus, select:focus {
         transform: rotate(359deg);
       }
     }
+  }
+}
+
+.hintContainer {
+  width: 100%;
+  padding: 15px 40px;
+  border-radius: 7px;
+  color: #fff;
+
+  &.info {
+    background-color: #2687fa;
+    background-image: url("assets/infoIcon.svg");
+    background-repeat: no-repeat;
+    //background-size: 100%;
+    background-position-x: 10px;
+    background-position-y: center;
   }
 }
 

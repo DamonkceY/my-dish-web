@@ -14,6 +14,7 @@ import {
 import { pushToToastsArray } from '../../../../app/store/storeModules/root/root'
 import { generateUniqueId } from '../../../../app/utils/func/commonFuncs'
 import { useAppDispatch } from '../../../../app/store/hooks'
+import { authEndpoints } from '../../../../app/utils/endpoints'
 
 const Register: React.FC<{}> = () => {
   const { t } = useTranslation()
@@ -62,7 +63,7 @@ const Register: React.FC<{}> = () => {
           labelSalt: `${selectedCountry?.dialCode} ${registerForm.current?.telephone}`,
           label: 'SMS_VERIFICATION.ENTER_CODE',
           placeholder: 'SMS_VERIFICATION.FOUR_DIGITS_CODE',
-          type: 'text',
+          type: 'number',
           rules: {
             minLength: 4,
             maxLength: 4,
@@ -171,7 +172,7 @@ const Register: React.FC<{}> = () => {
         setButtonText('REGISTER.BEGIN_MYDISH_EXPERIENCE')
       }
     } else {
-      loginRequest({ email: registerForm.current.email, password: registerForm.current.password }).then((res) => {
+      loginRequest({ email: registerForm.current.email, password: registerForm.current.password }, authEndpoints.login).then((res) => {
         navigate(Paths.home)
       })
     }

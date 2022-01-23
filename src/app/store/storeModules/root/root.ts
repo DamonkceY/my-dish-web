@@ -9,14 +9,14 @@ export interface ToastInterface {
 
 export interface RootSliceState {
   // TODO User Interface
-  shoppingModal: boolean;
+  shoppingModal: any;
   isRootLoading: boolean;
   deviceWidth: number;
   toastsArray: Array<ToastInterface>;
 }
 
 const initialState: RootSliceState = {
-  shoppingModal: false,
+  shoppingModal: null,
   isRootLoading: false,
   deviceWidth: document.body.clientWidth,
   toastsArray: [],
@@ -27,7 +27,7 @@ export const rootSlice = createSlice({
   name: 'root',
   initialState,
   reducers: {
-    setShoppingModal: (state, action: PayloadAction<boolean>) => {
+    setShoppingModal: (state, action: PayloadAction<any>) => {
       state.shoppingModal = action.payload
     },
     setRootLoading: (state, action: PayloadAction<boolean>) => {

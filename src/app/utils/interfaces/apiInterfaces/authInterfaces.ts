@@ -14,7 +14,7 @@ export interface GoogleLoginDataInterface {
 }
 
 export interface FacebookLoginDataInterface {
-  userId: string;
+  userID: string;
   accessToken: string;
 }
 

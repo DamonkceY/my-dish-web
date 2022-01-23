@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useAppSelector } from '../../app/store/hooks'
 import { selectDeviceWidth, selectShoppingModal, setShoppingModal } from '../../app/store/storeModules/root/root'
 import { useDispatch } from 'react-redux'
@@ -28,16 +28,16 @@ const ShoppingModal = () => {
   return (
     <div>
       {deviceWidth <= 768 ? (
-        <BottomSheet onDismiss={() => dispatch(setShoppingModal(false))} open={selector}>
-          <Body />
+        <BottomSheet onDismiss={() => dispatch(setShoppingModal(null))} open={!!selector}>
+          <Body item={selector} />
         </BottomSheet>
       ) : (
         <Modal
-          open={selector}
-          onClose={() => dispatch(setShoppingModal(false))}
+          open={!!selector}
+          onClose={() => dispatch(setShoppingModal(null))}
         >
           <Box sx={style}>
-            <Body />
+            <Body item={selector} />
           </Box>
         </Modal>
       )}

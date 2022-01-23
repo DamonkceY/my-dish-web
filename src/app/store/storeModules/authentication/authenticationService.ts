@@ -11,8 +11,9 @@ import { store } from '../../store'
 import { setConnectedUser } from './authenticationSlice'
 
 
-export const getProfileByToken = () => {
+export const getProfileByToken = (isSilent?: boolean) => {
   return Executor({
+    isSilent,
     method: 'get',
     payloadData: null,
     endPoint: authEndpoints.getMyProfile,
@@ -22,11 +23,11 @@ export const getProfileByToken = () => {
   })
 }
 
-export const loginRequest = (data: SimpleLoginDataInterface) => {
+export const loginRequest = (data: any, url: string) => {
   return Executor({
     method: 'post',
     payloadData: data,
-    endPoint: authEndpoints.login,
+    endPoint: url,
     successFunc: (data: {
       user: any,
       token: string

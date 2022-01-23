@@ -3,7 +3,6 @@ import NavBar from '../../sharedComponents/navBar/navBar'
 import React, { useEffect, useRef, useState } from 'react'
 import { searchBar } from '../market/market'
 import { useTranslation } from 'react-i18next'
-import { SLIDES } from '../mainHome/mockToBeDeleted'
 import emptyHeart from '../../assets/emptyHeart.svg'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
@@ -18,14 +17,22 @@ import { useAppSelector } from '../../app/store/hooks'
 import { selectDeviceWidth } from '../../app/store/storeModules/root/root'
 import { BottomSheet } from 'react-spring-bottom-sheet'
 import 'react-spring-bottom-sheet/dist/style.css'
+import { getRestaurantById, setFavoriteRestaurant } from '../../app/store/storeModules/announces/announcesService'
+import { NavBarRightComp } from '../mainHome/mainHome'
+import EmptyMessage from '../../sharedComponents/emptyMessage/emptyMessage'
+import filledHeart from '../../assets/filledHeart.svg'
+import { selectConnectedUser } from '../../app/store/storeModules/authentication/authenticationSlice'
+import { getProfileByToken } from '../../app/store/storeModules/authentication/authenticationService'
 
 const Restaurant = () => {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const [tabSelected, setTabSelected] = useState('ENTRIES')
   const isMounted = useRef(false)
   const deviceWidth = useAppSelector(selectDeviceWidth)
   const [shoppingModal, setShoppingModal] = useState({ mobile: deviceWidth <= 768, isOpen: false })
   const [moreDetail, setMoreDetail] = useState({ mobile: deviceWidth <= 768, isOpen: false })
+  const [selectedRestaurant, setSelectedRestaurant] = useState<any>(undefined)
 
   const style = {
     position: 'absolute' as 'absolute',
@@ -38,8 +45,27 @@ const Restaurant = () => {
     boxShadow: 24,
   }
 
+  const [isFavorite, setFavorite] = useState(false)
+  const connectedUser = useAppSelector(selectConnectedUser)
+  const favoriteCondition = () => connectedUser?.favoriteRestaurants?.find((item: any) => item?._id === (selectedRestaurant?._id || selectedRestaurant?.restaurantId))
+  useEffect(() => {
+    setFavorite(favoriteCondition)
+  }, [connectedUser, selectedRestaurant])
+  const setFav = () => {
+    setFavoriteRestaurant({ id: selectedRestaurant?._id || selectedRestaurant?.restaurantId, favoriteState: isFavorite }).then((res) => {
+      getProfileByToken(true).then()
+    })
+    setFavorite(!isFavorite)
+  }
+
   useEffect(() => {
     window.scroll({ top: 0, behavior: 'smooth' })
+    getRestaurantById({ id: window.location.pathname.slice(12) }).then((res: any) => {
+      console.log(res)
+      setSelectedRestaurant(res?.data)
+    }).catch(() => {
+      navigate(Paths.home)
+    })
   }, [])
 
   const getMargin = () => {
@@ -54,171 +80,205 @@ const Restaurant = () => {
 
   const array = ['ENTRIES', 'DISHES', 'DESSERTS', 'DRINKS']
 
-  const navigate = useNavigate()
-  const profile = (
-    <div onClick={() => navigate(Paths.profile.index)} className='profile clickable'>
-      <span>Ahmed</span>
-    </div>
-  )
   return (
-    <div style={{ position: 'relative' }}>
-      { deviceWidth > 768 && <NavBar config={{
-        isStatic: true,
-        rightComponent: profile,
-        middleComponent: searchBar,
-      }} />}
-      <div className='headerRestaurant'>
-        <div className='detailContainer'>
+    selectedRestaurant ? (
+      <div style={{ position: 'relative' }}>
+        {deviceWidth > 768 && <NavBar config={{
+          isStatic: true,
+          rightComponent: <NavBarRightComp disableRestaurantBtn={true} />,
+          middleComponent: searchBar,
+        }} />}
+        <div className='headerRestaurant' style={{backgroundImage: `url(${selectedRestaurant?.imageUrl})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
+          <div className='detailContainer'>
           <span onClick={() => deviceWidth <= 768 && navigate(-1)}>
             {deviceWidth <= 768 && <span className='backArrowRestaurant' />}
-            <span className='title'>Joayo Haussmann</span>
+            <span className='title'>{selectedRestaurant?.name}</span>
           </span>
-          <div className='details'>
+            <div className='details'>
             <span className='rateComments'>
-              <span className='rate'>9.2<span className='outOfTen'>/ 10</span></span>
-              <span className='comments'>144</span>
+              <span className='rate'>{selectedRestaurant?.globalRating}<span className='outOfTen'>/ 10</span></span>
+              <span className='comments'>{selectedRestaurant?.ratings.length || 0}</span>
             </span>
-            <span>Italien • Pizza</span>
-            <span>Prix moyen  175 €</span>
-            <span>10 rue Gustave Flaubert, 75017 Paris • <span className='clickable moreInfo'
-                                                               onClick={() => setMoreDetail({
-                                                                 isOpen: true,
-                                                                 mobile: deviceWidth <= 768,
-                                                               })}>Plus d'informations</span></span>
-          </div>
-          <div>
-            <img draggable={false} src={emptyHeart} alt='' />
-          </div>
-        </div>
-        {deviceWidth > 626 && <RestaurantMap id={'restaurantPosition'} />}
-      </div>
-      {
-        deviceWidth < 920 && (
-          <div className='restaurantTabsContainer'>
-            <div style={{ padding: '0 5vw', display: 'flex', justifyContent: 'end' }} className='tabs'>
-              <button className={'btn success'} style={{ margin: '18px 0 0 0' }} onClick={() => setShoppingModal({
-                isOpen: true,
-                mobile: deviceWidth <= 768,
-              })}>Réservez une table
-              </button>
+              <span>
+                {
+                  selectedRestaurant?.specialty?.map((item: any, index: number) => `${index !== 0 ? ' • ' : ''}${item}`)
+                }
+              </span>
+              <span>Prix moyen {selectedRestaurant?.avgPrice[0] || 0} €</span>
+              <span>{selectedRestaurant?.address} • <span className='clickable moreInfo'
+                                                          onClick={() => setMoreDetail({
+                                                            isOpen: true,
+                                                            mobile: deviceWidth <= 768,
+                                                          })}>Plus d'informations</span></span>
+            </div>
+            <div>
+              <img onClick={setFav} className={'clickable'} draggable={false} src={isFavorite ? filledHeart : emptyHeart} alt='' />
             </div>
           </div>
-        )
-      }
-      <div style={{ padding: '18px 5vw' }}>
-        <div className='restaurantTabsContainer'>
-          <div className='tabs'>
-            <div className='cont'>
+          {deviceWidth > 626 && <RestaurantMap item={selectedRestaurant} id={'restaurantPosition'} />}
+        </div>
+        {
+          deviceWidth < 920 && selectedRestaurant?.type === 'RESERVATION' && (
+            <div className='restaurantTabsContainer'>
+              <div style={{ padding: '0 5vw', display: 'flex', justifyContent: 'end' }} className='tabs'>
+                <button className={'btn success'} style={{ margin: '18px 0 0 0' }} onClick={() => setShoppingModal({
+                  isOpen: true,
+                  mobile: deviceWidth <= 768,
+                })}>Réservez une table
+                </button>
+              </div>
+            </div>
+          )
+        }
+        <div style={{ padding: '18px 5vw' }}>
+          <div className='restaurantTabsContainer'>
+            <div className='tabs'>
+              <div className='cont'>
               <span onClick={() => setTabSelected('ENTRIES')}
                     className={tabSelected === 'ENTRIES' ? 'active tab' : 'tab'}
               >
                 {t('RESTAURANT.ENTRIES')}
               </span>
-              <span onClick={() => setTabSelected('DISHES')}
-                    className={tabSelected === 'DISHES' ? 'active tab' : 'tab'}
-              >
+                <span onClick={() => setTabSelected('DISHES')}
+                      className={tabSelected === 'DISHES' ? 'active tab' : 'tab'}
+                >
                 {t('RESTAURANT.DISHES')}
               </span>
-              <span onClick={() => setTabSelected('DESSERTS')}
-                    className={tabSelected === 'DESSERTS' ? 'active tab' : 'tab'}
-              >
+                <span onClick={() => setTabSelected('DESSERTS')}
+                      className={tabSelected === 'DESSERTS' ? 'active tab' : 'tab'}
+                >
                 {t('RESTAURANT.DESSERTS')}
               </span>
-              <span onClick={() => setTabSelected('DRINKS')}
-                    className={tabSelected === 'DRINKS' ? 'active tab' : 'tab'}
-              >
+                <span onClick={() => setTabSelected('DRINKS')}
+                      className={tabSelected === 'DRINKS' ? 'active tab' : 'tab'}
+                >
                 {t('RESTAURANT.DRINKS')}
               </span>
+              </div>
+              {deviceWidth > 919 && selectedRestaurant?.type === 'RESERVATION' && <button className='btn success' onClick={() => setShoppingModal({
+                isOpen: true,
+                mobile: deviceWidth <= 768,
+              })}>Réservez une table</button>}
             </div>
-            {deviceWidth > 919 && <button className='btn success' onClick={() => setShoppingModal({
-              isOpen: true,
-              mobile: deviceWidth <= 768,
-            })}>Réservez une table</button>}
+            <div style={getMargin()} className='underline' />
+            <div className='horizontalSeparator' />
           </div>
-          <div style={getMargin()} className='underline' />
-          <div className='horizontalSeparator' />
+
+          {
+            array.map((item) => {
+              // ['ENTRIES', 'DISHES', 'DESSERTS', 'DRINKS']
+              let dataArr = []
+              switch (item) {
+                case 'ENTRIES':
+                  dataArr = selectedRestaurant?.entrée || []
+                  break
+                case 'DISHES':
+                  dataArr = selectedRestaurant?.plats || []
+                  break
+                case 'DESSERTS':
+                  dataArr = selectedRestaurant?.deserts || []
+                  break
+                case 'DRINKS':
+                  dataArr = selectedRestaurant?.boissons || []
+                  break
+                default:
+                  dataArr = []
+                  break;
+              }
+              return (
+                <div className='optionsContainer'>
+                  <span id={item}>{t(`RESTAURANT.${item}`)}</span>
+                  <div style={{ margin: '40px' }} />
+                  <div className='cards'>
+                    {dataArr.map((item: any) => {
+                      return (
+                        <RestaurantCard openReservation={() => {
+                          setShoppingModal({
+                            isOpen: true,
+                            mobile: deviceWidth <= 768,
+                          })
+                        }} restaurant={selectedRestaurant} item={item} />
+                      )
+                    })}
+                  </div>
+                  {
+                    dataArr.length === 0 && (
+                      <EmptyMessage config={{
+                        title: 'Il n\'ya pas des donnée en ce moment'
+                      }}/>
+                    )
+                  }
+                </div>
+              )
+            })
+          }
         </div>
 
-        {
-          array.map((item) => (
-            <div className='optionsContainer'>
-              <span id={item}>{t(`RESTAURANT.${item}`)}</span>
-              <div style={{ margin: '40px' }} />
-              <div className='cards'>
-                {SLIDES.map((item) => {
-                  return (
-                    <RestaurantCard item={item} />
-                  )
-                })}
-              </div>
-            </div>
-          ))
-        }
-      </div>
+        {/* Modals */}
 
-      {/* Modals */}
-
-      <Modal
-        open={shoppingModal.isOpen && !shoppingModal.mobile}
-        onClose={() => setShoppingModal({
-          isOpen: false,
-          mobile: deviceWidth <= 768,
-        })}
-      >
-        <Box sx={style}>
-          <ModalReservation closeEvent={() => setShoppingModal({
+        <Modal
+          open={shoppingModal.isOpen && !shoppingModal.mobile}
+          onClose={() => setShoppingModal({
             isOpen: false,
             mobile: deviceWidth <= 768,
-          })} />
-        </Box>
-      </Modal>
-      <Modal
-        open={moreDetail.isOpen && !moreDetail.mobile}
-        onClose={() => setMoreDetail({
-          isOpen: false,
-          mobile: deviceWidth <= 768,
-        })}
-      >
-        <Box sx={style}>
-          <MoreDetailModal closeEvent={() => setMoreDetail({
+          })}
+        >
+          <Box sx={style}>
+            <ModalReservation restaurant={selectedRestaurant} closeEvent={() => setShoppingModal({
+              isOpen: false,
+              mobile: deviceWidth <= 768,
+            })} />
+          </Box>
+        </Modal>
+        <Modal
+          open={moreDetail.isOpen && !moreDetail.mobile}
+          onClose={() => setMoreDetail({
             isOpen: false,
             mobile: deviceWidth <= 768,
-          })} />
-        </Box>
-      </Modal>
-
-      <ShoppingModal />
-
-      {/* bottom sheet */}
-      <BottomSheet onDismiss={() => {
-        setMoreDetail({
-          isOpen: false,
-          mobile: deviceWidth <= 768,
-        })
-        setShoppingModal({
-          isOpen: false,
-          mobile: deviceWidth <= 768,
-        })
-      }} open={(moreDetail.isOpen && moreDetail.mobile) || (shoppingModal.isOpen && shoppingModal.mobile)}>
-        {
-          moreDetail.isOpen && (
+          })}
+        >
+          <Box sx={style}>
             <MoreDetailModal closeEvent={() => setMoreDetail({
               isOpen: false,
               mobile: deviceWidth <= 768,
-            })} />
-          )
-        }
-        {
-          shoppingModal.isOpen && (
-            <ModalReservation closeEvent={() => setShoppingModal({
-              isOpen: false,
-              mobile: deviceWidth <= 768,
-            })} />
-          )
-        }
-      </BottomSheet>
+            })}
+                             item={selectedRestaurant} />
+          </Box>
+        </Modal>
 
-    </div>
+        <ShoppingModal />
+
+        {/* bottom sheet */}
+        <BottomSheet onDismiss={() => {
+          setMoreDetail({
+            isOpen: false,
+            mobile: deviceWidth <= 768,
+          })
+          setShoppingModal({
+            isOpen: false,
+            mobile: deviceWidth <= 768,
+          })
+        }} open={(moreDetail.isOpen && moreDetail.mobile) || (shoppingModal.isOpen && shoppingModal.mobile)}>
+          {
+            moreDetail.isOpen && (
+              <MoreDetailModal item={selectedRestaurant} closeEvent={() => setMoreDetail({
+                isOpen: false,
+                mobile: deviceWidth <= 768,
+              })} />
+            )
+          }
+          {
+            shoppingModal.isOpen && (
+              <ModalReservation restaurant={selectedRestaurant} closeEvent={() => setShoppingModal({
+                isOpen: false,
+                mobile: deviceWidth <= 768,
+              })} />
+            )
+          }
+        </BottomSheet>
+
+      </div>
+    ) : <></>
   )
 }
 

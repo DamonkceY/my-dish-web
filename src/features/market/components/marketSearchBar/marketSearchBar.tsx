@@ -1,14 +1,15 @@
 import './marketSearchBar.scss'
 import { useTranslation } from 'react-i18next'
 import filterBy from '../../../../assets/filterBy.svg'
-import arrowDown from '../../../../assets/down-arrow.svg'
 import ButtonSelect from '../../../../sharedComponents/buttonSelect/buttonSelect'
+import { useEffect } from 'react'
 
 const MarketSearchBar = () => {
   const { t } = useTranslation()
+  const title = window.location.pathname.includes('/market/reserve') ? 'HOME.SLIDES.BOOK_A_TABLE' : window.location.pathname.includes('/market/delivery') ? 'HOME.SLIDES.DELIVERY' : ''
   return (
     <div className='marketSearchBarContainer'>
-      <span>{t('HOME.SLIDES.BOOK_A_TABLE')}</span>
+      <span>{t(title)}</span>
       <div className='searchSelectsContainer'>
         <ButtonSelect config={{
           title: 'Trier par',

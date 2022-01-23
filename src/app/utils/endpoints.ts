@@ -13,5 +13,27 @@ export const authEndpoints = {
 }
 
 export const commonEndpoints = {
-  myReservations: '/Order/getReservationList'
+  myReservations: '/Order/getReservationList',
+  myPromoCodes: '/PromoCode/getMyPromoCodes',
+  myRates: '/user/getMyRates'
+}
+
+
+export const announcesEndpoints = {
+  search: '/Restaurant/searchRestaurant',
+  mainHome: '/Restaurant/restaurantInHomePage',
+  newRestaurants: '/Restaurant/getRestaurantList',
+  restaurantsSpecialities: '/Restaurant/restaurantSpecialities',
+  nearbyRestaurants: '/user/getNearByRestaurants',
+  getRestaurantById: (id: string) => `/Restaurant/restaurantDetails/${id}`,
+  setFavoriteRestaurant: (id: string, favorite: boolean) => `/user/${!favorite ? 'bookmarkRestaurant' : 'unbookmarkRestaurant'}/${id}`
+}
+
+export const cartEndpoints = {
+  addToCart: '/ShoppingCart/addToCart',
+  getCart: '/ShoppingCart/getProductInCart',
+  passOrder: '/Order/passOrder',
+  decrement: `/ShoppingCart/decrementProductInCart`,
+  increment: `/ShoppingCart/incrementProductInCart`,
+  checkIfIntentPayed: (key: string) => `/Order/checkIfOrderPayed/${key}`
 }

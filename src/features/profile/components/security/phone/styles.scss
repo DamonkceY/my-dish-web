@@ -1,0 +1,23 @@
+
+
+.stepperLabel {
+  font-size: 40px;
+  font-weight: bold;
+  margin: 35px 0;
+  display: inline-block;
+}
+
+.labelCancel {
+  display: inline-block;
+  padding: 15px 0;
+  font-size: 18px;
+  color: #45b995;
+}
+
+
+@media screen and(max-width: 768px){
+
+  .stepperLabel {
+    font-size: 26px;
+  }
+}

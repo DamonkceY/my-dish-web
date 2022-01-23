@@ -26,6 +26,7 @@
           object-fit: cover;
           width: 100%;
           border-radius: 11px;
+          height: 220px;
         }
 
         .heart {
@@ -91,10 +92,10 @@
     }
   }
 }
-@media screen and(max-width: 767px) {
+@media screen and(max-width: 768px) {
   .searchContainer {
     .searchHeader {
-      margin: 25px 0;
+      margin: 20px 0;
       span {
         font-size: 26px;
       }
