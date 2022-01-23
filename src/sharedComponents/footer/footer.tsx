@@ -6,18 +6,26 @@ import ig from '../../assets/contactInstagram.svg'
 import { useTranslation } from 'react-i18next'
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
+import { useAppSelector } from '../../app/store/hooks'
+import { selectConnectedUser } from '../../app/store/storeModules/authentication/authenticationSlice'
+import { selectRootLoading } from '../../app/store/storeModules/root/root'
 
 const Footer: React.FC<{}> = () => {
   const { t } = useTranslation()
   const location = useLocation()
   const [isVisible, setIsVisible] = useState(true)
   const [HEIGHT, setHeight] = useState('720px')
+  const connectedUser = useAppSelector(selectConnectedUser)
+  const isLoading = useAppSelector(selectRootLoading)
+  const getValid = () => {
+    return isVisible && !isLoading
+  }
   useEffect(() => {
-    setIsVisible(!location.pathname.includes('auth'))
+    setIsVisible(!location.pathname.includes('auth') && !location.pathname.includes('/security/'))
     setHeight(location.pathname.includes('restaurantHome') ? '630px' : HEIGHT)
   }, [location])
   return (
-    isVisible ? (
+    getValid() ? (
         <div>
           <div style={{ height: HEIGHT }} />
           <div className='footerContainer'>
@@ -35,7 +43,7 @@ const Footer: React.FC<{}> = () => {
                 <span>{t('FOOTER.SUBSCRIBE_TO_NEWSLETTER')}</span>
                 <div className='inputCont'>
                   <input placeholder={t('REGISTER.ENTER_THE_EMAIL')} type='text' />
-                  <button disabled>{t('FOOTER.SUBSCRIBE')}</button>
+                  <button className={'btn'} disabled>{t('FOOTER.SUBSCRIBE')}</button>
                 </div>
               </div>
               <div className='footerUpThree'>

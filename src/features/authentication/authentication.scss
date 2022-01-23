@@ -15,6 +15,10 @@
 
   overflow-y: auto;
 
+  &.noBackground {
+    background-image: unset;
+  }
+
   .logo {
     margin-bottom: 50px;
   }

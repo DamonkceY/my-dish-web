@@ -92,6 +92,19 @@
   padding-left: 25px;
   background-image: url("../../assets/seConnecterNoire.svg");
   background-repeat: no-repeat;
+  span {
+    color: #000;
+  }
+}
+@media screen and(min-width: 1024px) {
+  .markets {
+    .paginationAndMapContainer {
+
+      .mapCard {
+        min-height: 1055px;
+      }
+    }
+  }
 }
 @media screen and(max-width: 1023px) {
   .markets {

@@ -13,7 +13,7 @@ import temps from '../../assets/temps.svg'
 
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
-import { Paths } from '../../app/utils/paths/Paths'
+import { Paths } from '../../app/utils/paths'
 import NavBar from '../../sharedComponents/navBar/navBar'
 import PhoneNumberInput from '../../sharedComponents/phoneNumberInput/phoneNumberInput'
 import { useAppSelector } from '../../app/store/hooks'
@@ -46,6 +46,7 @@ const RestaurantLandingPage = () => {
     <div className='buttonsHead'>
       <span onClick={() => navigate(Paths.auth.index)}>{t('NAVBAR.GET_CONNECTED')}</span>
       <button
+        className={'btn cursorEnabled'}
         onClick={() => navigate(Paths.auth.index + '/' + Paths.auth.register)}>{t('FOOTER.SUBSCRIBE')}</button>
     </div>
   )
@@ -81,7 +82,7 @@ const RestaurantLandingPage = () => {
             <input placeholder='Nom' type='text'/>
             <input placeholder='Prénom' type='text'/>
             <PhoneNumberInput
-              config={{ label: '', placeholder: 'Numéro de téléphone portable' }} />
+              config={{ label: '', placeholder: 'Numéro de téléphone portable', onChange: () => null }} />
             <input placeholder='Adresse e-mail' type='text'/>
             <input placeholder='Nombre de restaurants' type='text'/>
             <input placeholder='Cuisine' type='text'/>
@@ -90,7 +91,7 @@ const RestaurantLandingPage = () => {
             <span>
               En cliquant sur Envoyer une demande, vous acceptez les <span className='qsd clickable'>Conditions</span> et la <span className='qsd clickable'>Politique de confidentialité</span> de mydish.
             </span>
-            <button>Envoyer une demande</button>
+            <button className='btn success'>Envoyer une demande</button>
           </div>
         </div>
       </div>

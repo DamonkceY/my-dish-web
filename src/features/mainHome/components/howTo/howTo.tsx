@@ -29,10 +29,10 @@ const HowTo = () => {
           <span>{t('HOME.HOW_TO.STEPS.STEP3')}</span>
         </div>
         <div className='storeContainer'>
-          <button className='iphone'>
+          <button className='btn success iphone'>
             Iphone
           </button>
-          <button className='android'>
+          <button className='btn success android'>
             Android
           </button>
         </div>

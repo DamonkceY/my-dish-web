@@ -1,0 +1,31 @@
+
+.toasterMainContainer {
+  position: fixed;
+  left: 10px;
+  width: 80vw;
+  max-width: 350px;
+  border-radius: 10px;
+  height: fit-content;
+  padding: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  z-index: 999999999999;
+
+  &.success {
+    background-color: #fb5557;
+    color: #fff;
+  }
+  &.danger {
+    background-color: #fb5557;
+    color: #fff;
+  }
+  &.info {
+    background-color: #fb5557;
+    color: #fff;
+  }
+
+
+  .toasterMessage{
+
+  }
+}

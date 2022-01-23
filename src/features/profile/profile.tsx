@@ -10,9 +10,12 @@ import sale from '../../assets/sale.svg'
 import chat from '../../assets/mesAvisBlack.svg'
 import heart from '../../assets/blackHeart.svg'
 import shield from '../../assets/shield.svg'
-import { Paths } from '../../app/utils/paths/Paths'
+import { Paths } from '../../app/utils/paths'
 import { useAppSelector } from '../../app/store/hooks'
 import { selectDeviceWidth } from '../../app/store/storeModules/root/root'
+import { logout, selectConnectedUser } from '../../app/store/storeModules/authentication/authenticationSlice'
+import { useDispatch } from 'react-redux'
+import { capitalizeFirstLetter } from '../../app/utils/func/commonFuncs'
 
 const Profile = () => {
   const location = useLocation()
@@ -21,11 +24,38 @@ const Profile = () => {
   const [isItemsOnly, setIsItemsOnly] = useState(location.pathname.includes('/profile') && deviceWidth <= 768)
   const [selectedTab, setSelectedTab] = useState(isMenuOnly ? undefined : 1)
   const navigate = useNavigate()
+  const connectedUser = useAppSelector(selectConnectedUser)
 
   useEffect(() => {
     setIsMenuOnly(location.pathname === '/monProfile' && deviceWidth <= 768)
     setIsItemsOnly(location.pathname.includes('/profile') && deviceWidth <= 768)
   }, [location.pathname, deviceWidth])
+
+  useEffect(() => {
+    switch (location.pathname) {
+      case '/profile':
+        setSelectedTab(1)
+        break
+      case '/profile/security':
+        setSelectedTab(2)
+        break
+      case '/profile/myReservations':
+        setSelectedTab(3)
+        break
+      case '/profile/loyaltySpace':
+        setSelectedTab(4)
+        break
+      case '/profile/rates':
+        setSelectedTab(5)
+        break
+      case '/profile/favorites':
+        setSelectedTab(6)
+        break
+      default:
+        setSelectedTab(1)
+        break
+    }
+  }, [location])
 
   const goTo = (ind: number, path: string) => {
     setSelectedTab(ind)
@@ -33,7 +63,7 @@ const Profile = () => {
   }
   const profile = (
     <div onClick={() => navigate(Paths.profile.index)} className='profile clickable'>
-      <span>Ahmed</span>
+      <span>{capitalizeFirstLetter(connectedUser?.firstName as string)}</span>
     </div>
   )
   return (
@@ -61,7 +91,7 @@ const Profile = () => {
 }
 
 export const LeftSide: React.FC<{ selectedTab?: number, goTo?: Function }> = ({ selectedTab, goTo }) => {
-  const navigate = useNavigate()
+  const dispatch = useDispatch()
   return (
     <div className='leftSide'>
       <div className={`linkCont ${selectedTab === 1 && 'active'}`} onClick={() => goTo && goTo(1, Paths.profile.index)}>
@@ -92,7 +122,7 @@ export const LeftSide: React.FC<{ selectedTab?: number, goTo?: Function }> = ({ 
         <img draggable={false} src={heart} alt='' />
         <span>Mes Favoris</span>
       </div>
-      <span className='disconnect' onClick={() => navigate('/auth')}>Se déconnecter</span>
+      <span className='disconnect' onClick={() => dispatch(logout())}>Se déconnecter</span>
     </div>
   )
 }

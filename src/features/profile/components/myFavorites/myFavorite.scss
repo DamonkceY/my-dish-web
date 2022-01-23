@@ -13,6 +13,7 @@
         object-fit: cover;
         width: 100%;
         border-radius: 11px;
+        height: 220px;
       }
 
       .heart {
@@ -68,6 +69,7 @@
     .sliderElement {
       .sliderImage {
         .cardImage {
+          height: 260px;
           max-width: unset;
         }
       }

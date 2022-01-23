@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import './App.scss'
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 import Authentication from './features/authentication/authentication'
-import { Paths } from './app/utils/paths/Paths'
+import { Paths } from './app/utils/paths'
 import Login from './features/authentication/components/login/login'
 import Register from './features/authentication/components/register/register'
 import PasswordForgotten from './features/authentication/components/passwordForgotten/passwordForgotten'
@@ -23,22 +23,41 @@ import Security from './features/profile/components/security/security'
 import Test from './test'
 import spinner from './assets/spinner.svg'
 import { useAppSelector } from './app/store/hooks'
-import { selectDeviceWidth, selectRootLoading, setDeviceWidth } from './app/store/storeModules/root/root'
+import {
+  selectDeviceWidth,
+  selectRootLoading, selectToastsArray,
+  setDeviceWidth, ToastInterface,
+} from './app/store/storeModules/root/root'
 import { useDispatch } from 'react-redux'
 import Footer from './sharedComponents/footer/footer'
 import MobileNavigation from './sharedComponents/mobileNavigation/mobileNavigation'
+import Toaster from './sharedComponents/toaster/toaster'
+import { getProfileByToken } from './app/store/storeModules/authentication/authenticationService'
+import PrivateComp from './sharedComponents/privateAndPublicComponent/privateComponent'
+import PublicComp from './sharedComponents/privateAndPublicComponent/publicComponents'
+import SecurityPagesContainer from './features/profile/components/security/securityPagesContainer'
+import ChangePhoneNumber from './features/profile/components/security/phone/changePhoneNumber'
+import ChangePassword from './features/profile/components/security/password/changePassword'
+import { setOrderConfirmationDetails, setOrderDetails } from './app/store/storeModules/cart/cartSlice'
 
 const App = () => {
   const isRootLoading = useAppSelector(selectRootLoading)
   const deviceWidth = useAppSelector(selectDeviceWidth)
+  const toastsArray = useAppSelector(selectToastsArray)
   const dispatch = useDispatch()
   useEffect(() => {
+    if (localStorage.getItem('myDishWeb')) {
+      getProfileByToken().then()
+    }
     window.addEventListener('resize', () => {
       dispatch(setDeviceWidth(document.body.clientWidth))
     })
+
+    dispatch(setOrderDetails(JSON.parse(localStorage.getItem('ORDER_DETAILS') as string)))
+    dispatch(setOrderConfirmationDetails(JSON.parse(localStorage.getItem('ORDER_CONFIRMATION_DETAILS') as string)))
   }, [])
   return (
-    <div style={{position: 'relative'}}>
+    <div style={{ position: 'relative' }}>
       {
         isRootLoading && (
           <div className='loaderContainer'>
@@ -46,6 +65,12 @@ const App = () => {
           </div>
         )
       }
+      {
+        toastsArray.map((toast: ToastInterface, index: number) => (
+          <Toaster key={index} index={index} toast={toast} />
+        ))
+      }
+
       <BrowserRouter>
         <Routes>
           <Route path={Paths.home} element={<MainHome />} />
@@ -53,10 +78,10 @@ const App = () => {
           <Route path={Paths.market.index} element={<Market />} />
           <Route path={Paths.restaurant} element={<Restaurant />} />
           <Route path={Paths.shop} element={<Shop />} />
-          <Route path={Paths.cart} element={<ShoppingCart />} />
+          <Route path={Paths.cart} element={<PrivateComp config={{ component: <ShoppingCart /> }} />} />
           <Route path={Paths.searchResult} element={<SearchResult />} />
-          <Route path={Paths.mobileProfile} element={<Profile/>}/>
-          <Route path={Paths.profile.index} element={<Profile />}>
+          <Route path={Paths.mobileProfile} element={<PrivateComp config={{ component: <Profile /> }} />} />
+          <Route path={Paths.profile.index} element={<PrivateComp config={{ component: <Profile /> }} />}>
             <Route index element={<MyProfile />} />
             <Route path={Paths.profile.security} element={<Security />} />
             <Route path={Paths.profile.myReservations} element={<MyReservations />} />
@@ -64,7 +89,12 @@ const App = () => {
             <Route path={Paths.profile.rates} element={<MyRates />} />
             <Route path={Paths.profile.favorites} element={<MyFavorite />} />
           </Route>
-          <Route path={Paths.auth.index} element={<Authentication />}>
+          <Route path={Paths.security.index} element={<PrivateComp config={{ component: <SecurityPagesContainer /> }} />}>
+            <Route index element={<Navigate to={Paths.security.phone} />} />
+            <Route path={Paths.security.phone} element={<ChangePhoneNumber />} />
+            <Route path={Paths.security.password} element={<ChangePassword />} />
+          </Route>
+          <Route path={Paths.auth.index} element={<PublicComp config={{ component: <Authentication /> }} />}>
             <Route index element={<Login />} />
             <Route path={Paths.auth.register} element={<Register />} />
             <Route path={Paths.auth.passwordForgotten} element={<PasswordForgotten />} />

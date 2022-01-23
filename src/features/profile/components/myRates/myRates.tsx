@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import pizza from '../../../../assets/pizza.png'
 import updateSVG from '../../../../assets/modifier.svg'
 import deleteSVG from '../../../../assets/supprimer.svg'
@@ -14,7 +14,8 @@ import { selectDeviceWidth } from '../../../../app/store/storeModules/root/root'
 import { useNavigate } from 'react-router-dom'
 import { BottomSheet } from 'react-spring-bottom-sheet'
 import 'react-spring-bottom-sheet/dist/style.css'
-import { AddBankAccount } from '../../../shoppingCart/shoppingCart'
+import { getMyRates } from '../../../../app/store/storeModules/common/commonService'
+import EmptyMessage from '../../../../sharedComponents/emptyMessage/emptyMessage'
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -30,7 +31,14 @@ const style = {
 const MyRates = () => {
   const [modelData, setModelData] = useState(false)
   const deviceWidth = useAppSelector(selectDeviceWidth)
-  const navigate = useNavigate();
+  const navigate = useNavigate()
+  const [rates, setRates] = useState<Array<any>>([])
+
+  useEffect(() => {
+    getMyRates().then((res: any) => {
+      setRates(res.data as Array<any>)
+    })
+  }, [])
   return (
     <div>
       <div className='profileHeaderContainer'>
@@ -44,10 +52,21 @@ const MyRates = () => {
       <div style={{ margin: '20px 0' }} className='horizontalSeparator' />
 
       <div className='ratesContainer'>
-        <RateComp openModal={() => setModelData(true)} />
-        <RateComp openModal={() => setModelData(true)} />
-        <RateComp openModal={() => setModelData(true)} />
+        {
+          rates.map((item, index: number) => (
+            <RateComp key={index} openModal={() => setModelData(true)} />
+          ))
+        }
       </div>
+
+      {
+        rates.length === 0 && (
+          <EmptyMessage config={{
+            title: 'Aucun avis',
+            text: 'Vous n\'avez pas des avis en ce moment'
+          }}/>
+        )
+      }
 
       {
         deviceWidth > 768 ? (
@@ -56,12 +75,12 @@ const MyRates = () => {
             onClose={() => setModelData(false)}
           >
             <Box sx={style}>
-              <EditAddRateComp submitEvent={() => setModelData(false)}/>
+              <EditAddRateComp submitEvent={() => setModelData(false)} />
             </Box>
           </Modal>
         ) : (
           <BottomSheet open={modelData} onDismiss={() => setModelData(false)}>
-            <EditAddRateComp submitEvent={() => setModelData(false)}/>
+            <EditAddRateComp submitEvent={() => setModelData(false)} />
           </BottomSheet>
         )
       }
@@ -103,7 +122,7 @@ const RateComp: React.FC<{ openModal: Function }> = ({ openModal }) => {
   )
 }
 
-export const EditAddRateComp:React.FC<{submitEvent: Function}> = ({submitEvent}) => {
+export const EditAddRateComp: React.FC<{ submitEvent: Function }> = ({ submitEvent }) => {
   return (
     <div className='rateModal'>
       <div className='modalHeader'>
@@ -127,7 +146,7 @@ export const EditAddRateComp:React.FC<{submitEvent: Function}> = ({submitEvent})
           rows={7} />
       </div>
       <div style={{ height: '50px' }} />
-      <button onClick={() => submitEvent()}>Valider</button>
+      <button className={'btn cursorEnabled'} onClick={() => submitEvent()}>Valider</button>
     </div>
   )
 }

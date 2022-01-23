@@ -47,8 +47,10 @@
       button {
         font-weight: bold;
         font-size: 22px;
-        background-color: #45b995;
         width: 100%;
+        &.success {
+          background-color: #45b995;
+        }
       }
 
       .horizontalSeparator {

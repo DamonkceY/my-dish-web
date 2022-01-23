@@ -10,11 +10,11 @@ import SwiperCore, {
 
 SwiperCore.use([Mousewheel])
 
-const VerticalScroll = () => {
+const VerticalScroll:React.FC<{selected: any, elements: Array<any>, onChange: Function}> = ({selected, elements, onChange}) => {
   const [SWIPER, setSwiper] = useState<SwiperInterface | undefined>(undefined)
   useEffect(() => {
-    if (!!SWIPER) {
-      SWIPER.slideTo(3)
+    if (!!SWIPER && selected) {
+      SWIPER.slideTo(selected)
     }
   }, [SWIPER])
   return (
@@ -22,7 +22,7 @@ const VerticalScroll = () => {
       <Swiper
         onClick={(swipe) => !isNaN(swipe.clickedIndex) ? SWIPER?.slideTo(swipe.clickedIndex) : null}
         onSwiper={(swiper) => setSwiper(swiper)}
-        onSlideChange={(event) => console.log(event)}
+        onSlideChange={(event) => onChange(event.activeIndex)}
         centeredSlides={true}
         mousewheel={true}
         direction='vertical'
@@ -32,12 +32,9 @@ const VerticalScroll = () => {
         slideNextClass='disabledSlide'
         slidePrevClass='disabledSlide'
       >
-        <SwiperSlide>Slide 1</SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
-        <SwiperSlide>Slide 5</SwiperSlide>
-        <SwiperSlide>Slide 6</SwiperSlide>
+        {
+          elements.map((item: any) => <SwiperSlide key={item}>{item}</SwiperSlide>)
+        }
       </Swiper>
     </div>
   )

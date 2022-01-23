@@ -1,11 +1,11 @@
 import './map.scss'
 import React, { useEffect, useRef, useState } from 'react'
 import { SLIDES } from '../../../mainHome/mockToBeDeleted'
-import { Paths } from '../../../../app/utils/paths/Paths'
+import { Paths } from '../../../../app/utils/paths'
 import { useAppSelector } from '../../../../app/store/hooks'
 import { selectDeviceWidth } from '../../../../app/store/storeModules/root/root'
 
-const MapCard = () => {
+const MapCard:React.FC<{adsList: Array<any>}> = ({adsList}) => {
   const deviceWidth = useAppSelector(selectDeviceWidth)
   const [mapObject, setMapObject] = useState<google.maps.Map | null>(null)
   const allMarkers = useRef<Array<google.maps.Marker>>([])
@@ -22,30 +22,30 @@ const MapCard = () => {
       >
       </path>
       ${!!item.reduction ? `
-        <text font-family='circe' font-weight='bold' font-size='13' x='${item.rate.toString().length > 1 ? 20 : 22}' y='25' fill='white'>${item.rate}</text>
+        <text font-family='circe' font-weight='bold' font-size='13' x='${item.globalRating.toString().length > 1 ? 20 : 22}' y='25' fill='white'>${item.globalRating}</text>
         <line opacity='0.4' stroke='white' stroke-width='1' x1='1' x2='53' y1='32' y2='32' />
         <text font-family='circe' font-weight='bold' font-size='13' x='17' y='50' fill='white'>${item.reduction}%</text>
       ` : `
-        <text font-family='circe' font-weight='bold' font-size='16' x='22' y='35' fill='white'>${item.rate}</text>
+        <text font-family='circe' font-weight='bold' font-size='16' x='22' y='35' fill='white'>${item.globalRating}</text>
       `}
     </svg>
   `
 
   const getElementInfoWindow = (item: any) => `
-    <a style='text-decoration: inherit; color: inherit;' href='${Paths.restaurant}' target='_blank'>
+    <a style='text-decoration: inherit; color: inherit;' href='${Paths.restaurant}?id=${item?._id}' target='_blank'>
       <div class='sliderElement clickable'>
         <div class='sliderImage'>
-          <img draggable='false' class='cardImage' src='${item.image}' alt='' />
+          <img draggable='false' class='cardImage' src='${item.imageUrl || item.image}' alt='' />
         </div>
         <div class='sliderDetail'>
           <div class='detail'>
            <span class='name'>${item.name}</span>
-           <span class='price'>Prix moyen ${item.price} €</span>
-           <span class='speciality'>${item.speciality}</span>
-           <span class='reduction'>25% de réduction</span>
+           <span class='price'>Prix moyen ${item.avgPrice[0]} €</span>
+           <span class='speciality'>${item?.category}</span>
+<!--           <span class='reduction'>25% de réduction</span>-->
          </div>
          <div class='rating'>
-           ${item.rate} <span class='outOfTen'>/ 10</span>
+           ${item?.globalRating} <span class='outOfTen'>/ 10</span>
          </div>
         </div>
       </div>
@@ -54,7 +54,7 @@ const MapCard = () => {
 
   useEffect(() => {
     const mapProp: google.maps.MapOptions = {
-      center: new google.maps.LatLng(48.8566, 2.3522),
+      center: new google.maps.LatLng(adsList[0]?.location?.coordinates[1] || 48.8566, adsList[1]?.location?.coordinates[0] || 2.3522),
       zoomControl: false,
       disableDoubleClickZoom: true,
       fullscreenControl: false,
@@ -64,9 +64,9 @@ const MapCard = () => {
       zoom: 15,
     }
     const map = new google.maps.Map(document.getElementById('googleMap') as HTMLElement, mapProp)
-    SLIDES.forEach((item, index) => {
+    adsList.forEach((item, index) => {
       const marker = new google.maps.Marker({
-        position: new google.maps.LatLng(item.position.lat, item.position.lng),
+        position: new google.maps.LatLng(item?.location?.coordinates[1], item?.location?.coordinates[0]),
         icon: window.URL.createObjectURL(new Blob([getMarkerSvg(item)], { type: 'image/svg+xml' })),
       })
       const infoWindow = new google.maps.InfoWindow({
@@ -85,12 +85,12 @@ const MapCard = () => {
       allMarkers.current.push(marker)
       marker.setMap(map)
     })
-    allWindows.current[0].open({
+    allWindows.current[0]?.open({
       anchor: allMarkers.current[0],
       map,
     })
     setMapObject(map)
-  }, [])
+  }, [adsList])
 
   return (
     <div style={{ width: deviceWidth > 1023 ? '50%' : '100%' }}>

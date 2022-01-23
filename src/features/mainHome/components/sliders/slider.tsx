@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './slider.scss'
 
 import emptyHeart from '../../../../assets/emptyHeart.svg'
@@ -17,6 +17,11 @@ import 'swiper/swiper-bundle.min.css'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { useAppSelector } from '../../../../app/store/hooks'
 import { selectDeviceWidth } from '../../../../app/store/storeModules/root/root'
+import { capitalizeFirstLetter } from '../../../../app/utils/func/commonFuncs'
+import { setFavoriteRestaurant } from '../../../../app/store/storeModules/announces/announcesService'
+import { selectConnectedUser } from '../../../../app/store/storeModules/authentication/authenticationSlice'
+import { getProfileByToken } from '../../../../app/store/storeModules/authentication/authenticationService'
+import { Paths } from '../../../../app/utils/paths'
 
 const Slider: React.FC<{ config: SliderConfigInterface }> = ({ config }) => {
   const { t } = useTranslation()
@@ -86,30 +91,62 @@ const Slider: React.FC<{ config: SliderConfigInterface }> = ({ config }) => {
 }
 
 // TODO slides element interface
-export const SliderElement: React.FC<{ element: any, isFavorite?: boolean }> = ({ element, isFavorite }) => {
+export const SliderElement: React.FC<{ element: any }> = ({ element }) => {
   const navigate = useNavigate()
+  const [isFavorite, setFavorite] = useState(false)
+  const connectedUser = useAppSelector(selectConnectedUser)
+  const favoriteCondition = () => connectedUser?.favoriteRestaurants?.find((item: any) => item?._id === (element?._id || element?.restaurantId))
+  useEffect(() => {
+    setFavorite(favoriteCondition)
+  }, [connectedUser])
+  const setFav = () => {
+    if(connectedUser){
+      setFavoriteRestaurant({ id: element?._id || element?.restaurantId, favoriteState: isFavorite }).then((res) => {
+        getProfileByToken(true).then()
+      })
+      setFavorite(!isFavorite)
+    }
+  }
+
+  const goToRestaurant = () => {
+    connectedUser ? navigate(`/restaurant/${element?.restaurantId || element?._id}`) : navigate(Paths.auth.index)
+  }
   return (
-    <div className='sliderElement clickable' onClick={() => navigate('/restaurant/ss')}>
+    <div className='sliderElement clickable'>
       <div className='sliderImage'>
-        <img draggable={false} className='cardImage' src={element.image} alt='' />
-        <img draggable={false} className='heart' src={isFavorite ? filledHeart : emptyHeart} alt='' />
+        <img onClick={goToRestaurant} draggable={false} className='cardImage' src={element.image || element.imageUrl}
+             alt='' />
+        <img onClick={setFav} draggable={false} className='heart' src={isFavorite ? filledHeart : emptyHeart} alt='' />
       </div>
-      <div className='sliderDetail'>
+      <div className='sliderDetail' onClick={goToRestaurant}>
         <div className='detail'>
           <span className='name'>{element?.name}</span>
-          <span className='price'>Prix moyen {element.price} €</span>
-          <span className='speciality'>{element.speciality}</span>
+          {
+            element?.avgPrice && element?.avgPrice[0] && (
+              <span className='price'>Prix moyen {element.avgPrice[0]} €</span>
+            )
+          }
+          {
+            element?.specialty && (
+              <span className='speciality'>
+                {
+                  element?.specialty?.map((item: any, index: number) => `${index !== 0 ? ', ' : ''}${item}`)
+                }
+              </span>
+            )
+          }
         </div>
         <div className='rating'>
-          {element.rate} <span className='outOfTen'>/ 10</span>
+          {element?.nbrrating || element?.globalRating || 0} <span className='outOfTen'>/ 10</span>
         </div>
       </div>
     </div>
   )
 }
 const SimpleSliderElement: React.FC<{ element: any }> = ({ element }) => {
+  const width = useAppSelector(selectDeviceWidth)
   const getHeight = () => {
-    return '200px'
+    return width > 481 ? '200px' : `${width - 100}px`
   }
   return (
     <div className='simpleSliderElement clickable'>
@@ -118,10 +155,10 @@ const SimpleSliderElement: React.FC<{ element: any }> = ({ element }) => {
         id={`image_${element.rate}`}
         draggable={false}
         className='cardImage'
-        src={element.image}
+        src={element.img}
         alt=''
       />
-      <label>{element.speciality}</label>
+      <label>{capitalizeFirstLetter(element.name as string)}</label>
     </div>
   )
 }

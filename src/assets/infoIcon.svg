@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">
+    <defs>
+        <style>
+            .cls-1{fill:#fff}
+        </style>
+    </defs>
+    <g id="info_icon" transform="translate(-712 -280)">
+        <g id="Groupe_1166" transform="translate(712 280)">
+            <g id="Groupe_1165">
+                <path id="Tracé_2149" d="M11 0a11 11 0 1 0 11 11A11.012 11.012 0 0 0 11 0zm0 20.3a9.3 9.3 0 1 1 9.3-9.3 9.307 9.307 0 0 1-9.3 9.3z" class="cls-1"/>
+            </g>
+        </g>
+        <g id="Groupe_1187" transform="translate(13.85 -12.619)">
+            <path id="Tracé_2776" d="M0 1.241a1.24 1.24 0 1 1 2.48 0v6.522a1.24 1.24 0 0 1-2.48 0z" class="cls-1" transform="rotate(180 355.195 155.159)"/>
+            <path id="Tracé_2777" d="M1.429 0A1.43 1.43 0 1 1 0 1.429 1.43 1.43 0 0 1 1.429 0" class="cls-1" transform="rotate(180 355.29 149.89)"/>
+        </g>
+    </g>
+</svg>
