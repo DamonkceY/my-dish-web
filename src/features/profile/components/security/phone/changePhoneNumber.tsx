@@ -16,10 +16,14 @@ const ChangePhoneNumber = () => {
   const navigate = useNavigate()
   const connectedUser = useAppSelector(selectConnectedUser)
   const [validButton, setValidButton] = useState(false)
-  const [stepIndex, setStepIndex] = useState(0)
+  const [stepIndex, setStepIndex] = useState(!connectedUser?.telephone ? 1 : 0)
   const [buttonText, setButtonText] = useState('NEXT')
   const [selectedCountry, setSelectedCountry] = useState<any>(undefined)
   const form = useRef<any>(null)
+  const confirmPhone = useRef({
+    old: '',
+    new: ''
+  })
   useEffect(() => {
     form.current = {
       firstName: connectedUser?.firstName,
@@ -27,7 +31,7 @@ const ChangePhoneNumber = () => {
       address: connectedUser?.address,
       postalCode: connectedUser?.postalCode,
       country: connectedUser?.country,
-      email: connectedUser?.email,
+      telephone: connectedUser?.telephone,
     }
   }, [connectedUser])
   const STEPS: Array<Array<JSX.Element>> = [
@@ -40,13 +44,14 @@ const ChangePhoneNumber = () => {
       <InputField
         key={1}
         config={{
-          labelSalt: connectedUser?.telephone.toString().slice(-2) as string,
+          labelSalt: connectedUser?.telephone?.toString()?.slice(-2) as string,
           label: 'Saisissez le code que nous avons envoyé au numéro de téléphone se terminant par ',
           placeholder: 'SMS_VERIFICATION.FOUR_DIGITS_CODE',
           type: 'number',
-          onInit: () => confirmPhoneNumber({ phone: connectedUser?.telephone.toString() as string }).then(),
+          onInit: () => confirmPhoneNumber({ phone: connectedUser?.telephone.toString() as string }).then((res: any) => confirmPhone.current.old = res.data),
           onChange: (value: string) => {
-            setValidButton(value.length > 0)
+            console.log(value)
+            setValidButton(value.length > 0 && value.toString() === confirmPhone.current.old.toString())
           },
           rules: {
             minLength: 4,
@@ -62,9 +67,11 @@ const ChangePhoneNumber = () => {
           label: 'Nous vous enverrons un code de validation unique par SMS pour confirmer votre numéro',
           placeholder: 'REGISTER.PHONE_NUMBER',
           onChange: (value: { number: number, country: any }) => {
-            form.current.telephone = value.number
-            setSelectedCountry(value.country)
-            setValidButton(!isNaN(value.number) && value.number.toString().length > 6)
+            if(form.current) {
+              form.current.telephone = value.number
+              setSelectedCountry(value.country)
+              setValidButton(!isNaN(value.number) && value.number.toString().length > 6)
+            }
           },
         }} />,
     ], [
@@ -80,9 +87,9 @@ const ChangePhoneNumber = () => {
             minLength: 4,
             maxLength: 4,
           },
-          onInit: () => confirmPhoneNumber({ phone: `${selectedCountry?.dialCode}${form.current?.telephone}` }).then(),
+          onInit: () => confirmPhoneNumber({ phone: `${selectedCountry?.dialCode}${form.current?.telephone}` }).then((res: any) => confirmPhone.current.new = res.data),
           onChange: (value: string) => {
-            setValidButton(value.length > 0)
+            setValidButton(value.length > 0 && value.toString() === confirmPhone.current.new.toString())
           },
         }} />,
     ],

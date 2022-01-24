@@ -1,0 +1,45 @@
+
+
+.desktopCartCont {
+  z-index: 999;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #f1f5f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 0 20px 0px #626979;
+  transition: .2s ease-in-out;
+
+
+  .cart  {
+    -webkit-mask: url('../../assets/footerNavigation/panier_desactiv.svg') no-repeat 0 0/30px 30px;
+    mask: url('../../assets/footerNavigation/panier_desactiv.svg') no-repeat 0 0/30px 30px;
+    -webkit-mask-position-x: center;
+    -webkit-mask-position-y: center;
+    background-color: #fb5557;
+    width: 50px;
+    height: 50px;
+    transition: .2s ease-in-out;
+  }
+}
+
+.desktopCartCont:hover {
+  width: 85px;
+  height: 85px;
+  bottom: 17px;
+  right: 17px;
+  .cart {
+    -webkit-mask-position-x: center;
+    -webkit-mask-position-y: center;
+    width: 39px;
+    height: 39px;
+    -webkit-mask: url('../../assets/footerNavigation/panier_desactiv.svg') no-repeat 0 0/35px 35px;
+    mask: url('../../assets/footerNavigation/panier_desactiv.svg') no-repeat 0 0/35px 35px;
+  }
+}
