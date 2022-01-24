@@ -40,6 +40,7 @@ import ChangePhoneNumber from './features/profile/components/security/phone/chan
 import ChangePassword from './features/profile/components/security/password/changePassword'
 import { setOrderConfirmationDetails, setOrderDetails } from './app/store/storeModules/cart/cartSlice'
 import DesktopCart from './sharedComponents/desktopCart/desktopCart'
+import RestaurantRates from './features/restaurantRates/restaurantRates'
 
 const App = () => {
   const isRootLoading = useAppSelector(selectRootLoading)
@@ -78,6 +79,7 @@ const App = () => {
           <Route path={Paths.restaurantHome} element={<RestaurantLandingPage />} />
           <Route path={Paths.market.index} element={<Market />} />
           <Route path={Paths.restaurant} element={<Restaurant />} />
+          <Route path={Paths.restaurantRates} element={<RestaurantRates />} />
           <Route path={Paths.shop} element={<Shop />} />
           <Route path={Paths.cart} element={<PrivateComp config={{ component: <ShoppingCart /> }} />} />
           <Route path={Paths.searchResult} element={<SearchResult />} />

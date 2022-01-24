@@ -8,7 +8,7 @@ import { Paths } from '../../app/utils/paths'
 import { useNavigate } from 'react-router-dom'
 import ShoppingModal from '../../sharedComponents/modals/modal'
 import { useAppDispatch, useAppSelector } from '../../app/store/hooks'
-import { selectDeviceWidth } from '../../app/store/storeModules/root/root'
+import { pushToToastsArray, selectDeviceWidth } from '../../app/store/storeModules/root/root'
 import { NavBarRightComp } from '../mainHome/mainHome'
 import {
   selectCart,
@@ -22,6 +22,7 @@ import {
   decrementIncrementProductInCart,
   getCart, passOrder,
 } from '../../app/store/storeModules/cart/cartService'
+import { generateUniqueId } from '../../app/utils/func/commonFuncs'
 
 const Shop = () => {
   const dispatch = useAppDispatch()
@@ -49,6 +50,14 @@ const Shop = () => {
     }
 
     getCart().then((res: any) => {
+      if(!res.data && !orderDetails) {
+        dispatch(pushToToastsArray({
+          uniqueId: generateUniqueId(),
+          message: 'Une erreur est survenue',
+          type: 'info',
+        }))
+        navigate(Paths.home)
+      }
       dispatch(setCart(res.data))
     })
   }, [])
@@ -80,20 +89,20 @@ const Shop = () => {
   const navigate = useNavigate()
 
   const confirmOrder = () => {
-    passOrder({
-      orderType: orderDetails?.restaurant?.type,
-      isProgram: orderDetails.offre,
-      restaurant: orderDetails.restaurant?._id,
-      peopleNumber: orderDetails.peopleNumber,
-      status: 'InProgress',
-      isCancelled: false,
-      isPaid: false,
-      orderedForDate: `${moment(orderDetails.date).format('YYYY-MM-DD')}T${orderDetails.time || '00:00'}:00`,
-      panierId: cart?._id,
-    }).then((res: any) => {
-      dispatch(setOrderConfirmationDetails(res.data))
+    // passOrder({
+    //   orderType: orderDetails?.restaurant?.type,
+    //   isProgram: orderDetails.offre,
+    //   restaurant: orderDetails.restaurant?._id,
+    //   peopleNumber: orderDetails.peopleNumber,
+    //   status: 'InProgress',
+    //   isCancelled: false,
+    //   isPaid: false,
+    //   orderedForDate: `${moment(orderDetails.date).format('YYYY-MM-DD')}T${orderDetails.time || '00:00'}:00`,
+    //   panierId: cart?._id,
+    // }).then((res: any) => {
+    //   dispatch(setOrderConfirmationDetails(res.data))
       navigate(Paths.cart)
-    })
+    // })
 
   }
 
