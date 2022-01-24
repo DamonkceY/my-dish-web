@@ -39,6 +39,7 @@ import SecurityPagesContainer from './features/profile/components/security/secur
 import ChangePhoneNumber from './features/profile/components/security/phone/changePhoneNumber'
 import ChangePassword from './features/profile/components/security/password/changePassword'
 import { setOrderConfirmationDetails, setOrderDetails } from './app/store/storeModules/cart/cartSlice'
+import DesktopCart from './sharedComponents/desktopCart/desktopCart'
 
 const App = () => {
   const isRootLoading = useAppSelector(selectRootLoading)
@@ -107,6 +108,7 @@ const App = () => {
             <MobileNavigation />
           </div>
         )}
+        <DesktopCart/>
       </BrowserRouter>
     </div>
   )
