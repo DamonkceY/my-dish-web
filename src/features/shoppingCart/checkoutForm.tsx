@@ -1,14 +1,17 @@
 import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { checkIntent } from '../../app/store/storeModules/cart/cartService'
-import { useAppSelector } from '../../app/store/hooks'
+import { useAppDispatch, useAppSelector } from '../../app/store/hooks'
 import { selectOrderConfirmationDetails } from '../../app/store/storeModules/cart/cartSlice'
+import { setRootLoading } from '../../app/store/storeModules/root/root'
 
 
 const CheckoutForm = () => {
   const orderConfirmationDetails = useAppSelector(selectOrderConfirmationDetails)
   const stripe = useStripe();
   const elements = useElements();
+  const dispatch = useAppDispatch()
   const handleSubmit = async (event: any) => {
+    dispatch(setRootLoading(true))
     // We don't want to let default form submission happen here,
     // which would refresh the page.
     event.preventDefault();
@@ -26,6 +29,7 @@ const CheckoutForm = () => {
         return_url: window.location.href,
       },
     })
+    dispatch(setRootLoading(false))
 
     // if (result.error) {
     //   // Show error to your customer (for example, payment details incomplete)

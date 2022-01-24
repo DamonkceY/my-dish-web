@@ -13,6 +13,7 @@ export const Paths = {
   },
   searchResult: '/searchResult',
   restaurant: '/restaurant/:id',
+  restaurantRates: '/restaurantRates/:id',
   shop: '/shop',
   cart: '/cart',
   mobileProfile: '/monProfile',

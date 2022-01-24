@@ -10,14 +10,27 @@ import close from '../../assets/close.svg'
 import { useNavigate } from 'react-router-dom'
 import { Paths } from '../../app/utils/paths'
 import { useAppDispatch, useAppSelector } from '../../app/store/hooks'
-import { selectDeviceWidth } from '../../app/store/storeModules/root/root'
+import { pushToToastsArray, selectDeviceWidth } from '../../app/store/storeModules/root/root'
 import { BottomSheet } from 'react-spring-bottom-sheet'
 import 'react-spring-bottom-sheet/dist/style.css'
 import { NavBarRightComp } from '../mainHome/mainHome'
 import moment from 'moment'
-import { selectCart, selectOrderDetails, setCart } from '../../app/store/storeModules/cart/cartSlice'
-import { checkIntent, decrementIncrementProductInCart, getCart } from '../../app/store/storeModules/cart/cartService'
+import {
+  selectCart,
+  selectOrderDetails,
+  setCart,
+  setOrderConfirmationDetails, setOrderDetails,
+} from '../../app/store/storeModules/cart/cartSlice'
+import {
+  checkIntent,
+  decrementIncrementProductInCart,
+  getCart,
+  passOrder,
+} from '../../app/store/storeModules/cart/cartService'
 import Stripe from './stripe'
+import EmptyMessage from '../../sharedComponents/emptyMessage/emptyMessage'
+import { getRestaurantById } from '../../app/store/storeModules/announces/announcesService'
+import { generateUniqueId } from '../../app/utils/func/commonFuncs'
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -40,6 +53,52 @@ const ShoppingCart = () => {
 
   useEffect(() => {
     getCart().then((res: any) => {
+      if (
+        (res.data !== null || res?.data?.subTotalPrice !== 0)
+      ) {
+        if (!orderDetails || orderDetails === 'null') {
+          let tempRest = null
+          res?.data?.articles.forEach((item: any) => {
+            if (item?.article && item?.article?.restaurantId) {
+              tempRest = item?.article?.restaurantId
+            }
+          })
+          if (!tempRest) {
+            res?.data?.boisson.forEach((item: any) => {
+              if (item?.article && item?.article?.restaurantId) {
+                tempRest = item?.article?.restaurantId
+              }
+            })
+          }
+          if (tempRest) {
+            navigate('/restaurant/' + tempRest)
+            dispatch(pushToToastsArray({
+              uniqueId: generateUniqueId(),
+              message: 'Veuillez recommencer votre commande',
+              type: 'info',
+            }))
+          } else {
+            // navigate(Paths.home)
+          }
+        } else {
+          const query = new URLSearchParams(window.location.search)
+          if (!query.get('redirect_status') && !query.get('payment_intent')) {
+            passOrder({
+              orderType: orderDetails.type,
+              isProgram: orderDetails.offre,
+              restaurant: orderDetails.restaurant?._id,
+              peopleNumber: orderDetails.peopleNumber,
+              status: 'InProgress',
+              isCancelled: false,
+              isPaid: false,
+              orderedForDate: `${moment(orderDetails.date).format('YYYY-MM-DD')}T${orderDetails.time || '00:00'}:00`,
+              panierId: cart?._id,
+            }).then((res: any) => {
+              dispatch(setOrderConfirmationDetails(res.data))
+            })
+          }
+        }
+      }
       dispatch(setCart(res.data))
     })
   }, [])
@@ -55,11 +114,12 @@ const ShoppingCart = () => {
 
   useEffect(() => {
     const query = new URLSearchParams(window.location.search)
-    if(!!query.get('redirect_status') && !!query.get('payment_intent')) {
+    if (!!query.get('redirect_status') && !!query.get('payment_intent')) {
       checkIntent(query.get('payment_intent') as string).then((res) => {
         navigate(Paths.profile.myReservations)
-        localStorage.removeItem('ORDER_CONFIRMATION_DETAILS')
-        localStorage.removeItem('ORDER_DETAILS')
+        dispatch(setOrderDetails(null))
+        dispatch(setOrderConfirmationDetails(null))
+        localStorage.removeItem('RESTAURANT')
       })
     }
   }, [])
@@ -86,45 +146,51 @@ const ShoppingCart = () => {
           <div className='shoppingContainer'>
             <span className='addArticles clickable' onClick={() => navigate(Paths.shop)}>+ Ajouter des articles</span>
             <div className='horizontalSeparator' />
-            <div className='shoppingListContainer'>
-              {
-                !!cart && (
-                  cart?.articles?.map((item: any) => (
-                    item?.article?.name ?
-                      <div className='shoppingItem'>
-                        <div className='cont'>
-                          <span className='title'>{item?.numbers} {item?.article?.name}</span>
-                          {/*<span className='desc'>Vermicelle du riz. sauce tomatePiquante, plus de sauce.</span>*/}
-                          <span className='delete'
-                                onClick={() => deleteItem({ platId: item?.article?._id })}>Supprimer</span>
-                        </div>
-                        <span style={{ whiteSpace: 'nowrap' }}>{item?.article?.price * item?.numbers} €</span>
-                      </div> : <></>
-                  ))
-                )
-              }
-              {
-                !!cart && (
-                  cart?.boisson?.map((item: any) => (
-                    item?.article?.name ?
-                      <div className='shoppingItem'>
-                        <div className='cont'>
-                          <span className='title'>{item?.numbers} {item?.article?.name}</span>
-                          {/*<span className='desc'>Vermicelle du riz. sauce tomatePiquante, plus de sauce.</span>*/}
-                          <span className='delete'
-                                onClick={() => deleteItem({ boissonId: item?.article?._id })}>Supprimer</span>
-                        </div>
-                        <span style={{ whiteSpace: 'nowrap' }}>{item?.article?.price * item?.numbers} €</span>
-                      </div> : <></>
-                  ))
-                )
-              }
-            </div>
-            <div className='horizontalSeparator' />
-            <div className='shoppingResult'>
-              <span>Sous-total</span>
-              <span>{cart?.subTotalPrice} €</span>
-            </div>
+            {
+              (cart && cart?.subTotalPrice > 0) ? (
+                <div>
+                  <div className='shoppingListContainer'>
+                    {
+                      !!cart && (
+                        cart?.articles?.map((item: any) => (
+                          item?.article?.name ?
+                            <div className='shoppingItem'>
+                              <div className='cont'>
+                                <span className='title'>{item?.numbers} {item?.article?.name}</span>
+                                {/*<span className='desc'>Vermicelle du riz. sauce tomatePiquante, plus de sauce.</span>*/}
+                                <span className='delete'
+                                      onClick={() => deleteItem({ platId: item?.article?._id })}>Supprimer</span>
+                              </div>
+                              <span style={{ whiteSpace: 'nowrap' }}>{item?.article?.price * item?.numbers} €</span>
+                            </div> : <></>
+                        ))
+                      )
+                    }
+                    {
+                      !!cart && (
+                        cart?.boisson?.map((item: any) => (
+                          item?.article?.name ?
+                            <div className='shoppingItem'>
+                              <div className='cont'>
+                                <span className='title'>{item?.numbers} {item?.article?.name}</span>
+                                {/*<span className='desc'>Vermicelle du riz. sauce tomatePiquante, plus de sauce.</span>*/}
+                                <span className='delete'
+                                      onClick={() => deleteItem({ boissonId: item?.article?._id })}>Supprimer</span>
+                              </div>
+                              <span style={{ whiteSpace: 'nowrap' }}>{item?.article?.price * item?.numbers} €</span>
+                            </div> : <></>
+                        ))
+                      )
+                    }
+                  </div>
+                  <div className='horizontalSeparator' />
+                  <div className='shoppingResult'>
+                    <span>Sous-total</span>
+                    <span>{cart?.subTotalPrice} €</span>
+                  </div>
+                </div>
+              ) : <EmptyMessage config={{ title: 'Aucun article est séléctionner', text: '' }} />
+            }
           </div>
           <div className='paymentContainer'>
             <span className='paymentMeth'>Moyen de paiement</span>
@@ -182,7 +248,10 @@ const ShoppingCart = () => {
                 </span>
               </div>
             </div>
-            <button className={'btn success'} onClick={() => setModal(true)}>Passer au paiement</button>
+            <button disabled={!cart || cart.subTotalPrice === 0}
+                    className={`btn ${!!cart && cart.subTotalPrice > 0 ? 'success' : ''}`}
+                    onClick={() => setModal(true)}>Passer au paiement
+            </button>
           </div>
         </div>
       </div>
@@ -209,7 +278,7 @@ const ShoppingCart = () => {
 export const AddBankAccount: React.FC<{ closeEvent: Function }> = ({ closeEvent }) => {
   const deviceWidth = useAppSelector(selectDeviceWidth)
   return (
-    <div className={'checkoutForm'}><Stripe/></div>
+    <div className={'checkoutForm'}><Stripe /></div>
   )
 //     <div className='addBankAccount'>
 //     <div className='cont'>

@@ -9,6 +9,8 @@ import { mapObjectToInterface } from '../../../utils/func/commonFuncs'
 import UserModelInterface, { userModelKeys } from '../../../utils/interfaces/modelsInterfaces/User'
 import { store } from '../../store'
 import { setConnectedUser } from './authenticationSlice'
+import { getCart } from '../cart/cartService'
+import { getRestaurantById } from '../announces/announcesService'
 
 
 export const getProfileByToken = (isSilent?: boolean) => {
@@ -33,6 +35,7 @@ export const loginRequest = (data: any, url: string) => {
       token: string
     }) => {
       store.dispatch(setConnectedUser(mapObjectToInterface(data.user, userModelKeys) as UserModelInterface))
+      localStorage.clear()
       localStorage.setItem('myDishWeb', data.token)
     },
   })

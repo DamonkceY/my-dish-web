@@ -13,8 +13,8 @@ import ShoppingModal from '../../sharedComponents/modals/modal'
 import { useNavigate } from 'react-router-dom'
 import { Paths } from '../../app/utils/paths'
 import MoreDetailModal from './components/moreDetailModal/moreDetailModal'
-import { useAppSelector } from '../../app/store/hooks'
-import { selectDeviceWidth } from '../../app/store/storeModules/root/root'
+import { useAppDispatch, useAppSelector } from '../../app/store/hooks'
+import { pushToToastsArray, selectDeviceWidth } from '../../app/store/storeModules/root/root'
 import { BottomSheet } from 'react-spring-bottom-sheet'
 import 'react-spring-bottom-sheet/dist/style.css'
 import { getRestaurantById, setFavoriteRestaurant } from '../../app/store/storeModules/announces/announcesService'
@@ -23,6 +23,8 @@ import EmptyMessage from '../../sharedComponents/emptyMessage/emptyMessage'
 import filledHeart from '../../assets/filledHeart.svg'
 import { selectConnectedUser } from '../../app/store/storeModules/authentication/authenticationSlice'
 import { getProfileByToken } from '../../app/store/storeModules/authentication/authenticationService'
+import { selectOrderDetails } from '../../app/store/storeModules/cart/cartSlice'
+import { generateUniqueId } from '../../app/utils/func/commonFuncs'
 
 const Restaurant = () => {
   const { t } = useTranslation()
@@ -47,6 +49,7 @@ const Restaurant = () => {
 
   const [isFavorite, setFavorite] = useState(false)
   const connectedUser = useAppSelector(selectConnectedUser)
+  const orderDetails = useAppSelector(selectOrderDetails)
   const favoriteCondition = () => connectedUser?.favoriteRestaurants?.find((item: any) => item?._id === (selectedRestaurant?._id || selectedRestaurant?.restaurantId))
   useEffect(() => {
     setFavorite(favoriteCondition)
@@ -79,6 +82,21 @@ const Restaurant = () => {
   }, [tabSelected])
 
   const array = ['ENTRIES', 'DISHES', 'DESSERTS', 'DRINKS']
+  const dispatch = useAppDispatch()
+  const reserveTable = () => {
+    if(!orderDetails || orderDetails === 'null') {
+      setShoppingModal({
+        isOpen: true,
+        mobile: deviceWidth <= 768,
+      })
+    } else {
+      dispatch(pushToToastsArray({
+        uniqueId: generateUniqueId(),
+        message: orderDetails?.restaurant._id === selectedRestaurant?._id ? 'Une réservation existe déjà' : 'Vous avez une autre commande en cours',
+        type: 'info',
+      }))
+    }
+  }
 
   return (
     selectedRestaurant ? (
@@ -121,10 +139,7 @@ const Restaurant = () => {
           deviceWidth < 920 && selectedRestaurant?.type === 'RESERVATION' && (
             <div className='restaurantTabsContainer'>
               <div style={{ padding: '0 5vw', display: 'flex', justifyContent: 'end' }} className='tabs'>
-                <button className={'btn success'} style={{ margin: '18px 0 0 0' }} onClick={() => setShoppingModal({
-                  isOpen: true,
-                  mobile: deviceWidth <= 768,
-                })}>Réservez une table
+                <button className={'btn success'} style={{ margin: '18px 0 0 0' }} onClick={() => reserveTable()}>Réservez une table
                 </button>
               </div>
             </div>
@@ -155,10 +170,7 @@ const Restaurant = () => {
                 {t('RESTAURANT.DRINKS')}
               </span>
               </div>
-              {deviceWidth > 919 && selectedRestaurant?.type === 'RESERVATION' && <button className='btn success' onClick={() => setShoppingModal({
-                isOpen: true,
-                mobile: deviceWidth <= 768,
-              })}>Réservez une table</button>}
+              {deviceWidth > 919 && selectedRestaurant?.type === 'RESERVATION' && <button className='btn success' onClick={() => reserveTable()}>Réservez une table</button>}
             </div>
             <div style={getMargin()} className='underline' />
             <div className='horizontalSeparator' />
