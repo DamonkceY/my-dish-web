@@ -20,6 +20,8 @@ export const commonEndpoints = {
 
 
 export const announcesEndpoints = {
+  addRating: '/Rating/add',
+  updateRating: (id: string) => `/Rating/update/${id}`,
   search: '/Restaurant/searchRestaurant',
   mainHome: '/Restaurant/restaurantInHomePage',
   newRestaurants: '/Restaurant/getRestaurantList',
@@ -31,9 +33,11 @@ export const announcesEndpoints = {
 
 export const cartEndpoints = {
   addToCart: '/ShoppingCart/addToCart',
+  removeFromCart: '/ShoppingCart/removeFromCart',
   getCart: '/ShoppingCart/getProductInCart',
   passOrder: '/Order/passOrder',
   decrement: `/ShoppingCart/decrementProductInCart`,
   increment: `/ShoppingCart/incrementProductInCart`,
-  checkIfIntentPayed: (key: string) => `/Order/checkIfOrderPayed/${key}`
+  checkIfIntentPayed: (key: string) => `/Order/checkIfOrderPayed/${key}`,
+  clearCart: '/ShoppingCart/clearMyCart'
 }

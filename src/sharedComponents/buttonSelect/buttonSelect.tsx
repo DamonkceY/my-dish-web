@@ -8,6 +8,8 @@ export interface ButtonSelectInterface {
   title: string,
   icon?: string,
   iconStyle?: any,
+  list: Array<any>,
+  onSelect?: Function
 }
 
 const ButtonSelect: React.FC<{config: ButtonSelectInterface}> = ({config}) => {
@@ -24,19 +26,23 @@ const ButtonSelect: React.FC<{config: ButtonSelectInterface}> = ({config}) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [wrapperRef]);
+
+  const selected = (item: any) => {
+    config?.onSelect && config?.onSelect(
+      config?.list?.map((el: any) => {
+        if(item?.name === el?.name) return item;
+        return {...el, isChecked: false}
+      })
+    )
+  }
   return (
     <div>
       <div className='selectButtonCont clickable'>
         <span onClick={() => setOpen(!isOpen)}>{config.title}</span>
         <img onClick={() => setOpen(!isOpen)} className='filterBy' style={config?.iconStyle} draggable={false} src={config.icon ? config.icon : arrowDown} alt=''/>
-
-
-        <div ref={wrapperRef} className={`selectButtonPopUp ${isOpen}`}>
-          <SelectItem config={{title: 'Example', icon: vegetarian}}/>
-          <SelectItem config={{title: 'Example', icon: vegetarian}}/>
-          <SelectItem config={{title: 'Example', icon: vegetarian}}/>
-          <SelectItem config={{title: 'Example', icon: vegetarian}}/>
-        </div>
+        {config?.list?.length > 0 && <div ref={wrapperRef} className={`selectButtonPopUp ${isOpen}`}>
+          {config?.list?.map(item => <SelectItem config={{ item: item, icon: undefined, onSelect: selected }} />)}
+        </div>}
       </div>
     </div>
   )

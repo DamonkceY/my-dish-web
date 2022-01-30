@@ -51,6 +51,9 @@
         &.success {
           background-color: #45b995;
         }
+        &.simple {
+          background-color: #333a50 ;
+        }
       }
 
       .horizontalSeparator {
@@ -63,6 +66,35 @@
       }
 
       .shoppingListContainer {
+        position: relative;
+        .loading {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 9999999;
+          height: 100%;
+          width: 100%;
+          background-color: rgba(51, 58, 80, 0.65);
+          backdrop-filter: blur(3px);
+          position: absolute;
+          border-radius: 10px;
+          top: 0;
+          left: 0;
+          right: 0;
+
+          .spinnerIcon {
+            animation: rotation 3s infinite linear;
+
+            @keyframes rotation {
+              from {
+                transform: rotate(0deg);
+              }
+              to {
+                transform: rotate(359deg);
+              }
+            }
+          }
+        }
         .shoppingItem{
           margin-top: 22px;
           display: flex;
@@ -75,9 +107,24 @@
               display: inline-block;
               margin-bottom: 10px;
             }
+
             .title {
               font-size: 18px;
               font-weight: bold;
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+
+              .incrementDecrement {
+                display: flex;
+                align-items: center;
+
+                img {
+                  margin: 0 5px;
+                  width: 30px;
+                  height: 30px;
+                }
+              }
             }
             .desc {
               font-size: 16px;

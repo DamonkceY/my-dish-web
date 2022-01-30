@@ -35,8 +35,14 @@ export const loginRequest = (data: any, url: string) => {
       token: string
     }) => {
       store.dispatch(setConnectedUser(mapObjectToInterface(data.user, userModelKeys) as UserModelInterface))
-      localStorage.clear()
+      // localStorage.clear()
       localStorage.setItem('myDishWeb', data.token)
+      getCart().then((res: any) => {
+        if(!res.data) {
+          localStorage.removeItem('ORDER_DETAILS')
+          localStorage.removeItem('ORDER_CONFIRMATION_DETAILS')
+        }
+      })
     },
   })
 }

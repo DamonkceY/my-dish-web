@@ -23,6 +23,7 @@ const Register: React.FC<{}> = () => {
   const [stepIndex, setStepIndex] = useState(0)
   const [buttonText, setButtonText] = useState('NEXT')
   const [validButton, setValidButton] = useState(false)
+  const confirmationCode = useRef('')
   const registerForm = useRef<RegisterDataInterface>({
     firstName: '',
     lastName: '',
@@ -68,9 +69,9 @@ const Register: React.FC<{}> = () => {
             minLength: 4,
             maxLength: 4,
           },
-          onInit: () => confirmPhoneNumber({ phone: `${selectedCountry?.dialCode}${registerForm.current?.telephone}` }).then(),
+          onInit: () => confirmPhoneNumber({ phone: `${selectedCountry?.dialCode}${registerForm.current?.telephone}` }).then((res: any) => confirmationCode.current = res.data),
           onChange: (value: string) => {
-            setValidButton(value.length > 0)
+            setValidButton(value.length > 0 && value.toString() === confirmationCode.current.toString())
           },
         }} />,
     ],

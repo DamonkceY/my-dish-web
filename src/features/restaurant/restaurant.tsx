@@ -97,7 +97,6 @@ const Restaurant = () => {
       }))
     }
   }
-
   return (
     selectedRestaurant ? (
       <div style={{ position: 'relative' }}>
@@ -115,7 +114,7 @@ const Restaurant = () => {
             <div className='details'>
             <span className='rateComments'>
               <span className='rate'>{selectedRestaurant?.globalRating}<span className='outOfTen'>/ 10</span></span>
-              <span className='comments'>{selectedRestaurant?.ratings.length || 0}</span>
+              <span className='comments clickable' onClick={() => navigate(`/restaurantRates/${selectedRestaurant?._id}`)}>{selectedRestaurant?.rating.length || 0}</span>
             </span>
               <span>
                 {

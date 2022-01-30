@@ -41,6 +41,7 @@ import ChangePassword from './features/profile/components/security/password/chan
 import { setOrderConfirmationDetails, setOrderDetails } from './app/store/storeModules/cart/cartSlice'
 import DesktopCart from './sharedComponents/desktopCart/desktopCart'
 import RestaurantRates from './features/restaurantRates/restaurantRates'
+import { getCart } from './app/store/storeModules/cart/cartService'
 
 const App = () => {
   const isRootLoading = useAppSelector(selectRootLoading)
@@ -49,7 +50,16 @@ const App = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     if (localStorage.getItem('myDishWeb')) {
-      getProfileByToken().then()
+      Promise.all([
+        getProfileByToken().then(),
+        getCart().then((res: any) => {
+          if(!res.data) {
+            localStorage.removeItem('RESTAURANT')
+            dispatch(setOrderDetails(null))
+            dispatch(setOrderConfirmationDetails(null))
+          }
+        })
+      ])
     }
     window.addEventListener('resize', () => {
       dispatch(setDeviceWidth(document.body.clientWidth))
@@ -79,7 +89,7 @@ const App = () => {
           <Route path={Paths.restaurantHome} element={<RestaurantLandingPage />} />
           <Route path={Paths.market.index} element={<Market />} />
           <Route path={Paths.restaurant} element={<Restaurant />} />
-          <Route path={Paths.restaurantRates} element={<RestaurantRates />} />
+          <Route path={Paths.restaurantRates} element={<PrivateComp config={{component: <RestaurantRates /> }} />} />
           <Route path={Paths.shop} element={<Shop />} />
           <Route path={Paths.cart} element={<PrivateComp config={{ component: <ShoppingCart /> }} />} />
           <Route path={Paths.searchResult} element={<SearchResult />} />

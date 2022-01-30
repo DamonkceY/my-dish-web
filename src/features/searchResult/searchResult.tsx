@@ -13,6 +13,8 @@ import { selectSearchKeyword } from '../../app/store/storeModules/announces/anno
 import { searchInRestaurant } from '../../app/store/storeModules/announces/announcesService'
 import SearchInput from '../../sharedComponents/searchInput/searchInput'
 import { NavBarRightComp } from '../mainHome/mainHome'
+import EmptyMessage from '../../sharedComponents/emptyMessage/emptyMessage'
+import MarketSearchBar from '../market/components/marketSearchBar/marketSearchBar'
 
 const SearchResult = () => {
   const navigate = useNavigate()
@@ -20,12 +22,14 @@ const SearchResult = () => {
   const searchKeyword = useAppSelector(selectSearchKeyword)
   const deviceWidth = useAppSelector(selectDeviceWidth)
   const [adsList, setAdsList] = useState([])
+  const [searchParams, setSearchParams] = useState({})
 
   useEffect(() => {
-    searchInRestaurant({search: searchKeyword}).then((res:any) => {
+    searchInRestaurant({search: searchKeyword, ...searchParams}).then((res:any) => {
       setAdsList(res.data)
     })
-  }, [searchKeyword])
+  }, [searchKeyword, searchParams])
+
   return (
     <div style={{ position: 'relative' }}>
       <NavBar config={{ isStatic: true, rightComponent: deviceWidth > 768 ? <NavBarRightComp disableRestaurantBtn={true}/> : undefined, middleComponent: deviceWidth > 768 ? searchBar : undefined }} />
@@ -33,15 +37,22 @@ const SearchResult = () => {
         {
           width <= 768 && <SearchInput/>
         }
-        <div className='searchHeader'>
-          {searchKeyword.length > 0 && <span>"{searchKeyword}"</span>}
+        <MarketSearchBar element={<div className=''>
+          {searchKeyword.length > 0 && <span>"{searchKeyword}" </span>}
           <span>{adsList.length} restaurants</span>
-        </div>
+        </div>} changedSearchParams={(search: any) => setSearchParams({ ...search })} />
         <div className='searchResult'>
           {adsList.map((item) => (
             <SliderElement element={item}/>
           ))}
         </div>
+        {
+          adsList.length === 0 && (
+            <EmptyMessage config={{
+              title: 'Il n\'ya aucun restaurant'
+            }}/>
+          )
+        }
       </div>
 
     </div>

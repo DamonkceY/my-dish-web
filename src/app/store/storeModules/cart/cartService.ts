@@ -18,8 +18,9 @@ export const passOrder = (data: any) => {
   })
 }
 
-export const getCart = () => {
+export const getCart = (data?: any) => {
   return Executor({
+    isSilent: data?.isSilent,
     method: 'get',
     endPoint: cartEndpoints.getCart,
     payloadData: null,
@@ -36,8 +37,26 @@ export const checkIntent = (key: string) => {
 
 export const decrementIncrementProductInCart = (data: any) => {
   return Executor({
+    isSilent: true,
     method: 'put',
     endPoint: `${data.increment ? cartEndpoints.increment : cartEndpoints.decrement}?${data?.platId ? 'platId=' : 'boissonId='}${data?.platId || data?.boissonId}`,
+    payloadData: null,
+  })
+}
+
+export const removeItemFromCart = (data: any) => {
+  return Executor({
+    isSilent: true,
+    method: 'delete',
+    endPoint: cartEndpoints.removeFromCart,
+    payloadData: data,
+  })
+}
+
+export const clearCart = () => {
+  return Executor({
+    method: 'delete',
+    endPoint: cartEndpoints.clearCart,
     payloadData: null,
   })
 }
