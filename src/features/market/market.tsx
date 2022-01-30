@@ -26,17 +26,18 @@ const Market = () => {
   }
   useEffect(() => {
     window.scroll({ top: 0, behavior: 'smooth' })
-    Promise.all([
-      getMainHomeList({url: announcesEndpoints.newRestaurants}).then((res: any) => {
-        const factor = window.location.pathname.includes('/market/reserve') ? 'RESERVATION' : window.location.pathname.includes('/market/delivery') ? 'LIVRAISON' : null
-        setAdsList(factor ? res.data.filter((item: any) => item?.type === factor) : res.data)
-        console.log(factor ? res.data.filter((item: any) => item?.type === factor) : res.data)
-      }),
-      // getMainHomeList({url: announcesEndpoints.nearbyRestaurants}).then((res: any) => {
-      //   console.log(res)
-      // })
-    ])
+    getData()
   }, [])
+  const getData = (data?: any) => {
+    getMainHomeList({ url: announcesEndpoints.search, params: data }).then((res: any) => {
+      const factor = window.location.pathname.includes('/market/reserve') ? 'RESERVATION' : window.location.pathname.includes('/market/delivery') ? 'LIVRAISON' : null
+      setAdsList(factor ? res.data.filter((item: any) => item?.type === factor) : res.data)
+      console.log(factor ? res.data.filter((item: any) => item?.type === factor) : res.data)
+    })
+  }
+  const changedSearchParams = (searchParams: any) => {
+    getData(searchParams)
+  }
 
   return (
     <div style={{ position: 'relative' }}>
@@ -49,13 +50,13 @@ const Market = () => {
         {t('MARKET.BANNER_TITLE')}
       </div>
       <div className='markets'>
-        <MarketSearchBar />
+        <MarketSearchBar changedSearchParams={changedSearchParams} />
         <div>
           {
             deviceWidth < 1024 && (
               <div className='marketTabsContainer'>
                 <div className='tabs'>
-                  <div className='cont' style={{width: '100%'}}>
+                  <div className='cont' style={{ width: '100%' }}>
                     <span onClick={() => setTabSelected('1')}
                           className={tabSelected === '1' ? 'active tab' : 'tab'}
                     >

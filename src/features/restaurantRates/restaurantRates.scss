@@ -1,0 +1,108 @@
+.ratesMainContainer {
+  padding: 0 5vw;
+
+  .RATES {
+    width: 80%;
+    background-color: #f1f5f8;
+    padding: 20px 30px;
+    border-radius: 10px;
+
+    .ratesHeader {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+
+      span {
+        font-weight: bold;
+        font-size: 22px;
+      }
+
+      button {
+        background-color: #45b995;
+        height: 50px;
+        padding: 10px 20px;
+      }
+    }
+
+
+    .detailRate {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+
+      .detailRateHeader {
+        display: flex;
+        justify-content: space-between;
+
+        .boldRate {
+          font-weight: bold;
+          font-size: 20px;
+
+          .nope {
+            font-weight: normal;
+            font-size: 14px;
+          }
+        }
+
+        .detailRateHeaderUser {
+          display: flex;
+          align-items: center;
+
+          div {
+            display: flex;
+            flex-direction: column;
+
+            .userName {
+              font-weight: bold;
+              font-size: 18px;
+            }
+
+            .date {
+              font-size: 14px;
+              color: #858891;
+            }
+          }
+        }
+      }
+
+      .detailRateBody {
+        display: flex;
+        flex-direction: column;
+
+        .title {
+          font-weight: bold;
+          font-size: 18px;
+        }
+
+        .body {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and(max-width: 1024px) {
+  .RATES {
+    width: 100% !important;
+  }
+}
+
+@media screen and(max-width: 768px) {
+  .boldLabelTitle {
+    font-size: 26px;
+  }
+
+  .RATES {
+    background-color: unset !important;
+    padding: unset !important;
+
+    .ratesHeader {
+      button {
+        height: 40px !important;
+        font-size: 16px;
+      }
+    }
+  }
+}

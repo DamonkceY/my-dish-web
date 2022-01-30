@@ -23,10 +23,17 @@ Interceptor.interceptors.response.use(
     switch (error.response?.status) {
       case 404:
       case 401:
+        console.log(error)
+        debugger
+        store.dispatch(logout())
         return error.response
       case 403:
+        console.log(error)
+        debugger
         return error.response
       default:
+        console.log(error)
+        debugger
         // store.dispatch(logout())
         console.log(error)
         break

@@ -10,19 +10,25 @@ import ShoppingModal from '../../sharedComponents/modals/modal'
 import { useAppDispatch, useAppSelector } from '../../app/store/hooks'
 import { pushToToastsArray, selectDeviceWidth } from '../../app/store/storeModules/root/root'
 import { NavBarRightComp } from '../mainHome/mainHome'
+import moinInActive from '../../assets/moinInActive.svg'
+import moinActive from '../../assets/moinActive.svg'
+import plusInActive from '../../assets/plusInActive.svg'
+import plusActive from '../../assets/plusActive.svg'
 import {
   selectCart,
   selectOrderDetails,
   setCart,
-  setOrderConfirmationDetails,
+  setOrderConfirmationDetails, setOrderDetails,
 } from '../../app/store/storeModules/cart/cartSlice'
 import moment from 'moment'
 import EmptyMessage from '../../sharedComponents/emptyMessage/emptyMessage'
 import {
+  clearCart,
   decrementIncrementProductInCart,
-  getCart, passOrder,
+  getCart, passOrder, removeItemFromCart,
 } from '../../app/store/storeModules/cart/cartService'
 import { generateUniqueId } from '../../app/utils/func/commonFuncs'
+import spinner from '../../assets/spinner.svg'
 
 const Shop = () => {
   const dispatch = useAppDispatch()
@@ -62,12 +68,25 @@ const Shop = () => {
     })
   }, [])
 
+  const [localLoader, setLocalLoader] = useState(false)
   const deleteItem = (data: any) => {
-    decrementIncrementProductInCart({ ...data }).then(() => {
-      getCart().then((res: any) => {
+    setLocalLoader(true)
+    removeItemFromCart(data).then(() => {
+      getCart({isSilent: true}).then((res: any) => {
         dispatch(setCart(res.data))
-      })
-    })
+        setLocalLoader(false)
+      }).catch(() => setLocalLoader(false))
+    }).catch(() => setLocalLoader(false))
+  }
+
+  const decIncProduct = (data: any) => {
+    setLocalLoader(true)
+    decrementIncrementProductInCart(data).then(() => {
+      getCart({isSilent: true}).then((res: any) => {
+        dispatch(setCart(res.data))
+        setLocalLoader(false)
+      }).catch(() => setLocalLoader(false))
+    }).catch(() => setLocalLoader(false))
   }
 
   useEffect(() => {
@@ -89,21 +108,25 @@ const Shop = () => {
   const navigate = useNavigate()
 
   const confirmOrder = () => {
-    // passOrder({
-    //   orderType: orderDetails?.restaurant?.type,
-    //   isProgram: orderDetails.offre,
-    //   restaurant: orderDetails.restaurant?._id,
-    //   peopleNumber: orderDetails.peopleNumber,
-    //   status: 'InProgress',
-    //   isCancelled: false,
-    //   isPaid: false,
-    //   orderedForDate: `${moment(orderDetails.date).format('YYYY-MM-DD')}T${orderDetails.time || '00:00'}:00`,
-    //   panierId: cart?._id,
-    // }).then((res: any) => {
-    //   dispatch(setOrderConfirmationDetails(res.data))
-      navigate(Paths.cart)
-    // })
+    navigate(Paths.cart)
+  }
 
+  const clearCartFn = () => {
+    if(!cart) {
+      garbageCleaner()
+    }else {
+      clearCart().then(() => {
+        getCart().then()
+        garbageCleaner()
+      })
+    }
+  }
+
+  const garbageCleaner = () => {
+    localStorage.removeItem('RESTAURANT')
+    dispatch(setOrderDetails(null))
+    dispatch(setOrderConfirmationDetails(null))
+    navigate(Paths.home)
   }
 
   const cartHasProducts = () => !!cart && (cart?.articles?.filter((item: any) => !!item?.article)?.length > 0 || cart?.boisson?.filter((item: any) => !!item?.article)?.length > 0)
@@ -113,19 +136,45 @@ const Shop = () => {
       <button disabled={!cartHasProducts()} className={`btn ${cartHasProducts() ? 'success' : ''}`} onClick={() => confirmOrder()}>
         Confirmer la {orderDetails?.restaurant?.type === 'LIVRAISON' ? 'livraison' : 'réservation'}
       </button>
+      <br/>
+      <br/>
+      <button className={'btn clickable simple'} onClick={clearCartFn}>Annuler la {orderDetails?.restaurant?.type === 'LIVRAISON' ? 'livraison' : 'réservation'}</button>
       {
         cartHasProducts() && (<div className='horizontalSeparator' />)
       }
       {/*<span>Sélectionnez vos plats et ajoutez-les à votre réservation.</span>*/}
       <div className='shoppingListContainer'>
         {
+          localLoader && (
+            <div className='loading'>
+              <img draggable={false} className='spinnerIcon' src={spinner} alt='' />
+            </div>
+          )
+        }
+        {
           !!cart && (
             cart?.articles?.map((item: any) => (
               item?.article?.name ?
-                <div className='shoppingItem'>
+                <div key={item?.article?.name} className={`shoppingItem`}>
                   <div className='cont'>
-                    <span className='title'>{item?.numbers} {item?.article?.name}</span>
-                    {/*<span className='desc'>Vermicelle du riz. sauce tomatePiquante, plus de sauce.</span>*/}
+                    <span className='title'>
+                      <div className={`incrementDecrement`}>
+                        <img onClick={() => (item?.numbers === 1 || localLoader) ? null : decIncProduct({platId: item?.article?._id, increment: false})} className={item?.numbers === 1 ? 'unClickable' : 'clickable'} draggable={false} src={item?.numbers === 1 ? moinInActive : moinActive} alt='' />
+                        {item?.numbers}
+                        <img onClick={() => (item?.numbers === 10 || localLoader) ? null : decIncProduct({platId: item?.article?._id, increment: true})} className={item?.numbers === 2 ? 'unClickable' : 'clickable'} draggable={false} src={item?.numbers === 2 ? plusInActive : plusActive} alt='' />
+                      </div>
+                      {item?.article?.name}
+                    </span>
+
+                    <div className={'desc'}>
+                      <span>Option: </span>
+                      &nbsp;
+                      <span>{item?.article?.options[0].name}</span>
+                      &nbsp;
+                      &nbsp;
+                      <span>{item?.article?.options[0].price} €</span>
+                    </div>
+                    <span className='desc'>{item?.description}</span>
                     <span className='delete' onClick={() => deleteItem({ platId: item?.article?._id })}>Supprimer</span>
                   </div>
                   <span style={{ whiteSpace: 'nowrap' }}>{item?.article?.price * item?.numbers} €</span>
@@ -137,10 +186,17 @@ const Shop = () => {
           !!cart && (
             cart?.boisson?.map((item: any) => (
               item?.article?.name ?
-                <div className='shoppingItem'>
+                <div key={item?.article?.name} className={`shoppingItem`}>
                   <div className='cont'>
-                    <span className='title'>{item?.numbers} {item?.article?.name}</span>
-                    {/*<span className='desc'>Vermicelle du riz. sauce tomatePiquante, plus de sauce.</span>*/}
+                    <span className='title'>
+                      <div className={`incrementDecrement`}>
+                        <img onClick={() => (item?.numbers === 1 || localLoader) ? null : decIncProduct({boissonId: item?.article?._id, increment: false})} className={item?.numbers === 1 ? 'unClickable' : 'clickable'} draggable={false} src={item?.numbers === 1 ? moinInActive : moinActive} alt='' />
+                        {item?.numbers}
+                        <img onClick={() => (item?.numbers === 10 || localLoader) ? null : decIncProduct({boissonId: item?.article?._id, increment: true})} className={item?.numbers === 10 ? 'unClickable' : 'clickable'} draggable={false} src={item?.numbers === 10 ? plusInActive : plusActive} alt='' />
+                      </div>
+                      {item?.article?.name}
+                    </span>
+                    <span className='desc'>{item?.description}</span>
                     <span className='delete'
                           onClick={() => deleteItem({ boissonId: item?.article?._id })}>Supprimer</span>
                   </div>
@@ -176,7 +232,6 @@ const Shop = () => {
               <span>Livraison • {orderDetails?.restaurant?.name} </span>
             )
           }
-
         </div>
         <div className='restaurantTabsContainer'>
           <div className='tabs'>

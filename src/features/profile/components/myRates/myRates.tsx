@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import pizza from '../../../../assets/pizza.png'
 import updateSVG from '../../../../assets/modifier.svg'
 import deleteSVG from '../../../../assets/supprimer.svg'
@@ -16,6 +16,8 @@ import { BottomSheet } from 'react-spring-bottom-sheet'
 import 'react-spring-bottom-sheet/dist/style.css'
 import { getMyRates } from '../../../../app/store/storeModules/common/commonService'
 import EmptyMessage from '../../../../sharedComponents/emptyMessage/emptyMessage'
+import { addUpdateRating } from '../../../../app/store/storeModules/announces/announcesService'
+import moment from 'moment'
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -33,12 +35,32 @@ const MyRates = () => {
   const deviceWidth = useAppSelector(selectDeviceWidth)
   const navigate = useNavigate()
   const [rates, setRates] = useState<Array<any>>([])
+  const [selectedRate, setSelectedRate] = useState(undefined)
 
   useEffect(() => {
-    getMyRates().then((res: any) => {
-      setRates(res.data as Array<any>)
-    })
+    getData(true)
   }, [])
+
+  const open = (index: number) => {
+    setSelectedRate(rates[index])
+    setModelData(true)
+  }
+
+  const getData = (changedSomething?: boolean) => {
+    setModelData(false)
+    setSelectedRate(undefined)
+    if(changedSomething) {
+      getMyRates().then((res: any) => {
+        res.data?.sort((curr: any, prev: any) => {
+          if (moment(curr.updatedAt).isAfter(moment(prev.updatedAt))) return -1
+          if (moment(curr.updatedAt).isBefore(moment(prev.updatedAt))) return 1
+          return 0
+        })
+        setRates(res.data as Array<any>)
+      })
+    }
+  }
+
   return (
     <div>
       <div className='profileHeaderContainer'>
@@ -54,7 +76,7 @@ const MyRates = () => {
       <div className='ratesContainer'>
         {
           rates.map((item, index: number) => (
-            <RateComp key={index} openModal={() => setModelData(true)} />
+            <RateComp item={item} key={index} openModal={() => open(index)} />
           ))
         }
       </div>
@@ -63,8 +85,8 @@ const MyRates = () => {
         rates.length === 0 && (
           <EmptyMessage config={{
             title: 'Aucun avis',
-            text: 'Vous n\'avez pas des avis en ce moment'
-          }}/>
+            text: 'Vous n\'avez pas des avis en ce moment',
+          }} />
         )
       }
 
@@ -75,12 +97,12 @@ const MyRates = () => {
             onClose={() => setModelData(false)}
           >
             <Box sx={style}>
-              <EditAddRateComp submitEvent={() => setModelData(false)} />
+              <EditAddRateComp data={selectedRate} submitEvent={getData} />
             </Box>
           </Modal>
         ) : (
           <BottomSheet open={modelData} onDismiss={() => setModelData(false)}>
-            <EditAddRateComp submitEvent={() => setModelData(false)} />
+            <EditAddRateComp data={selectedRate} submitEvent={getData} />
           </BottomSheet>
         )
       }
@@ -88,16 +110,16 @@ const MyRates = () => {
   )
 }
 
-const RateComp: React.FC<{ openModal: Function }> = ({ openModal }) => {
+const RateComp: React.FC<{ openModal: Function, item: any }> = ({ openModal, item }) => {
 
   return (
     <div className='rateCont'>
-      <img draggable={false} src={pizza} alt='' />
+      <img draggable={false} src={item?.restaurant?.imageUrl} alt='' />
       <div className='mainCont'>
         <div className='cardHeader'>
           <div className='head'>
-            <span className='title'>Joayo Haussmann</span>
-            <span className='speciality'>Italien</span>
+            <span className='title'>{item?.restaurant?.name}</span>
+            <span className='speciality'>{item?.restaurant?.category}</span>
           </div>
           <div>
             <img onClick={() => openModal()} className='clickable' src={updateSVG} alt='' />
@@ -107,14 +129,13 @@ const RateComp: React.FC<{ openModal: Function }> = ({ openModal }) => {
         <div className='cardMid'>
           <div className='mid'>
             <div className='rateTitle'>
-              <span>Délicieux!</span>
-              <span className='date'>22/07/2020</span>
+              <span>{item?.comment}</span>
+              <span className='date'>{moment(item?.updatedAt).format('MMM Do YYYY HH:mm')}</span>
             </div>
-            <span className='rateNumber'>9.5 <span className='outOfTen'>/ 10</span></span>
+            <span className='rateNumber'>{item?.globalRating} <span className='outOfTen'>/ 10</span></span>
           </div>
           <div className='cardDesc'>
-            Belle découverte et joli cadre. Raviolis excellents et barbecue de canard et porc épicés super. Bon
-            cheesecake au yuzu et belle présentation. Apéritif vin de mûre original.
+            {item?.detail}
           </div>
         </div>
       </div>
@@ -122,31 +143,58 @@ const RateComp: React.FC<{ openModal: Function }> = ({ openModal }) => {
   )
 }
 
-export const EditAddRateComp: React.FC<{ submitEvent: Function }> = ({ submitEvent }) => {
+export const EditAddRateComp: React.FC<{ item?: any, data?: any, submitEvent: Function }> = ({
+                                                                                               submitEvent,
+                                                                                               item,
+                                                                                               data,
+                                                                                             }) => {
+
+  const [comment, setComment] = useState(data?.comment || '')
+  const [detail, setDetail] = useState(data?.detail || '')
+  const globalRating = useRef(data?.globalRating || 5.5)
+
+  const submit = () => {
+    addUpdateRating({
+      detail,
+      comment,
+      globalRating: globalRating.current,
+      restaurant: item?._id,
+    }, !!data ? data?._id?.toString() : null).then(() => submitEvent(true)).catch(() => submitEvent())
+  }
+
+  const getDisabled = () => {
+    return comment.length > 0 && detail.length > 0
+  }
   return (
     <div className='rateModal'>
       <div className='modalHeader'>
-        <span>Modifier l'avis</span>
+        <span>{!data ? 'Ajouter un avis' : 'Modifier l\'avis'}</span>
         <img onClick={() => submitEvent()} className='close clickable' src={close} alt='' />
       </div>
       <div style={{ margin: '20px 0' }} className='horizontalSeparator' />
       <div className='slider'>
         <span className='note'>Note</span>
-        <Slider aria-label='Small' valueLabelDisplay='auto' defaultValue={9.5} step={0.5} min={1} max={10} />
+        <Slider onChange={(e: any) => globalRating.current = e.target.value} aria-label='Small' valueLabelDisplay='auto'
+                defaultValue={globalRating.current} step={0.5} min={1} max={10} />
       </div>
       <div className='title'>
         <span>Titre de l'avis</span>
-        <input tabIndex={-1} value='Succulent !!!' type='text' />
+        <input placeholder={'écriver le titre de votre avis'} onChange={(e) => setComment(e.target.value)} tabIndex={-1}
+               defaultValue={data?.comment} type='text' />
       </div>
       <div className='rate'>
         <span>Avis</span>
         <textarea
+          placeholder={'écriver l\'avis'}
+          onChange={(e) => setDetail(e.target.value)}
           tabIndex={-1}
-          value='Un restaurant coréen à recommander. Le cadre est moderne et aéré. Mention spéciale pour les entrées: poulet grillé, galette de kimchi et les nouilles japchae.. Le service est aimable. Très bon rapport qualité-prix.Un restaurant coréen à recommander. Le cadre est moderne et aéré. Mention spéciale pour les entrées: poulet grillé, galette de kimchi et les nouilles japchae.. Le service est aimable. Très bon rapport qualité-prix.'
+          defaultValue={data?.detail}
           rows={7} />
       </div>
       <div style={{ height: '50px' }} />
-      <button className={'btn cursorEnabled'} onClick={() => submitEvent()}>Valider</button>
+      <button disabled={!getDisabled()} className={`btn ${getDisabled() ? 'cursorEnabled' : ''}`}
+              onClick={submit}>Valider
+      </button>
     </div>
   )
 }

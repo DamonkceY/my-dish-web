@@ -16,6 +16,7 @@ import { selectDeviceWidth } from '../../app/store/storeModules/root/root'
 import { logout, selectConnectedUser } from '../../app/store/storeModules/authentication/authenticationSlice'
 import { useDispatch } from 'react-redux'
 import { capitalizeFirstLetter } from '../../app/utils/func/commonFuncs'
+import { getProfileByToken } from '../../app/store/storeModules/authentication/authenticationService'
 
 const Profile = () => {
   const location = useLocation()
@@ -56,6 +57,11 @@ const Profile = () => {
         break
     }
   }, [location])
+
+  useEffect(() => {
+    window.scroll({ top: 0, behavior: 'smooth' })
+    getProfileByToken().then()
+  }, [])
 
   const goTo = (ind: number, path: string) => {
     setSelectedTab(ind)

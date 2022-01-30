@@ -14,7 +14,7 @@ const DesktopCart = () => {
   const width = useAppSelector(selectDeviceWidth)
   const location = useLocation();
   return (
-    (!!connectedUser && width > 768 && !!orderDetails && location.pathname !== '/shop') ? <div onClick={() => navigate(Paths.cart)} className={'desktopCartCont'}>
+    (!!connectedUser && width > 768 && !!orderDetails && location.pathname !== '/shop' && location.pathname !== '/cart') ? <div onClick={() => navigate(Paths.cart)} className={'desktopCartCont'}>
       <div className={'cart'} />
     </div> : <></>
   )

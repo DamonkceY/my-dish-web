@@ -50,7 +50,6 @@ const ChangePhoneNumber = () => {
           type: 'number',
           onInit: () => confirmPhoneNumber({ phone: connectedUser?.telephone.toString() as string }).then((res: any) => confirmPhone.current.old = res.data),
           onChange: (value: string) => {
-            console.log(value)
             setValidButton(value.length > 0 && value.toString() === confirmPhone.current.old.toString())
           },
           rules: {

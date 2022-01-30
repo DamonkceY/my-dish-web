@@ -31,7 +31,6 @@ const Body:React.FC<{item: any}> = ({item}) => {
   }
 
   const addToCartFn = () => {
-    console.log(localStorage.getItem('ORDER_DETAILS'))
     const res = JSON.parse(localStorage.getItem('RESTAURANT') as string)
     if(localStorage.getItem('ORDER_DETAILS') === 'null'){
       const resDetail = {
@@ -40,7 +39,8 @@ const Body:React.FC<{item: any}> = ({item}) => {
       dispatch(setOrderDetails(resDetail))
     }
     let temp: {[key: string]: any} = {
-      description: description.current
+      description: description.current,
+      options: [checked]
     }
     !!item?.bottleType ? (temp.boisson = item?._id) : (temp.plat = item?._id)
     addToCart(temp).then((() => {
@@ -72,14 +72,14 @@ const Body:React.FC<{item: any}> = ({item}) => {
             <div className='radioElements'>
               {
                 item?.options?.map((item: any) => (
-                  <div className='radioEl' onClick={() => setChecked(item?._id?.toString())}>
+                  <div className='radioEl' onClick={() => setChecked(item?.name?.toString())}>
                     <div className='flexRadio'>
-                    <span className={`radio ${checked === item?._id ? 'isActive' : ''}`}>
-                      <span className={`innerRadio ${checked === item?._id ? 'isActive' : ''}`}/>
+                    <span className={`radio ${checked === item?.name ? 'isActive' : ''}`}>
+                      <span className={`innerRadio ${checked === item?.name ? 'isActive' : ''}`}/>
                     </span>
                       <span className='radioLabel'>{item?.name}</span>
                     </div>
-                    <span className={`price ${checked === item?._id ? 'isActive' : ''}`}>+ {item?.price} €</span>
+                    <span className={`price ${checked === item?.name ? 'isActive' : ''}`}>+ {item?.price} €</span>
                   </div>
                 ))
               }
@@ -93,9 +93,9 @@ const Body:React.FC<{item: any}> = ({item}) => {
         </div>
         <div className='shoppingModalFooter'>
           <div className='shoppingModalFooterSettings'>
-            <img onClick={() => increment(-1)} className={count === 1 ? 'unClickable' : 'clickable'} draggable={false} src={count === 1 ? moinInActive : moinActive} alt='' />
-            <span>{count}</span>
-            <img onClick={() => increment(1)} className={count === 2 ? 'unClickable' : 'clickable'} draggable={false} src={count === 2 ? plusInActive : plusActive} alt='' />
+            {/*<img onClick={() => increment(-1)} className={count === 1 ? 'unClickable' : 'clickable'} draggable={false} src={count === 1 ? moinInActive : moinActive} alt='' />*/}
+            {/*<span>{count}</span>*/}
+            {/*<img onClick={() => increment(1)} className={count === 2 ? 'unClickable' : 'clickable'} draggable={false} src={count === 2 ? plusInActive : plusActive} alt='' />*/}
           </div>
           <button className={'btn success'} onClick={addToCartFn}>
             <span>Ajouter{deviceWidth > 768 && ` à la commande`}</span>
