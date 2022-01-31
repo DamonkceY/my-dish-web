@@ -116,12 +116,11 @@
       }
 
       button {
-        margin-top: 100px;
         width: 100%;
         background-color: #45b995;
+        margin: 20px 0;
         &.simple {
           background-color: #333a50;
-          margin: unset;
         }
       }
     }

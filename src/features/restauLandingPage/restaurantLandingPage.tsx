@@ -18,9 +18,11 @@ import NavBar from '../../sharedComponents/navBar/navBar'
 import PhoneNumberInput from '../../sharedComponents/phoneNumberInput/phoneNumberInput'
 import { useAppSelector } from '../../app/store/hooks'
 import { selectDeviceWidth } from '../../app/store/storeModules/root/root'
+import { selectConnectedUser } from '../../app/store/storeModules/authentication/authenticationSlice'
 
 const RestaurantLandingPage = () => {
   const deviceWidth = useAppSelector(selectDeviceWidth);
+  const connectedUser = useAppSelector(selectConnectedUser);
   const { t } = useTranslation()
   const navigate = useNavigate()
   const [HEIGHT, setHeight] = useState('')
@@ -54,12 +56,12 @@ const RestaurantLandingPage = () => {
   return (
     <div style={{ position: 'relative' }}>
       <div style={isNavBar ? {} : { display: 'none' }}>
-        <NavBar config={{ rightComponent: deviceWidth > 768 ? buttons : undefined }} />
+        <NavBar config={{ rightComponent: deviceWidth > 768 && !connectedUser ? buttons : undefined }} />
       </div>
       <div className='landingPage1'>
         <div className='head'>
           <img onClick={() => navigate(Paths.home)} className='clickable' draggable={false} src={allWhiteLogo} alt='' />
-          {deviceWidth > 768 && buttons}
+          {(deviceWidth > 768 && !connectedUser) && buttons}
         </div>
         <div className='middle'>
           <span>{t('RESTAURANT_LANDING.DEVELOP')}</span>

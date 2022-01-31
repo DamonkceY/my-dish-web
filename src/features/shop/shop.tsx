@@ -155,7 +155,7 @@ const Shop = () => {
           !!cart && (
             cart?.articles?.map((item: any) => (
               item?.article?.name ?
-                <div key={item?.article?.name} className={`shoppingItem`}>
+                <div key={item?.article?.id} className={`shoppingItem`}>
                   <div className='cont'>
                     <span className='title'>
                       <div className={`incrementDecrement`}>
@@ -166,14 +166,18 @@ const Shop = () => {
                       {item?.article?.name}
                     </span>
 
-                    <div className={'desc'}>
-                      <span>Option: </span>
-                      &nbsp;
-                      <span>{item?.article?.options[0].name}</span>
-                      &nbsp;
-                      &nbsp;
-                      <span>{item?.article?.options[0].price} €</span>
-                    </div>
+                    {
+                      item?.options && item?.options?.length > 0 && (
+                        <div className={'desc'}>
+                          <span>Option: </span>
+                          &nbsp;
+                          <span>{item?.options[0].name}</span>
+                          &nbsp;
+                          &nbsp;
+                          <span>{item?.options[0].price} €</span>
+                        </div>
+                      )
+                    }
                     <span className='desc'>{item?.description}</span>
                     <span className='delete' onClick={() => deleteItem({ platId: item?.article?._id })}>Supprimer</span>
                   </div>
@@ -186,7 +190,7 @@ const Shop = () => {
           !!cart && (
             cart?.boisson?.map((item: any) => (
               item?.article?.name ?
-                <div key={item?.article?.name} className={`shoppingItem`}>
+                <div key={item?.article?._id} className={`shoppingItem`}>
                   <div className='cont'>
                     <span className='title'>
                       <div className={`incrementDecrement`}>

@@ -40,7 +40,7 @@ const Body:React.FC<{item: any}> = ({item}) => {
     }
     let temp: {[key: string]: any} = {
       description: description.current,
-      options: [checked]
+      options: checked.length > 0 ? [checked] : []
     }
     !!item?.bottleType ? (temp.boisson = item?._id) : (temp.plat = item?._id)
     addToCart(temp).then((() => {
