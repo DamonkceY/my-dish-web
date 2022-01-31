@@ -122,7 +122,7 @@ const ShoppingCart = () => {
             panierId: cart?._id,
             paymentMethod: orderDetails?.paymentMethod,
             deliveryAddress: orderDetails?.deliveryAddress,
-            instruction: orderDetails?.instruction
+            instruction: orderDetails?.instruction,
           }).then((res: any) => {
             dispatch(setOrderConfirmationDetails(res.data))
             setModal(true)
@@ -133,14 +133,14 @@ const ShoppingCart = () => {
   }
 
   const [deliveryMethode, setDeliveryMethod] = useState('hand')
-  const [deliveryForm, setDeliveryForm] = useState<{[key: string]: any}>({
+  const [deliveryForm, setDeliveryForm] = useState<{ [key: string]: any }>({
     paymentMethod: orderDetails?.paymentMethod || 'hand',
     instruction: orderDetails?.instruction || '',
-    deliveryAddress: orderDetails?.deliveryAddress || ''
+    deliveryAddress: orderDetails?.deliveryAddress || '',
   })
   const changedDeliveryForm = (value: string, prop: string) => {
     let temp = { ...deliveryForm }
-    temp[prop] = value;
+    temp[prop] = value
     setDeliveryForm({ ...temp })
   }
   const getDeliveryFormDisabledBtn = () => {
@@ -149,9 +149,9 @@ const ShoppingCart = () => {
   const setDeliveryDetails = () => {
     dispatch(setOrderDetails({
       ...orderDetails,
-      ...deliveryForm
+      ...deliveryForm,
     }))
-    if(deliveryForm.paymentMethod === 'hand'){
+    if (deliveryForm.paymentMethod === 'hand') {
       passOrder({
         orderType: 'LIVRAISON',
         isProgram: false,
@@ -164,7 +164,7 @@ const ShoppingCart = () => {
         panierId: cart?._id,
         instruction: deliveryForm.instruction,
         deliveryAddress: deliveryForm.deliveryAddress,
-        paymentMethod:"hand"
+        paymentMethod: 'hand',
       }).then((res: any) => {
         clearCart().then()
         dispatch(setOrderDetails(null))
@@ -172,15 +172,15 @@ const ShoppingCart = () => {
         localStorage.removeItem('RESTAURANT')
         navigate(Paths.home)
       })
-    }else {
+    } else {
       setIsDelivery(2)
     }
   }
 
   const clearCartFn = () => {
-    if(!cart) {
+    if (!cart) {
       garbageCleaner()
-    }else {
+    } else {
       clearCart().then(() => {
         getCart().then()
         garbageCleaner()
@@ -227,7 +227,7 @@ const ShoppingCart = () => {
                     <span className='radioLabel'>En main propre </span>
                   </div>
                 </div>
-                <br/>
+                <br />
                 <div className='radioEl' onClick={() => changedDeliveryForm('CB', 'paymentMethod')}>
                   <div className='flexRadio'>
                     <span className={`radio ${deliveryForm.paymentMethod === 'CB' && 'isActive'}`}>
@@ -236,37 +236,39 @@ const ShoppingCart = () => {
                     <span className='radioLabel'>Paiment en ligne </span>
                   </div>
                 </div>
-                <br/>
+                <br />
                 <div className='input'>
                   <span>Adresse</span>
                   <input
                     defaultValue={deliveryForm?.deliveryAddress}
-                    style={{marginTop: '10px'}}
+                    style={{ marginTop: '10px' }}
                     placeholder={'Saisissez l\'adresse de la livraison'}
                     onChange={(e) => changedDeliveryForm(e.target.value, 'deliveryAddress')}
                     className='address whiteBack'
                     type='text'
                   />
                 </div>
-                <br/>
+                <br />
                 <div className='input'>
                   <span>Instruction de la livraison</span>
                   <input
                     defaultValue={deliveryForm?.instruction}
-                    style={{marginTop: '10px'}}
+                    style={{ marginTop: '10px' }}
                     onChange={(e) => changedDeliveryForm(e.target.value, 'instruction')}
                     className='address whiteBack'
                     type='text'
                   />
                 </div>
-                <button onClick={setDeliveryDetails} disabled={!getDeliveryFormDisabledBtn()} className={`btn ${getDeliveryFormDisabledBtn() ? 'success' : 'simple'}`}>
+                <button onClick={setDeliveryDetails} disabled={!getDeliveryFormDisabledBtn()}
+                        className={`btn ${getDeliveryFormDisabledBtn() ? 'success' : 'simple'}`}>
                   Valider et Continuer
                 </button>
               </div>
             )
           }
           <div className='shoppingContainer'>
-            <span className='addArticles clickable' onClick={() => navigate(orderDetails?.restaurant ? Paths.shop : Paths.home)}>+ Ajouter des articles</span>
+            <span className='addArticles clickable'
+                  onClick={() => navigate(orderDetails?.restaurant ? Paths.shop : Paths.home)}>+ Ajouter des articles</span>
             <div className='horizontalSeparator' />
             {
               (cart && cart?.subTotalPrice > 0) ? (
@@ -276,17 +278,21 @@ const ShoppingCart = () => {
                       !!cart && (
                         cart?.articles?.map((item: any) => (
                           item?.article?.name ?
-                            <div className='shoppingItem'>
+                            <div className='shoppingItem' key={item?.article?._id}>
                               <div className='cont'>
                                 <span className='title'>{item?.numbers} {item?.article?.name}</span>
-                                <div className={'desc'}>
-                                  <span>Option: </span>
-                                  &nbsp;
-                                  <span>{item?.article?.options[0].name}</span>
-                                  &nbsp;
-                                  &nbsp;
-                                  <span>{item?.article?.options[0].price} €</span>
-                                </div>
+                                {
+                                  item?.options && item?.options?.length > 0 && (
+                                    <div className={'desc'}>
+                                      <span>Option: </span>
+                                      &nbsp;
+                                      <span>{item?.article?.options[0].name}</span>
+                                      &nbsp;
+                                      &nbsp;
+                                      <span>{item?.article?.options[0].price} €</span>
+                                    </div>
+                                  )
+                                }
                                 <span className='desc'>{item?.description}</span>
                                 <span className='delete'
                                       onClick={() => deleteItem({ platId: item?.article?._id })}>Supprimer</span>
@@ -300,17 +306,9 @@ const ShoppingCart = () => {
                       !!cart && (
                         cart?.boisson?.map((item: any) => (
                           item?.article?.name ?
-                            <div className='shoppingItem'>
+                            <div className='shoppingItem' key={item?.article?._id}>
                               <div className='cont'>
                                 <span className='title'>{item?.numbers} {item?.article?.name}</span>
-                                <div className={'desc'}>
-                                  <span>Option: </span>
-                                  &nbsp;
-                                  <span>{item?.article?.options[0].name}</span>
-                                  &nbsp;
-                                  &nbsp;
-                                  <span>{item?.article?.options[0].price} €</span>
-                                </div>
                                 <span className='desc'>{item?.description}</span>
                                 <span className='delete'
                                       onClick={() => deleteItem({ boissonId: item?.article?._id })}>Supprimer</span>
@@ -392,9 +390,10 @@ const ShoppingCart = () => {
                         className={`btn ${!!cart && cart.subTotalPrice > 0 ? 'success' : ''}`}
                         onClick={payment}>Passer au paiement
                 </button>
-                <br/>
-                <br/>
-                <button className={'btn clickable simple'} onClick={clearCartFn}>Annuler la {orderDetails?.restaurant?.type === 'LIVRAISON' ? 'livraison' : 'réservation'}</button>
+                <br />
+                <br />
+                <button className={'btn clickable simple'} onClick={clearCartFn}>Annuler
+                  la {orderDetails?.restaurant?.type === 'LIVRAISON' ? 'livraison' : 'réservation'}</button>
               </div>
             )
           }
