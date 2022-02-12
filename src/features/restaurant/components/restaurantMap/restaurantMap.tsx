@@ -20,7 +20,7 @@ const RestaurantMap: React.FC<{ id: string, item: any }> = ({ id, item }) => {
         position: new google.maps.LatLng(item?.location?.coordinates[1] || 48.8566, item?.location?.coordinates[0] || 2.3522),
       })
       marker.addListener('click', () => {
-        window.open(`https://www.google.com/maps/dir/?api=1&layer=traffic&destination=${48.8566},${2.3522}`)
+        window.open(`https://www.google.com/maps/dir/?api=AIzaSyAvF13-0HA8UbBFOOHNFd8K8IHZ2iazP9s&layer=traffic&destination=${48.8566},${2.3522}`)
       })
       marker.setMap(map)
       setMapObject(map)
